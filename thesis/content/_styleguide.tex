@@ -1,0 +1,71 @@
+\chapter{Style Guide}\label{styleguide}
+
+\section{Section 1}
+\subsection{Section 2}
+
+\begin{REFACTOR}
+	Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa \footnote{Lorem ipsum dolor.}.
+\end{REFACTOR}
+
+
+Nulla imperdiet imperdiet enim, et tristique risus. Fusce eu neque a ipsum aliquam viverra. Praesent sed vehicula \lfbox{metus}, sed sodales orci. Sed \verb|dolor| sit amet amet, consectetuer ${5} \over {4}$ adipiscing eleifend \gls{MSA}.
+
+$$\int {\gamma^n + y^n } dx = { 5 \over 8}$$
+
+\begin{figure}\centering
+   \includegraphics[max width=\textwidth]{cvut-logo-bw-en.pdf}
+   \caption[List label 1]{Caption label 1}\label{pic:ctulogo}
+\end{figure}
+
+
+\begin{figure}\centering
+   \begin{minted}{javascript}
+// Dependencies
+require('Styles/index.scss');
+const Application = require('Core/Application.class');
+// Application
+global.app = new Application();
+app.init(x <= 5);
+app.getRouter().refresh();
+   \end{minted}
+   \caption[List example of JS code]{Caption example of JS code}\label{code:jsexample}
+\end{figure}
+
+
+\begin{table}\centering
+   \begin{tabular}{|c|r|r|}
+      \hline \textbf{Method} & \textbf{Data to encode} & \textbf{Encoded data} \\\hline
+      RLE 1 & \textit{babaaaaabbbaabbbba11aaa} & \textit{$1$b$1$a$1$b$5$a $3$b$2$a$4$b$1$a $2$1$3$a} \\\hline
+      RLE 2 & \textit{babaaaaabbbaabbbba11aaa} & \textit{bab$@5$a$@3$ baa$@4$ba1 1$@3$a} \\\hline
+   \end{tabular}
+   \caption[List label 1]{Caption label 1}\label{tab:example1}
+\end{table}
+
+\begin{table}\centering
+   \begin{tabular}{| l | c r |}
+      \hline
+      1 & 2 & 3 \\
+      4 & 5 & 6 \\
+      7 & 8 & 9 \\
+      \hline
+   \end{tabular}
+   \caption[List label 2]{Caption label 2}\label{tab:example2}
+\end{table}
+
+
+\subsection{Subsection}
+Lorem ipsum  elit venenatis \ref{code:example}.
+
+\begin{dl}
+	\item[NEC] natoque penatibus,
+	\item[Venenatis] enim justo rhoncus.
+\end{dl}
+
+\begin{ol}
+	\item {Sociis natoque penatibus}
+\end{ol}
+
+\begin{ul}
+	\item In enim justo, rhoncus ut imperdiet a venenatis.
+\end{ul}
+

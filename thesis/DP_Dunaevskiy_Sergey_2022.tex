@@ -1,0 +1,118 @@
+% arara: xelatex: {shell: yes}
+% arara: makeglossaries
+% arara: bibtex
+% arara: xelatex: {shell: yes}
+% arara: xelatex: {shell: yes}
+
+% options:
+% hidelinks remove colour boxes around hyperlinks
+\documentclass[thesis=M,english,hidelinks]{FITthesis}[2019/12/23]
+
+% \usepackage{subfig} %subfigures
+% \usepackage{amsmath} %advanced maths
+% \usepackage{amssymb} %additional math symbols
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{dirtree} %directory tree visualisation
+
+% list of acronyms
+\usepackage[acronym,nonumberlist,toc,numberedsection=autolabel,nomain]{glossaries}
+\makeglossaries
+
+% change typography
+\usepackage{fontspec}
+\setmonofont[Scale=MatchLowercase]{Fira Code}
+\setmainfont[Scale=MatchLowercase]{Lora}
+\renewcommand{\baselinestretch}{1.2}
+
+% paragaphs indent
+\DisemulatePackage {parskip}
+\RequirePackage [parfill] {parskip}
+
+% list padding
+\usepackage{enumitem}
+
+% WIP background color
+\usepackage{pagecolor}
+\pagecolor{lightgray}
+
+% footnote position
+\usepackage[bottom]{footmisc}
+
+% images fullscreen
+\usepackage[export]{adjustbox}
+
+% source code
+\usepackage{minted}
+\setminted{baselinestretch=1}
+
+% refactor section
+\definecolor{COLOR_REFACTOR}{HTML}{8e44ad}
+\newenvironment{REFACTOR}{\par\color{COLOR_REFACTOR}}{\par}
+
+% figure, table captions are bold
+\usepackage[labelfont=bf]{caption}
+
+% highlighter
+\usepackage{longfbox}
+\makeatletter
+\newdimen\@tempdimd
+\makeatother
+\fboxset{rounded,background-color=\#D8DEE9,border-width=0em,padding={0.3em, 0.5em}}%
+
+% custom envs
+\newenvironment{ul}{
+   \begin{itemize}
+   }{
+   \end{itemize}
+}
+
+\newenvironment{ol}{
+   \begin{enumerate}
+   }{
+   \end{enumerate}
+}
+
+\newenvironment{dl}{
+   \begin{description}
+      \setlength{\itemsep}{0.2em}
+      \setlength{\parskip}{0.2em}
+   }{
+   \end{description}
+}
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\input{content/_meta.tex}
+
+\begin{document}
+
+\input{content/_acronyms.generated.tex}
+
+\begin{introduction}
+   \input{content/00-introduction.tex}
+\end{introduction}
+
+\input{content/_styleguide.tex}
+\input{content/01-analysis-project.tex}
+\input{content/02-specification.tex}
+\input{content/03-analysis-msa.tex}
+\input{content/04-server.tex}
+\input{content/05-client.tex}
+\input{content/06-testing.tex}
+\input{content/07-deployment.tex}
+
+\begin{conclusion}
+   \input{content/08-conclusion.tex}
+\end{conclusion}
+
+\bibliographystyle{iso690.bst}
+\bibliography{bibliography}
+
+\appendix
+\input{content/_appendix.tex}
+
+\end{document}

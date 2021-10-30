@@ -35,6 +35,7 @@ sudo tlmgr install catchfile
 sudo tlmgr install xstring
 sudo tlmgr install framed
 sudo tlmgr install enumitem
+sudo tlmgr install wasysym
 ```
 
 ## Build

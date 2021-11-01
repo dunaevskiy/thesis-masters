@@ -1,3 +1,24 @@
+Architektura aplikací tvoří nedílnou součást každého vývoje.
+Její náročnost je variabilní v závislosti na typu, složitosti, frekventovanosti použití a dalších parametrech aplikace.
+Zpravidla čím menší nároky se na výsledek kladou, tím je navrhovaná architektura primitivnější, aby se ušetřilo na nákladech během vývoje a provozu aplikace.
+Komplexnější požadavky však potřebují pro svůj plynulý provoz zajistit stabilní prostředí, které se definuje například stabilitou aplikace, způsobem opravy neočekávaných chyb, rychlosti odezvy apod.
+Všechny tyto aspekty je mnohdy složité řešit najednou a přiřozeně se rozdělují na menší atomické celky, jež by se daly spravovat samostatně.
+
+Koncept mikroservis\footnote{Též známý pod názvem mikroslužba} vznikl přibližně před 10 až 15 lety.
+Explicitně, jako pojem, byl zmíněn až v roce 2011 v rámci popisu stylu architektury, se kterou se tehdy experimentovalo~\cite{msabegin}.
+Prudký růst zájmu o \gls{MSA} a mikroservisy celkově (dle statistických údajů Google Trends) byl zaznamenán v listopadu 2014 a začátku roku 2017.
+V průběhu roku 2019 dosahoval největší popularity dle relativních počtů vyhledávání~\cite{googletrendsmsa}.
+Aktuálně \gls{MSA} zůstává velice frekventovaným trendem~\cite{googletrendsmsa}, z tohoto důvodu lze danou architekturu předpokládat za stále využívanou nebo alespon jevící zájem u určitého množství lidí.
+
+Jelikož daný koncept je poměrné mladý, tak je málo pravděpodobné, že byl plně prozkoumán.
+Představuje potenciální oblast pro experimentování a zdokonalování, modifikaci a odvozování jiných, nezávislých vývojových praktik.
+Průzkum takových skutečností se nejlépe ověřuje v praxi, v daném případě budou vhodé středně velké aplikace s teoreticky neomezenou možností rozvoje.
+Jako příklad takové struktury může být \gls{IS} pro správu projektů v akademických institucích.
+
+\clearpage
+
+
+
 \section{Cíl práce}\label{sec:cil-prace}
 Cílem této diplomové práce je primárně průzkum \gls{MSA} se subjektivní úvahou o různých přístupech, technikách a myšlenkách týkajících se daného tématu.
 Nabyté znalosti se uplatní v praxi ve formě \gls{IS} pro správu projektů, který byl navržen a implementován jako prototyp monolitické architektury v bakalářské práci \uv{Informační systém pro správu studijních projektů}~\cite{bachelorthesis}.

@@ -1,0 +1,9 @@
+{
+  "name": "thesis-masters",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "scripts": {
+    "b": "./build.sh",
+    "postinstall": "yarn b"
+  }
+}

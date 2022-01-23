@@ -1,0 +1,122 @@
+
+
+Softwarová architektura jako pojem není přesně definována \cite{softarch}
+
+Arichitektura může být popsána jako jistý řád a pravidla, dle kterých je celá aplikace postavena.
+Existují nějaké šablony architektury, které jsou vhodné pro vývoj aplikací
+
+
+V dané kapitole bude popisována především \gls{MSA} a bude porovnávana s jinými architekturami, které by ji potenciálně mohly nahradit.
+Tyto vybrané architektury – \gls{MA}, \gls{SOA}\footnote{též architektura orientovaná na služby}, \gls{SA} – budou zkoumány vzhledem k přístupu k určitým aspektům, poskytovaným možnostem a výhodám a nevýhodám vůči \gls{MSA}.
+
+
+
+Služba (bez vazby na architekturu) je chápána jako atomicky fungující celek, z větší části nezávislý na ostatních – soutředí se na konkrtétní funkcionalitu, má vlastní databázi (nebo schéma) s výhradným přístupem a veškerá komunikace probíhá přes striktně definované rozhraní.
+Jakýkoliv jiný vliv, než přes dohodnuté rozhraní, musí být eliminován.
+
+Jelikož existuje nespočetné množství modifikací výše uvedených architektur, bude se předpokládat, že se jedná o takto definované instance:
+
+
+https://www.ibm.com/cloud/learn/soa#toc-soa-vs-mic-BjTfju28
+
+\begin{dl}
+   \item[\gls{MA}] – jednoprocesový program atomické povahy – nelze z něho jednoduše vyčlenit funkční celky, které by se daly beze změn využívat v jiných programech.
+   Obsahuje globální jednorázové připojení k databázi, které se provádí během startu programu a kontroluje aktuální stav migrací (případně vykonává chybějící).
+   \item[\gls{SOA}] – jednoprocesový program s interním rozdělením založeným na \gls{ESB} – sběrnicí určenou pro centralizaci komunikace mezi službami.
+   Jednotlivé služby tvoří samostatně fungující moduly, jež veškerou komunikaci provádí skrz přesně definované rozhraní \gls{ESB}.
+   Obdobně, jako u \gls{MA} existuje jedno
+   \item[\gls{MSA}] –
+   \item[\gls{SA}] – architektura aplikace, která postrádá neustále běžící serverový proces a je pouze rozmístěna na \gls{FaaS} řešení.
+   Jinými slovy funkcionalita není spuštěna v nepřerušovaném prostředí (jako démon), ale je dostupná na požádání.
+   Při dotazu (například REST) je vytvořena potřebná instance aplikace, případně navázáno databázové spojení, vykonán požadavek a následně je instance odstraněna.
+   Taková aplikace nemůže být stavová v obvyklém slova smyslu.
+   Kvůli průběhu zpracování se rovněž nehodí pro náročné aplikace. \TODO{zdroj}
+\end{dl}
+
+Pro porovnání architektur bylo vybráno několik klíčových pojmů, které mohou během návrhem a implementací programu mít nějvětší vliv na rozhodování o výběru architektury.
+
++- MA OR 29
+
+
+\begin{dl}
+   \item[Datové úložiště] – využití persistentního úložiště (SQL/NoSQL databáze) pro zápis a čtení informací.
+   Počáteční inicializace databáze, vytvoření struktury, migrace
+\end{dl}
+\begin{ul}
+   \item \gls{MA} – není náročná pro testování.
+   \item \gls{SOA} – rovněž může být testována
+   \item \gls{MSA} – plnohodnotné testování celé struktury vyžaduje její nasazení na server.
+\end{ul}
+
+\begin{dl}
+   \item[Nezávislost] – popis
+\end{dl}
+\begin{ul}
+   \item \gls{MA} – něco umí
+   \item \gls{SOA} – něco umí
+   \item \gls{MSA} – něco umí
+\end{ul}
+
+\begin{dl}
+   \item[Radikální změny] – složitost změny nebo přidání business logiky do aplikace, která by měl dopad na větší část dosavadní aplikace.
+\end{dl}
+\begin{ul}
+   \item \gls{MA} –
+   Z hlediska datového úložiště bude potřeba dělat pouze jednu migraci
+   \item \gls{SOA} – něco umí
+   \item \gls{MSA} – něco umí
+\end{ul}
+
+\begin{dl}
+   \item[Tolerace chyb] – popis
+\end{dl}
+\begin{ul}
+   \item \gls{MA} – něco umí
+   \item \gls{SOA} – něco umí
+   \item \gls{MSA} – něco umí
+\end{ul}
+
+\begin{dl}
+   \item[Komunikační latence] – popis
+\end{dl}
+\begin{ul}
+   \item \gls{MA} – něco umí
+   \item \gls{SOA} – něco umí
+   \item \gls{MSA} – něco umí
+\end{ul}
+
+\begin{dl}
+   \item[Škálování] – popis
+\end{dl}
+\begin{ul}
+   \item \gls{MA} – něco umí
+   \item \gls{SOA} – něco umí
+   \item \gls{MSA} – něco umí
+\end{ul}
+
+\begin{dl}
+   \item[Konzistence] – popis
+\end{dl}
+\begin{ul}
+   \item \gls{MA} – něco umí
+   \item \gls{SOA} – něco umí
+   \item \gls{MSA} – něco umí
+\end{ul}
+
+\begin{dl}
+   \item[Nasazení] – popis
+\end{dl}
+\begin{ul}
+   \item \gls{MA} – něco umí
+   \item \gls{SOA} – něco umí
+   \item \gls{MSA} – něco umí
+\end{ul}
+
+\begin{dl}
+   \item[Testování] – schopnost psaní automatizovaných testů, které se vyplní při spuštění aplikace.
+\end{dl}
+\begin{ul}
+   \item \gls{MA} – něco umí
+   \item \gls{SOA} – něco umí
+   \item \gls{MSA} – něco umí
+\end{ul}

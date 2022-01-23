@@ -1,4 +1,6 @@
 MSA: microservices architecture
+MA: monolithic architecture
+SOA: service oriented architecture
 MS: microservice
 IS: informační systém
 SSR: server side rendering
@@ -10,3 +12,5 @@ API: application programming interface
 GUI: graphical user interface
 ČVUT: České vysoké učení technické
 FIT: Fakulta informačních technologií
+FaaS: function as a service
+ESB: enterprise service bus

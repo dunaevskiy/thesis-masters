@@ -64,10 +64,13 @@
 
 % import PDF assignment
 \usepackage{pdfpages}
+\usepackage{wasysym}
 
 % custom envs
 \newenvironment{ul}{
    \begin{itemize}
+      \setlength{\itemsep}{0.1em}
+      \setlength{\parskip}{0.1em}
    }{
    \end{itemize}
 }

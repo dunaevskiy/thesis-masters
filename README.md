@@ -38,8 +38,16 @@ sudo tlmgr install enumitem
 sudo tlmgr install wasysym
 ```
 
-## Build
+## Run
 
+Simple build:
 ```bash
-bash ./build
+bash ./_build.sh
+```
+
+Watch and build:
+```bash
+yarn
+yarn w # for arara build on change
+yarn ws # simple xelatex build on change
 ```

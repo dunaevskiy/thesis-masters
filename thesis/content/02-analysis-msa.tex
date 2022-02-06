@@ -1,64 +1,11 @@
-\chapter{Analýza mikroservisní architektury}\label{ch:msa}
-
+\chapter{Mikroservisní architektura}\label{ch:msa}
 
 \input{content/02/arch-compare.tex}
 \input{content/02/model-of-world.tex}
-
-
-
-\section{Dekompozice na \gls{MSA}}
-
-Na základě myšlenky o popisu světa budeme
-
-
-
-Při modelování poskytnuté domény do \gls{MSA} je vhodné použít dekompozici.
-
-\subsection{Způsoby vymezení služeb}
-
-Business účel – doménu rozdělujeme dle business požadavků.
-
-Subdomény – určujeme samostatné subdomény.
-
-
-\section{Principy návrhu a návrhové vzory}
-
-SOLID
-
-High cohesion, low coupling
-
-
-
-\section{Databáze jako zdroj dat pro \gls{MSA}}
-
-\subsection{Relační databáze}
-
-
-\subsection{NoSQL databáze}
-
-
-
-\subsection{Agregace mezi schématy}
-Jako jeden z možných pořadavků v rámci \gls{MSA} je agregace mezi schématy, což v rámci oddělených služeb znamená netriviální úkol.
-Agregaci v tomto případě nemůžeme nechávat na databázi, protože může být úplně oddělená.
-
-
-\section{Závislosti mezi mikroservisami a organizace}
-
-Mikroservisy jsou vždy nezávislé z hlediska procesů, ale musí udržovat kompatibilní \gls{API} s ostatním prostředím.
-Takové závislosti se nejlépe kontrolují verzováním jednotlivých mikroservis s pomocí sématického verzování.
-Zde je třeba najít konkrétní nástroj pro tuto kontrolu.
-
-
-\section{Testování \gls{MSA}}
-
-fdf
-
-\section{Nasazování \gls{MSA}}
-
-\subsection{Správa zdrojového kódu}
-Udržování zdrojových souborů jako monorepo / multirepo.
-
-\section{Dokumentace \gls{MSA}}
-
-sdfds
+\input{content/02/decomposition.tex}
+\input{content/02/database.tex}
+\input{content/02/dependencies.tex}
+\input{content/02/testing.tex}
+\input{content/02/deployment.tex}
+\input{content/02/docs.tex}
+\input{content/02/client.tex}

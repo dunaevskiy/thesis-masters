@@ -1,29 +1,31 @@
-\section{Využití \gls{MSA} pro modelování světa}
+\section{Využití \g{MSA} pro modelování světa}\label{sec:msa-model-of-world}
 
-Pro jedince nejspíš neexistuje nic přirozenějšího, než prostředí, ve kterém se pohybuje a kterému rozumí - od osobních věcí a proseců, jež musí vykonávat, až po uspořádání světa – město, stát, planeta, politické a sociální vztahy, komunikace s institucemi a doprovod dětí do školy.
+Pro člověka nejspíš neexistuje nic přirozenějšího, než prostředí, ve kterém se pohybuje a kterému rozumí – od osobních věcí a proseců, jež musí vykonávat, až po uspořádání světa – město, stát, planeta, politické a sociální vztahy, komunikace s institucemi a interakce s rodinou.
 
-Všechny tyto činnosti můžeme popsat pomocí subjektů – účastníky procesů, rozhraní, které poskytují pro komunikaci, a bezprostředně zpráv, které se předávají v rámci komunikace.
+Všechny tyto činnosti můžeme popsat pomocí subjektů – samostatných účastníků procesů, rozhraní, které poskytují pro komunikaci, a zpráv\footnote{Zprávou se rozumí informace poskytnutá v samostatné struktuře – například \g{JSON} nebo \g{XML}}, jež se předávají v rámci komunikace.
+Každý subjekt je skupinou izolovaných funkcí s různě kompikovanou sadou komunikačních kanálů.
+Může mít svoje potřeby a může vytvářet podněty pro ostatní subjekty.
+Ne každý subjekt je schopen zpracovávat veškerou informaci, která k němu přichází od jiných subjektů.
 
-Každý subjekt je ideálně autonomní -
+Daný konecept naprosto přesně napodobuje \g{MSA}.
+Jednotlivé subjekty jsou mikroslužby, mají vlastní rozhraní a vysílají informace v přesně definovaných strukturách.
+Mohou existovat samostatně, i když jejich smysl existence nemusí existovat.
+Zároveň jsou schopny zachytit a zpracovat zprávy, které byly určeny pro jejich použití a formát kterých je popsaný ve vnitřní logice.
 
-Daný konecept naprosto přesně napodobuje \gls{MSA}.
-Jednotlivé subjekty jsou mikroservisy, mají vlastní rozhraní a vysílají informace v přesně definovaných (i když občas dynamických) strukturách.
-Zároveň mohou zachytit a zpracovat pouze takové zprávy, které byly určeny pro jejich použití a formátu kterých je popsaný v jejich vnitřní logice.
+V případě mírného zjednodušení se můžeme dostat ke konceptu \g{SOA}.
+Subjekty zachovávají způsob komunikace s pomocí zpráv, ale již nejsou samostatní, potenciálně fungující celky, nýbrž moduly jednoho většího bloku~\cite{soavsmsa}.
+Komunikace u takové architektury může být centrállně řízena \g{ESB}~\cite{soavsmsa}.
 
-Oproti tomu \gls{SOA} tento koncept zjednodušuje.
-Subjekty již nejsou samostatně potenciálně fungující celky, nýbrž moduly jednoho většího.
-Obdobně se mohou přidávat a odebírat, ale jejich komunikačnní rozhraní je pravděpodobně jednodušší.
-...
+Monolitní architektura v provonání se \g{SOA} zjednodušuje i samotné rozdělení do modulů.
+Stále se jedná o samostatně fungující celek, ale vnitří struktura už postrádá moduly s odděleným rozhraním komunikace s využitím zpráv.
+V rámci modelování světa se dá představit jako interně nedělitelný celek, který pouze poskytuje rozhraní pro komunikaci, tudíž je to subjekt a v rámci \g{MSA} může představovat mikroslužbu.
 
-Monolitní architektura představuje mnohem větší zjednodušení.
-V rámci modelování světa se dá v jistém smyslu přirovnat k Laplaceovu démonu – existující systém je samostatný, dále nedělitelný, má vědomosti a informaci o všem, co se děje, .
-V praxi je taková struktura ovlivněna vnějšími vstupy, ale interní komunikace a potřeba znalostí o všech procesech zůstává.
-
-
-
-Na základě výše uvedených informací by logicky bylo nejjednodušší vždy vytvářet pouze \gls{MSA} architekturu, protože je pro pochopení nejsnažší kvůli zkušenostem z každodenního života.
-Každý subjekt má svoje potřeby a o zbylé aspekty se nestará.
+Na základě výše uvedených informací by logicky bylo nejjednodušší vždy vytvářet pouze \g{MSA} architekturu, protože je pro pochopení nejsnažší kvůli zkušenostem z každodenního života.
+Každý subjekt má svoje potřeby (potřeva vytvořit zprávu, potřeba zpracovat příchozí právu) a o zbylé aspekty se nestará.
 Problém nastává kvůli komplexnosti takového konceptu.
-Jakékoliv rozdělení celku implicitně předpokládá nové náklady pro definování komunikace.
-Pokud se dobře nezvolí hloubka rozdělení, tak se definuje mnoho zbytečné komunikace, která přinese pouze náklady navíc.
+Jakékoliv rozdělení celku implicitně předpokládá nové náklady pro definování komunikace, které jsou náročné pro představu.
+Proto může být nejvýhodnější začít architektorou s nejvíc redukovaným rozdělením – monolitem a dle potřeby měnit hloubku rozdělení.
 
+Navíc při detailním zkoumání ve všech výše uvedených architekturách se dá vypozorovat rekurzivita.
+Monolitická aplikace nebo \g{SOA} aplikace může tvořit mikroslužbu v rámci \g{MSA}.
+\g{MSA} aplikace může tvořit mikroslužbu jiné \g{MSA} a fungovat jako monolit pro ostatní.

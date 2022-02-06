@@ -1,0 +1,66 @@
+\chapter{Analýza a implementace klienské části}\label{ch:client}
+
+Daná kapitola se věnuje analýze a implementaci klienské části na základě bodů uvedených v kapitole \enquote{Analýza předchozí práce}.
+Implicitně, bez textového rozboru, budou odbaveny méně komplexní záležitosti.
+Implementačně zajímavé prvky budou naopak popsány v následujících podkapitolách.
+
+
+
+\section{Architektura}\label{sec:client-arch}
+
+Vzhledem k aplikaci menšího rosahu a bez zátěžově nevyvážených komponent, není nutné implementovat strukturu podobnou mikroservisní klientné aplikace.
+Základ je převzat z bakalářské práce – řešení založené na frameworku Next.js s využitím \g{SSG} a \g{SSR}.
+Obsash projektů i nyní bude tvořen za pomocí načítání externích \h{.js} souborů s valstní inicializací, ale samotná realizace musí být upravena pro větší izolaci jednotlivých částí obsahu.
+
+\section{Zdokonalení struktury a funkcionality}\label{sec:client-improve}
+
+
+
+
+\begin{dl}
+   \item[Vizuální vzhled rozhraní] –
+   \item[Podpora internacionalizace a lokalizace] – V používané knihovně Next.js od verze 10.0.0 je přidaná podpora internacionalizace – možnost přidat seznam lokalizovaných prvků a výchozí lokalizaci, o zbytek (směrování apod.) se stará knihovna~\cite{nextjsi18n}.
+   \item[React hooks] –
+   Přechod na modernější způsob zápisu React komponent s využitím \enquote{React hooks} nebyl nutný, nicméně v rámci přepisování větší části klietské aplikace bylo rozhodnuto použít nový způsob zápisu.
+   Přineslo to (v porovnáním s původním kódem) výrazné snížení objemu kódu a zlepšení přehlednosti.
+
+   Bylo experimentálně ověřeno, že rozdíl z hlediska rychlosti zpracování není tolik výrazný.
+   Rozdíl se objevuje především v objemu generovaného kódu.
+   V případě funkcionální komponenty je objem několikanásobně menší, než v případě class komponenty.~\cite{reacthooksdiff}
+
+   \item[Nepříznivé scénáře \g{API} dotazů] – \TODO{axios interceptors}
+\end{dl}
+
+
+
+
+
+\subsection{Autentizace}\label{sec:client-auth}
+
+Větší rozsah změn se dotknul autentizaci a autorizaci uživatele v aplikaci.
+Částečně přizpůsobený OAuth 2.0 se nahradil běžnou, nezávislou implementací access/refresh tokenů pro přístup na web.
+Zjednodušil se tím postup registrace a přihlašování.
+Za veškerou logiku získávání a obnovování tokenů
+
+\TODO{popsat implementaci access a refresh tokenu s pomoci axios}
+
+
+
+\section{Interprety obsahu}\label{sec:client-interpret}
+
+\TODO{popsat novou implementaci integrace interpretů}
+
+\TODO{doplnit sekvencni diagram komunikace se servery}
+
+
+U klientských mikrobalíčků by existovala
+- inkapsulace CSS
+- inkapsulace JS - zadny, nebo dohodnuty global space
+
+
+
+
+
+\subsection{Kontejnerizace a zátěž}\label{sec:client-container}
+
+\TODO{obdobně, jako u serverových \g{MS}, popsat klíčové prvky kontejnerizace.}

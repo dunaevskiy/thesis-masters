@@ -1,0 +1,37 @@
+\chapter{Analýza a implementace serverové části}\label{ch:server}
+
+
+Vzhledem ke změněým požadavkům a potřeby změny architektury bylo rozhodnuto přepsat celou implementaci serverové části od začátku.
+Původní zdrojový kód bude sloužit pouze jako inspirace pro realizaci některých funkcionalit.
+
+
+
+\section{Databáze a migrace}\label{sec:server-db}
+
+
+
+\section{Sestavování balíčku a kontejnerizace}\label{sec:server-compile}
+
+Vzhledem k používaným technologiím zdrojový kód aplikací nelze spouštět bez předchozího zpracování.
+TypeScript, jako samostatný jazyk, vyžaduje transpilaci kódu do JavaScript přes vhodný nástroj, například \h{tsc}.
+Dle výchozího chování vytváří vedle každého rozpoznaného \h{.ts} souboru jeho transpilovanou kopii, importované a exportované části se neslučují.
+V takovém stavu se \h{.js} soubory již dají spouštět za pomocí nástroje \h{node} (Node.js).
+
+Obdobného chování, ale již bez explicitního transpilování, lze dosáhnout s pomocí nástroje \h{ts-node}.
+Balíček \h{ts-node} je dle jednoho z autorů připraven pro produkční prostředí a program může být spuštěn bez dopadu na výkon~\cite{tsnodeprod}.
+Tento výsledek by se dal považovat za uspokojivý, avšak ne v případě kontejnerizace.
+
+Vzhledem k vnějším závislostem z adresáře \h{node\_modules}, které v obou případech zůstávají zachovány, bude nutné ponechávat celý adresář po \h{build} fázi v Docker obrazu.
+To může mít za následek nevhodnou velikost výsledného kontejrenu, v daném projektu by to znamenalo přibližně \TODO{2GB} zbytečných dat (vývojářské nástroje, zdrojové kódy knihoven apod.) pro každou aplikaci.
+V případě mohutnějších \g{MS} by dané číslo mohlo být mnohem větší a přidalo by negativní dopad na požadavky parametrů serverů.
+
+Jako řešení se nabízí selektivní kopírování potřebných souborů z \h{node\_modules} adresáře do Docker obrazu.
+Z tohoto důvodu do sestavování \g{MS} byl přidán nástroj \h{webpack} a další, potřebné pro vývoj, balíčky.
+Tímto zásahem se přišlo o jednoduchost transpilace – \h{webpack} přebral úkol předzpracování \h{.ts} souborů, ale získalo se mnohem ohebnější prostředí.
+Výstup vytvářený \h{webpack} je \h{.js} soubor, jenž nepotřebuje vnější závislosti a je soběstačny – zahrnuje v sobě kopie všech závislostí a potřebuje pouze vnější JavaScript interpet, který se získává z rodičovského Docker obrazu.
+
+Lokální vývoj s tímto nastavením nepotřebuje žádnou logiku navíc.
+Pro účely vývoje se přidal nástroj \h{nodemon}, jenž umožňuje hot-reloading\footnote{Hot-reloading je automatické přenačtení a spuštění programu, které se provádí po každé změně kódu.}.
+
+Ve výsledku se každá \g{MS} začala sestavovat s pomocí \h{webpack}, výstupem je samostatná sada transpilovaných a minifikovaných souborů, jež je použita v druhé fázi sestavování.
+Dockerfile konfigurace je detailně popsaná v kapitole \nameref{ch:deployment}.

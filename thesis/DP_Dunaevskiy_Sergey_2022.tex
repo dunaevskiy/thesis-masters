@@ -65,13 +65,14 @@
 % import PDF assignment
 \usepackage{pdfpages}
 \usepackage{wasysym}
+\usepackage{csquotes}
 
 % custom envs
 \newenvironment{ul}{
    \begin{itemize}
       \setlength{\itemsep}{0.1em}
       \setlength{\parskip}{0.1em}
-   }{
+      }{
    \end{itemize}
 }
 
@@ -90,6 +91,9 @@
 }
 
 \newcommand{\TODO}[1]{\lfbox[background-color=\#ff0000]{TODO: #1}}
+%\newcommand{\h}[1]{\texttt{#1}}
+\newcommand{\h}[1]{\lfbox{\texttt{#1}}}
+\newcommand{\g}[1]{\gls{#1}}
 
 % change \gls from FULL_NAME (ABBR) -> ABBR (FULL_NAME)
 \renewcommand{\acrfullformat}[2]{#2\space(#1)}
@@ -115,7 +119,7 @@
    \input{content/06-testing.tex}
    \input{content/07-deployment.tex}
 
-   \input{content/_styleguide.tex}
+%   \input{content/_styleguide.tex}
 
    \begin{conclusion}
       \input{content/08-conclusion.tex}

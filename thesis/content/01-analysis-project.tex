@@ -3,7 +3,7 @@
 
 
 Daná diplomová práce navazuje na bakalářské práci z roku 2019~\cite{bachelorthesis} a využívá jak analýzu/výsledky popsané v práci samotné, tak i přílohy (zejména zdrojový kód serverové aplikace, klientské aplikace a vývojářské a uživatelské dokumentace).
-Pro zajištění kvality výsledného \gls{IS} je provedena opakovaná analýza problematiky a korekce potřebných oblastí.
+Pro zajištění kvality výsledného \g{IS} je provedena opakovaná analýza problematiky a korekce potřebných oblastí.
 
 
 
@@ -24,15 +24,15 @@ Ze závěrečných posudků vedoucího a oponenta bakalářské práce je nutno 
    V dané práci bude celý informační systém brán pouze jako prostředek pro dosažení cíle práce.
 \end{ul}
 
-Zároveň během obhajoby bakalářské práce bylo nabídnuto zvážit vedení projektu ve \gls{VCS} git místo manuálního ukládání v NoSQL databázi (MongoDB).
+Zároveň během obhajoby bakalářské práce bylo nabídnuto zvážit vedení projektu ve \g{VCS} git místo manuálního ukládání v NoSQL databázi (MongoDB).
 To by jistým způsobem zredukovalo potřebného kódu a snížilo spotřebu paměti (jednotlivé snímky odevzdaných projektů by se neduplikovaly, ale ukládaly jako git značky).
 
 
 
 \subsection{Možnosti rozvoje}
 
-Bakalářská práce navrhuje rozvoj 2 hlavními směry - obecné univerzální zdokonalování a rozvoj se zaměřením na \gls{FIT} \gls{ČVUT}~\cite{bachelorthesis} \TODO{paragraph cite}.
-Jelikož daná práce se soustředí především na \gls{MSA}, tak rozvoj se zaměřením na fakultu bude považován za sekundární.
+Bakalářská práce navrhuje rozvoj 2 hlavními směry - obecné univerzální zdokonalování a rozvoj se zaměřením na \g{FIT} \g{ČVUT}~\cite{bachelorthesis} \TODO{paragraph cite}.
+Jelikož daná práce se soustředí především na \g{MSA}, tak rozvoj se zaměřením na fakultu bude považován za sekundární.
 V předchozí práci bylo nabídnuto několik bodů pro rozvoj~\cite{bachelorthesis} \TODO{paragraph cite}.
 
 
@@ -45,16 +45,16 @@ V předchozí práci bylo nabídnuto několik bodů pro rozvoj~\cite{bachelorthe
    \item
    \textbf{Serverová implementace snímků} - nedokončená funkcionalita pro odevzdávání jednotlivých iterací projektů.
    \item
-   \textbf{Nepříznivé scénáře \gls{API} dotazů} - v případě pádu serveru a neočekávané \gls{API} odpovědi často chybí uživatelsky přijatelné oznámení/zpracování.
+   \textbf{Nepříznivé scénáře \g{API} dotazů} - v případě pádu serveru a neočekávané \g{API} odpovědi často chybí uživatelsky přijatelné oznámení/zpracování.
    \item
    \textbf{Nové interprety obsahu} - jedná se o omezený výběr vytvářených typů obsahů.
    V dané práci není prioritní.
    \item
-   \textbf{Propracovaná integrace se službami třetích stran} - daná funkcionalita se dotkne \gls{MSA}, rovněž není prioritní.
+   \textbf{Propracovaná integrace se službami třetích stran} - daná funkcionalita se dotkne \g{MSA}, rovněž není prioritní.
    \item
-   \textbf{Analýza využití systému a aktualizace \gls{UX}} - bez produkčního prostředí (nebo jiného dlouhodobého uživatelského testování) nebylo možné získat daná data.
+   \textbf{Analýza využití systému a aktualizace \g{UX}} - bez produkčního prostředí (nebo jiného dlouhodobého uživatelského testování) nebylo možné získat daná data.
    \item
-   \textbf{Optimalizace stávajícího systému} - různorodá optimalizace systému bude předmětem přechodu na \gls{MSA} a níže uvedené detailní revizí kódu.
+   \textbf{Optimalizace stávajícího systému} - různorodá optimalizace systému bude předmětem přechodu na \g{MSA} a níže uvedené detailní revizí kódu.
 \end{ul}
 
 Všechny výše uvedené body pro rozvoj z původní práce~\cite{bachelorthesis} budou zváženy a případně vyřešeny v nové specifikaci projektu.
@@ -65,7 +65,7 @@ Všechny výše uvedené body pro rozvoj z původní práce~\cite{bachelorthesis
 
 \begin{ul}
    \item
-   \textbf{\gls{IS} není plně kontejnerizovaný} - \gls{IS} není plně převeden na kontejnery, může být zdlouhavější start projektu, to se v pozdějších fázích odrazí i na předpokládané škálovatelnosti služby.
+   \textbf{\g{IS} není plně kontejnerizovaný} - \g{IS} není plně převeden na kontejnery, může být zdlouhavější start projektu, to se v pozdějších fázích odrazí i na předpokládané škálovatelnosti služby.
    \item
    \textbf{Monolitická struktura aplikace} - jakákoliv úprava vyžaduje editaci celého systému, není možné pohodlně měnit jednotlivé části aplikace.
    \item
@@ -86,7 +86,7 @@ Z hlediska pozitivních prvků poskytnuté implementace lze vytknout několik sk
    \item
    \textbf{JavaScript, TypeScript a Node.js} - serverová a klientská část aplikace jsou psány v jazyce JavaScript (případně zpětně kompatibilním TypeScript \TODO{citace}), je to výhodné z hlediska udržování systému.
    \item
-   \textbf{Knihovna Next.js} - klientská část je psána v jedné z moderních knihoven Next.js s podporou \gls{SSR} a \gls{SSG} \TODO{citace}.
+   \textbf{Knihovna Next.js} - klientská část je psána v jedné z moderních knihoven Next.js s podporou \g{SSR} a \g{SSG} \TODO{citace}.
    \item
    \textbf{Dynamicky generovaný obsah projektů} -
    \item
@@ -97,7 +97,7 @@ Z hlediska pozitivních prvků poskytnuté implementace lze vytknout několik sk
 
 \section{Alternativní systémy správy projektů na fakultě}
 
-V návaznosti na rešerši způsobů správy projektů na \gls{FIT} \gls{ČVUT}~\cite{bachelorthesis}\TODO{kapitola} a relativně dlouhé době od dokončení bakalářské práce, je potřeba provést stručnou aktualizaci seznamů alternativních řešení pro srpávu projektů na fakultě.
+V návaznosti na rešerši způsobů správy projektů na \g{FIT} \g{ČVUT}~\cite{bachelorthesis}\TODO{kapitola} a relativně dlouhé době od dokončení bakalářské práce, je potřeba provést stručnou aktualizaci seznamů alternativních řešení pro srpávu projektů na fakultě.
 Po uplynutí 3 let je možné zaznamenát následující změny.
 
 \begin{ul}
@@ -133,7 +133,7 @@ Konceptuálně je myšlen jako univerzální systém pro všechny možné projek
 Z pohledu studenta lze vytvořit návrhu projektu, který může, ale nemusí být schválen vyučujícím, bohužel nelze vytvářet nekontrolované projekty pro vlastní účely.
 Následuje tvorba projektu mimo systém a odevzdávání výsledků v podobě samostatnách souborů s případným komentářem.
 Započatý projekt nelze přerušit ze strany studenta.
-Daný systém se v mnoha ohledech podobá \gls{IS}, který byl analyzován v předchozích kapitolách.
+Daný systém se v mnoha ohledech podobá \g{IS}, který byl analyzován v předchozích kapitolách.
 
 \textbf{Společné rysy}
 
@@ -151,11 +151,11 @@ Daný systém se v mnoha ohledech podobá \gls{IS}, který byl analyzován v př
    \item
    \textbf{Nahrávání souborů} - v rámci iterace lze nahrávat libovolné soubory.
    \item
-   \textbf{Integrace s fakultními systémy} - \gls{IS} je víc přizpůsobený pro fakultní účely.
+   \textbf{Integrace s fakultními systémy} - \g{IS} je víc přizpůsobený pro fakultní účely.
    \item
-   \textbf{Tmavé rozhraní} - \gls{UI} má volitelný tmavý režim, viz obrázek~\ref{pic:sos-portal}.
+   \textbf{Tmavé rozhraní} - \g{UI} má volitelný tmavý režim, viz obrázek~\ref{pic:sos-portal}.
    \item
-   \textbf{Jazyky} - \gls{UI} je poskytováno v anglickém a českém jazyku s libovolným přepínáním.
+   \textbf{Jazyky} - \g{UI} je poskytováno v anglickém a českém jazyku s libovolným přepínáním.
 \end{ul}
 
 

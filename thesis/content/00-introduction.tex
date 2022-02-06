@@ -6,28 +6,28 @@ Všechny tyto aspekty je mnohdy složité řešit najednou a přiřozeně se roz
 
 Koncept mikroservis\footnote{Též známý pod názvem mikroslužba} vznikl přibližně před 10 až 15 lety.
 Explicitně, jako pojem, byl zmíněn až v roce 2011 v rámci popisu stylu architektury, se kterou se tehdy experimentovalo~\cite{msabegin}.
-Prudký růst zájmu o \gls{MSA} a mikroservisy celkově (dle statistických údajů Google Trends) byl zaznamenán v listopadu 2014 a začátku roku 2017.
+Prudký růst zájmu o \g{MSA} a mikroservisy celkově (dle statistických údajů Google Trends) byl zaznamenán v listopadu 2014 a začátku roku 2017.
 V průběhu roku 2019 dosahoval největší popularity dle relativních počtů vyhledávání~\cite{googletrendsmsa}.
-Aktuálně \gls{MSA} zůstává velice frekventovaným trendem~\cite{googletrendsmsa}, z tohoto důvodu lze danou architekturu předpokládat za stále využívanou nebo alespon jevící zájem u určitého množství lidí.
+Aktuálně \g{MSA} zůstává velice frekventovaným trendem~\cite{googletrendsmsa}, z tohoto důvodu lze danou architekturu předpokládat za stále využívanou nebo alespon jevící zájem u určitého množství lidí.
 
 Jelikož daný koncept je poměrné mladý, tak je málo pravděpodobné, že byl plně prozkoumán.
 Představuje potenciální oblast pro experimentování a zdokonalování, modifikaci a odvozování jiných, nezávislých vývojových praktik.
 Průzkum takových skutečností se nejlépe ověřuje v praxi, v daném případě budou vhodé středně velké aplikace s teoreticky neomezenou možností rozvoje.
-Jako příklad takové struktury může být \gls{IS} pro správu projektů v akademických institucích.
+Jako příklad takové struktury může být \g{IS} pro správu projektů v akademických institucích.
 
 \clearpage
 
 
 
 \section{Cíl práce}\label{sec:cil-prace}
-Cílem této diplomové práce je primárně průzkum \gls{MSA} se subjektivní úvahou o různých přístupech, technikách a myšlenkách týkajících se daného tématu.
-Nabyté znalosti se uplatní v praxi ve formě \gls{IS} pro správu projektů, který byl navržen a implementován jako prototyp monolitické architektury v bakalářské práci \uv{Informační systém pro správu studijních projektů}~\cite{bachelorthesis}.
+Cílem této diplomové práce je primárně průzkum \g{MSA} se subjektivní úvahou o různých přístupech, technikách a myšlenkách týkajících se daného tématu.
+Nabyté znalosti se uplatní v praxi ve formě \g{IS} pro správu projektů, který byl navržen a implementován jako prototyp monolitické architektury v bakalářské práci \uv{Informační systém pro správu studijních projektů}~\cite{bachelorthesis}.
 I když tento systém bude brán jako stěžejní pro uplatnění znalostí o architektuře a bude uskutečněn přechod z monolitické architektury na architekturu mikroservis, tak za cíl není kladeno tento projekt výrazně zlepšit z uživatelského hlediska nebo uvést do provozu v době dokončení diplomové práce.
 Veškerá analýza a specifikace uvedená v bakalářské práci~\cite{bachelorthesis}\TODO{kapitola} je z větší části považována za dostatečnou a splňující základní požadavky.
 Některé aspekty však budou explicitně zaktualizovány a popsány v kapitolách \hyperref[ch:analysis]{Analýza předchozí práce} a \hyperref[ch:specification]{Specifikace}, protože mohou způsobovat nevhodný dopad -- bezpečnost, nevyhovující funkcionalita apod.
 Vzhledem k potenciálně nekonečnému procesu rozvoje systému nebudou dodány různorodé interpretátory pro generování obsahu~\cite{bachelorthesis}\TODO{kapitola}, nýbrž pouze nejnutnější pro předvedení funkcionality.
 
-Konečným výstupem bude především popis subjektivně prozkoumané oblasti \gls{MSA} s případnými dodatečnými materiály, zrefaktorovaná a finalizovaná verze \gls{IS}, jež je převedena z monolitické architektury na architekturu mikroservis, a dodané příručky uživatele a vývojáře.
+Konečným výstupem bude především popis subjektivně prozkoumané oblasti \g{MSA} s případnými dodatečnými materiály, zrefaktorovaná a finalizovaná verze \g{IS}, jež je převedena z monolitické architektury na architekturu mikroservis, a dodané příručky uživatele a vývojáře.
 V rámci implementace bude zdokonaleno testování a nasazování výsledné služby.
 
 
@@ -39,19 +39,21 @@ V rámci implementace bude zdokonaleno testování a nasazování výsledné slu
 
 \textbf{Kapitola 1} se věnuje stručné analýze výsledků předchozí práce, definuje silné a slabé stránky a navrhuje body pro zlepšení.
 
+\textbf{Kapitola 2} se zabývá obecným zkoumáním problematiky \g{MSA} a typickými situacemi, které se potenciálně mohou řešit během implementace systému s využitím \g{MSA}.
+
 \textbf{Kapitola 2} specifikuje požadavky nového projektu s návazností na analýzu předchozího projektu.
+Nároky kladené na systém jsou uměle upraveny, aby směrovali na nutnost implementace \g{IS} v \g{MSA}.
 
-\textbf{Kapitola 3} se zabývá \gls{MSA}.
+\textbf{Kapitola 4} obsahuje analýzu a implementaci serverové části \g{IS} s uplatněním informací popsaných v kapitole \nameref{ch:msa}.
 
-\textbf{Kapitola 4} obsahuje analýzu a implementaci serverové části aplikace.
+\textbf{Kapitola 5} obdobně, jako v případě předchozí kapitoly, obsahuje analýzu a implementaci klientské části aplikace.
 
-\textbf{Kapitola 5} obsahuje analýzu a implementaci klientské části aplikace.
+\textbf{Kapitola 6} se věnuje zlepšení testování obou částí \g{IS}.
+Na základě analýzy \g{MSA} jsou vybrány nástroje pro testování a je popsaná samotná realizace.
 
-\textbf{Kapitola 6} se věnuje zlepšení testování obou částí \gls{IS}.
-
-\textbf{Kapitola 7} se zabývá nasazováním \gls{IS}.
+\textbf{Kapitola 7} se zabývá kontejnerizací a nasazováním \g{IS}.
 
 Na závěr je zhodnocen výsledek a dosažení předem stanovených cílů a splnění zadání diplomové práce.
 
-V přílohách a na přiloženém médiu jsou uvedeny zdrojové kódy obou částí \gls{IS}, dokumentace pro vývojáře i pro uživatelé a jiné dodatečné materiály.
+V přílohách a na přiloženém médiu jsou uvedeny zdrojové kódy obou částí \g{IS}, dokumentace pro vývojáře i pro uživatelé a jiné dodatečné materiály.
 

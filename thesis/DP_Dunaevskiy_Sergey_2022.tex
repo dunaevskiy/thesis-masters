@@ -90,6 +90,16 @@
    \end{description}
 }
 
+\newcommand{\chaptersummary}[1]{
+   \begin{longfbox}[
+      padding=1em,
+      background-color=white,
+      border-width=1pt,
+   ]
+   \textbf{V dané kapitole:}
+   #1
+   \end{longfbox}
+}
 \newcommand{\TODO}[1]{\lfbox[background-color=\#ff0000]{TODO: #1}}
 %\newcommand{\h}[1]{\texttt{#1}}
 \newcommand{\h}[1]{\lfbox{\texttt{#1}}}
@@ -112,7 +122,8 @@
    \end{introduction}
 
    \input{content/01-analysis-project.tex}
-   \input{content/02-analysis-msa.tex}
+   \input{content/02-1-msa.tex}
+   \input{content/02-2-msa.tex}
    \input{content/03-specification.tex}
    \input{content/04-server.tex}
    \input{content/05-client.tex}

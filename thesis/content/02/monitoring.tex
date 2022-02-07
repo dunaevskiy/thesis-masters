@@ -1,0 +1,11 @@
+\section{Monitoring}\label{sec:msa-monitoring}
+
+\subsection{Logování}\label{subsec:msa-monitoring-logging}
+
+Logování údálostí v mikroslužbých.
+
+Takové zapisování do centrálního úložiště logů může probíhat synchronně i asynchronně, například přes brokera zpráv.
+V případě synchronního volání (\g{REST} \g{API} apod.), některé logy mohou být ztraceny navždy, pokud je logovací mikroslužba mimo provoz.
+Proto je většinou lepší asynchronní komunikace, kdy k výpadku logů může dojít pouze v případě, že je nedostupný samotný broker, což by měl být stěžejní prvek architektury ovlivňující plynulý běh i jiných částí aplikace.
+
+\subsection{Health check}\label{subsec:msa-monitoring-healthcheck}

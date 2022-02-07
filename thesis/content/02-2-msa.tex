@@ -1,0 +1,26 @@
+\chapter{Mikroservisní architektura - Správa dat}\label{ch:msa-data}
+
+\chaptersummary{
+   \begin{ul}
+      \item způsoby integrace datových zdrojů do \g{MSA},
+      \item tranzakční zpracování a agregace dat ve složitějších, neizolovaných strukturách.
+   \end{ul}
+}
+
+
+\input{content/02/database.tex}
+
+
+
+\section{Tranzakční zpracování a agregace}\label{sec:msa-data-transaction}
+V případě, že \g{MSA} používá
+
+MultiDB
+- Problém integrtiních omezení
+- Problém tranzakčního zápisu napříč databázemi
+- Problém agregace napříč databázemi
+
+
+\subsection{Saga – tranzakční zpracování napříč databázemi}\label{subsec:saga-transaction-processing}
+
+

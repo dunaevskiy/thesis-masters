@@ -25,3 +25,4 @@ REST: representational state transfer
 ID: identity
 DOM: document object model
 JS: JavaScript
+ACID: atomicity, consistency, isolation, durability

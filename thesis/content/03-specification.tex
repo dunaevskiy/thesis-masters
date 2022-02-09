@@ -1,31 +1,31 @@
-\chapter{Specifikace}\label{ch:specification}
+\chapter{Specifikace}\label{ch:spec}
 
 \chaptersummary{
    \begin{ul}
       \item funkční a obecné požadavky na \g{IS},
       \item popis základních procesů,
-      \item .
+      \item \TODO{...}
    \end{ul}
 }
 
 Z hlediska specifikace za základ je považovaná specifikace definovaná v bakalářské práci v kapitole \enquote{Specifikace informačního systému}~\cite{bachelorthesis}.
-Zachovává se hlavní myšlenka – iterativní zpracovávání studentských projektů na základě komunikace dvou subjeků (vedoucího a studenta), jež postupně tvoří obsah projektu (viz obrázek~\ref{pic:main-communication-cycle}).
+Zachovává se hlavní myšlenka – iterativní zpracovávání studentských projektů na základě komunikace dvou subjeků (vedoucího a studenta), jež postupně tvoří obsah projektu (viz obrázek~\ref{fig:main-communication-cycle}).
 
 \begin{figure}[htbp]
    \centering
    \includegraphics[max width=\textwidth]{assets/dia-seq-study-project-lifecycle}
-   \caption[Zobecněný životní cycklus projektu]{Zobecněný životní cyklus projektu~\cite{bachelorthesis}}\label{pic:main-communication-cycle}
+   \caption[Zobecněný životní cycklus projektu]{Zobecněný životní cyklus projektu~\cite{bachelorthesis}}\label{fig:main-communication-cycle}
 \end{figure}
 
 
 
-\section{Požadavky na systém}
+\section{Požadavky na systém}\label{sec:spec-req}
 
 Požadavky na \g{IS} z přechozí práce jsou uměle upraveny dle aktuálních potřed, aby vynechaly méně prioriptní věci a byly vhodné pro vývoj na \g{MSA}.
 
 
 
-\subsection{Funkční požadavky}
+\subsection{Funkční požadavky}\label{subsec:spec-req-func}
 
 \begin{dl}
    \item[FP00] \textbf{Identita uživatelů} – uživatelé se mohou registrovat, přihlásit a vykonávat určité činnosti na základě přidělených práv.
@@ -65,7 +65,7 @@ Požadavky na \g{IS} z přechozí práce jsou uměle upraveny dle aktuálních p
 
 
 
-\subsection{Nefunkční požadavky}
+\subsection{Nefunkční požadavky}\label{subsec:spec-req-common}
 \begin{dl}
    \item[FP00] \textbf{Veřejné \g{API}} – aplikace bude nabízet veřejné \g{API} s dokumentací pro vývoj aplikací.
    \item[FP01] \textbf{Dokumentace} – součástí \g{IS} je uživatelská a vývojářská dokumentace.

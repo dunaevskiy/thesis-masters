@@ -59,7 +59,7 @@ Kvůli nejednoznačnosti pojmu \h{architektura} nejspíš existuje nespočetné 
    \item[\g{MA}] – jednoprocesový program atomické povahy – nelze z něho jednoduše vyčlenit funkční celky, které by se daly beze změn využívat v jiných programech.
    Obsahuje globální jednorázové připojení k datovému zdroji, které se provádí během startu.
    Takový program je sám o sobě službou.
-   \item[\g{SOA}] – jednoprocesový program s interním rozdělením na služby, které mezi sebou komunikují přímo, nebo přes \g{ESB} – sběrnicí určenou pro centralizaci komunikace mezi službami.
+   \item[\g{SOA}] – jednoprocesový program s interním rozdělením na služby, které mezi sebou komunikují s pomocí zpráv přímo s využitím vyčleněného rozhraní nebo přes \g{ESB} – sběrnicí určenou pro centralizaci komunikace mezi službami \TODO{cite}.
    Vazba na datový zdroje může, ale nemusí být jedna (každá služba může mít samostatné připojení).
    \item[\g{MSA}] – několikaprocesový systém služeb organizovaný do větší interně kompatibilní struktury.
    \item[\g{SA}] – architektura aplikace, která postrádá kontinuálně běžící serverový proces a je pouze rozmístěna na \g{FaaS} řešení.

@@ -1,87 +1,98 @@
 Pro porovnání architektur bylo vybráno několik klíčových pojmů, které mohou během návrhem a implementací programu mít nějvětší vliv na rozhodování o výběru architektury.
 
-+- MA OR 29
-
 
 \begin{dl}
    \item[Datové úložiště] – využití persistentního úložiště (SQL/NoSQL databáze) pro zápis a čtení informací.
    Počáteční inicializace databáze, vytvoření struktury, migrace
 \end{dl}
 \begin{ul}
-   \item \g{MA} – není náročná pro testování.
-   \item \g{SOA} – rovněž může být testována
-   \item \g{MSA} – plnohodnotné testování celé struktury vyžaduje její nasazení na server.
+   \item \g{MA} – ???
+   \item \g{SOA} – ???
+   \item \g{MSA} – ???
 \end{ul}
 
 \begin{dl}
    \item[Nezávislost] – popis
 \end{dl}
 \begin{ul}
-   \item \g{MA} – něco umí
-   \item \g{SOA} – něco umí
-   \item \g{MSA} – něco umí
+   \item \g{MA} – ???
+   \item \g{SOA} – ???
+   \item \g{MSA} – ???
+\end{ul}
+
+\begin{dl}
+   \item[Jednoduchost vývoje] – náklady spojené s vývojem programu a začlenění nových vývojářů do týmu.
+\end{dl}
+\begin{ul}
+   \item \g{MA} – jednoduchý počáteční vývoj kvůli existence jednotvého úložiště zdrojového kódu, \g{IDE} jsou takovému vývoji přizpůsobeny.
+   S rostoucím vývojovým týmem může být problém udržování konzistentní a stabilní aplikace.
+   Počáteční náklady pro začlenění nového vývojáře v pozdějších fázích mohou být vysoké kvůli pochopení celého systému a často zastaralých technologiích.~\cite{msachris}
+   \item \g{SOA} – ???
+   \item \g{MSA} – ???
 \end{ul}
 
 \begin{dl}
    \item[Radikální změny] – složitost změny nebo přidání business logiky do aplikace, která by měl dopad na větší část dosavadní aplikace.
 \end{dl}
 \begin{ul}
-   \item \g{MA} –
-   Z hlediska datového úložiště bude potřeba dělat pouze jednu migraci
-   \item \g{SOA} – něco umí
-   \item \g{MSA} – něco umí
+   \item \g{MA} – veškěré změny se týkají jedné jediné části zdrojového kódu a nejčastějí nerozdělených datových úložišť.
+   Nevýhodou je možný nekontrolovaný dopad na celou aplikaci, protože nejsou striktně oddělené části projektu~\cite{msachris}.
+   \item \g{SOA} – ???
+   \item \g{MSA} – ???
 \end{ul}
 
 \begin{dl}
-   \item[Tolerace chyb] – popis
+   \item[Tolerace chyb] – chování systému v případě výskytu neočekávané chyby nebo výjimky, která není zpracována manuálně či \g{JS} prostředím.
 \end{dl}
 \begin{ul}
-   \item \g{MA} – něco umí
-   \item \g{SOA} – něco umí
-   \item \g{MSA} – něco umí
+   \item \g{MA} – jelikož se jedná o jednoprocesovou aplikaci, tak jakákoliv neošetřená chyba způsobí kolaps celého systému.
+   \item \g{SOA} – obdobně, jako v případě \g{MA} se jedná o jeden proces s obdobnými následky.
+   \item \g{MSA} – několikaprocesové prostředí zajišťuje větší toleranci chyb, ale vždy záleží na ovlivněné části systému.
+   V případě sekundární služba, která komunikuje například přes asynchronní broker zpráv, výpadek nebude mít stejně závažný dopad, jako v případě sehlání samotného brokeru nebo jedné z klíčových služeb (autorizace apod.).
 \end{ul}
 
 \begin{dl}
-   \item[Komunikační latence] – popis
+   \item[Komunikační latence] – běhěm komunikace mezi jednotlivými funkcionalitami aplikace může dojít k zpomalení vzhledem ke zvolenému přístupu.
 \end{dl}
 \begin{ul}
-   \item \g{MA} – něco umí
-   \item \g{SOA} – něco umí
-   \item \g{MSA} – něco umí
+   \item \g{MA} – v monolitu můžeme předpokládat přímé volání potřebnách metod, latence je zde potenciálně minimální.
+   \item \g{SOA} – vzhledem k definovanému komunikačnímu kanálu, který vyžaduje výměnu zpráv, můžeme pocítat s časem potřebným pro vytvoření, odeslání a přijetí zprávy, před vykonáním potřebné činnosti.
+   \item \g{MSA} – obdobně, jako v případě \g{SOA}, ale samotné doručení zprávy může být zpomaleno vybranou technologií, například komunikace se vzdáleným serverem nebo prostřednictvím vnějšího brokeru zpráv.
 \end{ul}
 
 \begin{dl}
-   \item[Škálování] – popis
+   \item[Horizontální škálování] – škálování aplikace pro rozdělení zátěže na systém.
 \end{dl}
 \begin{ul}
-   \item \g{MA} – něco umí
-   \item \g{SOA} – něco umí
-   \item \g{MSA} – něco umí
+   \item \g{MA} – jednoduché škálování – vzniká větší počet instancí aplikace, které mohou být umístěny za prvkem vyvažující zátěž~\cite{msachris}.
+   \item \g{SOA} – proces škálování je obdobný \g{MA}.
+   \item \g{MSA} – vzhledem k samostatným procesům všech služeb škálování vyžaduje pokročilejší infrastrukturu a správu, avšak poskytuje i pokročilejší možnosti.
+   V případě nerovnoměrné zátěže systému je možné tuto čast samostatně škálovat (protože se jedná o samostatný proces) a přizpůsobovat potřebám. \TODO{cite}
 \end{ul}
 
 \begin{dl}
-   \item[Konzistence] – popis
+   \item[Konzistence] – schopnost udržovat jednotnou konzistenci kódu z různých aspektů - styl, rozhraní atd.
 \end{dl}
 \begin{ul}
-   \item \g{MA} – něco umí
-   \item \g{SOA} – něco umí
-   \item \g{MSA} – něco umí
+   \item \g{MA} – ???
+   \item \g{SOA} – ???
+   \item \g{MSA} – ???
 \end{ul}
 
 \begin{dl}
-   \item[Nasazení] – popis
+   \item[Nasazení] – časová náročnost a komplexita rozmístění plně funkční aplikace na server.
 \end{dl}
 \begin{ul}
-   \item \g{MA} – něco umí
-   \item \g{SOA} – něco umí
-   \item \g{MSA} – něco umí
+   \item \g{MA} – ???
+   \item \g{SOA} – ???
+   \item \g{MSA} – ???
 \end{ul}
 
 \begin{dl}
-   \item[Testování] – schopnost psaní automatizovaných testů, které se vyplní při spuštění aplikace.
+   \item[Testování] – přizpůsobenost architektury psaní automatizovaných testů a jejich schopnost spouštět se automaticky v předem definované situaci (během vývoje, po nasazení apod.).
 \end{dl}
 \begin{ul}
-   \item \g{MA} – něco umí
-   \item \g{SOA} – něco umí
-   \item \g{MSA} – něco umí
+   \item \g{MA} – ???
+   \item \g{SOA} – ???
+   \item \g{MSA} – ???
 \end{ul}

@@ -1,14 +1,36 @@
+\section{Komunikace \g{MS}}\label{sec:msa-communication}
 
-\section{Závislosti a komunikace}
-
-Mikroservisy jsou vždy nezávislé z hlediska procesů, ale musí udržovat kompatibilní \g{API} s ostatním prostředím.
+Mikroslužby jsou vždy nezávislé nezávislé z hlediska procesů \TODO{cite}, ale pro  musí udržovat kompatibilní \g{API} vůči jejich prostředí.
 Takové závislosti se nejlépe kontrolují verzováním jednotlivých mikroservis s pomocí sématického verzování.
 Zde je třeba najít konkrétní nástroj pro tuto kontrolu.
 
+Komunikace dle typu:
 
-- Orchestrace VS Choreografie
+\begin{dl}
+   \item [Synchronní/Asynchronní]
+   \item [1:1/1:n] –
+\end{dl}
+
+
+
+
 
 \subsection{Komunikace}
+
+Na nejvyšší úrovni abstrakce komunikaci mikroslužeb je možné zorganizovat dvěma hlavními způsoby~\cite{choreovsorch}:
+
+\begin{ul}
+   \item Orchestrace
+   \item Choreografie
+\end{ul}
+
+
+
+
 - sync/async
 - latence
 - problém řetězových závislotí
+
+
+
+\section{Udržování závislostí}\label{sec:msa-dependencies}

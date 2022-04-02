@@ -28,3 +28,7 @@ JS: JavaScript
 ACID: atomicity, consistency, isolation, durability
 IDE: integrated development environment
 SQL: structured query language
+URI: uniform resource identifier
+HTTP: hypertext transfer protocol
+RPC: remote procedure call
+IoT: internet of things

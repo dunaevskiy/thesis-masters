@@ -61,6 +61,9 @@ A další požadavky, označované od začátku jako rozvojové (viz kapitola \n
    Případně prozkoumat a využít již existující řešení.
    \item[Monitoring a vyvažování zátěže] – se sledováním stavu mikroslužeb je rovněž spojeno sledování vytíženosti služeb a brkeru jako takového.
    Dle zběžného průkumu vyplynulo, že by se dala používat kombinace \h{Prometheus} pro sledování a \h{Grafana} pro vizualizaci, nicméně vyžadovalo by to komplexnější integraci.
+   \item[Kontrola kompatibility mikroslužeb] – jednotlivé mikroslužby mohou být aktuálně verzovány dle jejich rozhraní.
+   Není však dořešena vzájemná kompatibilita na základě závislostí.
+   Potenciálním řešením by mohla být definice závislostí v rámci sémantického verzování a kontrola kompatibility v monitorovací mikroslužbě.
    \item[Zabránění volání interních přístupových bodů ze vně] – Gateway v současné době poskytuje ven všechna \g{REST} rozhraní (externí i interní) s tím, že interní kvůli provolání vyžadují speciální autorizační hlavičku s klíčem.
    V ideálním případě by se však interní rozhraní nemělo vůbec vystavovat.
    Řešením by mohla být explicitní filtrace požadavků na straně \h{nginx} nebo oddělení interního rozhraní s pomocí \g{URI} a překonfigurování všech mikroslužeb na nový typ zdroje dat.

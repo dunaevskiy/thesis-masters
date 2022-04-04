@@ -1,11 +1,26 @@
 \chapter{Analýza a implementace serverové části}\label{ch:server}
 
+\chaptersummary{
+   \begin{ul}
+      \item popis architektury serverové aplikace a metod zvolených pro realizaci,
+      \item volba úložiště zdrojových kódů,
+      \item rozbor komplexnějších funkcionalit a aspektů realizace.
+   \end{ul}
+}
 
-Vzhledem ke změněým požadavkům a potřeby změny architektury bylo rozhodnuto přepsat celou implementaci serverové části od začátku.
-Původní zdrojový kód bude sloužit pouze jako inspirace pro realizaci některých funkcionalit.
+Implementace serverové části na základě zadání a definované specifikace \g{IS} spočívá v anaýze aktuální monolitické architektury (z předchozí práce) a její přespis do architektury mikroslužeb s využitím zkušeností získaných a popsaných v kapitolách~\enquote{\nameref{ch:msa-intro}} a~\enquote{\nameref{ch:msa-data}}.
 
+Ačkoliv původní implementace měla vyřešeno dost aspektů z hlediska funkcionality, přechod na novou architekturu způsobem využití exitujícíh zdrojových kódů by odhadem zabral víc času, než nová realizace s pouhou inspirací z původního systému.
+Z tohoto důvodu bylo rozhodnuto napsat nový základ pro mikroslužby, který by víc vyhovoval aktuálním potřebám.
+Pro novou relizaci bylo rovněž vybráno jiné \g{ORM}, které přineslo zjednodušení během vývoje za cenu změny implementace většiny funkcionalit spojených s relační databází.
+Detailní popis změn a přínosů je uveden v následujících podkapitolách.
+
+\newpage
 
 \section{Architektura}\label{sec:server-arch}
+
+Základním krokem pro návrh architektury serverové části se stal výběr typu dekompozice poskytnuté specifikace.
+
 
 Při modelování poskytnuté domény do \g{MSA} je vhodné použít dekompozici úlohy na menší části s následujícím mapováním na služby.
 
@@ -13,17 +28,15 @@ Dekompozice se provedla na následující mikroslužby:
 
 
 
-\begin{dl}
-   \item[Users] – uživatelská data
-   \item[Auth] – autentizační data, kontrola validity autorizačních údajů,
-   \item[Projects] – služba pro správu projektovách dat.
+\begin{ul}
+   \item \textbf{ms-users} – uživatelská data
+   \item \textbf{ms-auth} – autentizační data, kontrola validity autorizačních údajů,
+   \item \textbf{ms-projects} – služba pro správu projektovách dat.
    Ukládá v relační databázi metadata o projektech a deleguje úpravy obsahů na vnější Git úložiště
-   \item[Interpreters] – správa registovaných interpretů
-   \item[Communication] – zpracovávání komunikačních zpráv s uživateli
-   \item[Localization] – správa překladů
-   \item[Logger] – služba pro centrální ukládání a vyhledávání logů
-   \item[Monitoring] – služba pro centrální kontrolování stavů mikroslužeb
-\end{dl}
+   \item \textbf{ms-interpreters} – správa registovaných interpretů
+   \item \textbf{ms-communication} – zpracovávání komunikačních zpráv s uživateli
+   \item \textbf{ms-monitoring} – služba pro centrální kontrolování stavů mikroslužeb
+\end{ul}
 
 A pomocné organizační služby:
 
@@ -72,39 +85,3 @@ Pro správu dat v databázích byl vybrán vzor používající jednu databázi 
 Migrace
 
 
-
-\section{Sestavování balíčku a kontejnerizace}\label{sec:server-compile}
-
-Vzhledem k používaným technologiím zdrojový kód aplikací nelze spouštět bez předchozího zpracování.
-TypeScript, jako samostatný jazyk, vyžaduje transpilaci kódu do JavaScript přes vhodný nástroj, například \h{tsc}.
-Dle výchozího chování vytváří vedle každého rozpoznaného \h{.ts} souboru jeho transpilovanou kopii, importované a exportované části se neslučují.
-V takovém stavu se \h{.js} soubory již dají spouštět za pomocí nástroje \h{node} (Node.js).
-
-Obdobného chování, ale již bez explicitního transpilování, lze dosáhnout s pomocí nástroje \h{ts-node}.
-Balíček \h{ts-node} je dle jednoho z autorů připraven pro produkční prostředí a program může být spuštěn bez dopadu na výkon~\cite{tsnodeprod}.
-Tento výsledek by se dal považovat za uspokojivý, avšak ne v případě kontejnerizace.
-
-Vzhledem k vnějším závislostem z adresáře \h{node\_modules}, které v obou případech zůstávají zachovány, bude nutné ponechávat celý adresář po \h{build} fázi v Docker obrazu.
-To může mít za následek nevhodnou velikost výsledného kontejrenu, v daném projektu by to znamenalo přibližně \TODO{2GB} zbytečných dat (vývojářské nástroje, zdrojové kódy knihoven apod.) pro každou aplikaci.
-V případě mohutnějších \g{MS} by dané číslo mohlo být mnohem větší a přidalo by negativní dopad na požadavky parametrů serverů.
-
-Jako řešení se nabízí selektivní kopírování potřebných souborů z \h{node\_modules} adresáře do Docker obrazu.
-Z tohoto důvodu do sestavování \g{MS} byl přidán nástroj \h{webpack} a další, potřebné pro vývoj, balíčky.
-Tímto zásahem se přišlo o jednoduchost transpilace – \h{webpack} přebral úkol předzpracování \h{.ts} souborů, ale získalo se mnohem ohebnější prostředí.
-Výstup vytvářený \h{webpack} je \h{.js} soubor, jenž nepotřebuje vnější závislosti a je soběstačny – zahrnuje v sobě kopie všech závislostí a potřebuje pouze vnější JavaScript interpet, který se získává z rodičovského Docker obrazu.
-
-Lokální vývoj s tímto nastavením nepotřebuje žádnou logiku navíc.
-Pro účely vývoje se přidal nástroj \h{nodemon}, jenž umožňuje hot-reloading\footnote{Hot-reloading je automatické přenačtení a spuštění programu, které se provádí po každé změně kódu.}.
-
-Ve výsledku se každá \g{MS} začala sestavovat s pomocí \h{webpack}, výstupem je samostatná sada transpilovaných a minifikovaných souborů, jež je použita v druhé fázi sestavování.
-Dockerfile konfigurace je detailně popsaná v kapitole \nameref{ch:deployment}.
-
-
-
-\section{Nasazování}\label{sec:server-deployment}
-
-Cyklus nasazování musí být ve zvolené architektuře řízený sekvenčeně kvůli závislostem.
-
-- databázové migrace
-
-- služby s kontrolou verzí

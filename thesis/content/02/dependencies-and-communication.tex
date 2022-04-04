@@ -67,9 +67,9 @@ Pokud pomineme konkrétní způsob výměny informací mezi mikroslužbami a pod
    \item [Orchestrace] – předpokládá analogii s hudebním orchestrem, kdy každý člen systému zná vlastní roli, ale stejně musí být řízen dirigentem.
    V tomto případě dirigent je zastoupen orchestrační mikroslužbou, která vystupuje jako prvek, jenž zprostředkovává veškerou komunikaci.
    Tento koncept je úzce spjat s RESTful \g{API} a může v případě obrovského počtu \g{MS} způsobovat komplikace, protože orchestrační prvek bude muset zvládat stovky až tisíce mikroslužeb a ve výsledku dopadne jako těžce spravovatelná monolitická část~\cite{choreovsorch}.
-   Z implementačního pohledu však může být o něco jednodušší, protože jakákoliv propagace chyb, sběr dat a další požadavky mohou být přímočářejší a soustředěny v jednom místě.
+   Z implementačního pohledu však může být o něco jednodušší, protože jakákoliv propagace chyb, sběr dat a další požadavky mohou být přímočářejší a soustředěny na jednom místě.
 
-   \item [Choreografie] – analogicky představuje taneční skupinu, kde neexistuje řídící prvek, ale každý člen reaguje na podnět (hudbu) a provádí potřebné kroky.
+   \item [Choreografie] – analogicky představuje taneční skupinu, kde neexistuje řídící prvek, ale každý člen reaguje na podnět (hudbu, jiné členy) a provádí potřebné kroky.
    Implementacně musí existovat komunikace řízená událostmi, kdy jedna služba vysílá zprávu do brokera a o zbytek se nemusí starat, vše je řízeno asynchronně.
    Zárověň každá služba odposlouchává pouze zprávy, na které má reágovat.
    Tento koncept zajišťuje mnohem větší ohebnost a menší provázanost služeb~\cite{choreovsorch}.
@@ -79,6 +79,8 @@ Pokud pomineme konkrétní způsob výměny informací mezi mikroslužbami a pod
    V tomto případě se vrací chybná odpověd a je potřeba zrušit všechny změny, které byly provedené dosud a které se mohou provést po dokončení pomalu zpracovaného požadavku.
 \end{dl}
 
+Možná vizualizace obou struktur je znázorněna na obrázku~\ref{fig:msa-structure-communication}.
+Samozřejmě může docházet i k prolínání takových řešení – například choreografie se sychnronní komunikací.
 
 
 \begin{figure}[htbp]
@@ -91,7 +93,7 @@ Pokud pomineme konkrétní způsob výměny informací mezi mikroslužbami a pod
 
 \section{Udržování závislostí}\label{sec:msa-dependencies}
 
-V průběhu vývoje systému s \g{MSA} je pravděpodobné, že vlivem měnících se podmínek bude docházet i ke změnám potřeb poskytovaných rozhraní.
+V průběhu života systému a dodávaných řešení s \g{MSA} je pravděpodobné, že vlivem měnících se podmínek bude docházet i ke změnám potřeb poskytovaných rozhraní.
 Takové modifikace mohou vést k nekonzistenci a narušení systému jako celku.
 Tuto situaci je možné kontrolovat a řešit s pomocí sémantického verzování v různých variantách.
 

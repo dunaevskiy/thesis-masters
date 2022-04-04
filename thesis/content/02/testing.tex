@@ -1,14 +1,13 @@
-
-\section{Testování a automatizace}
+\section{Testování a automatizace}\label{sec:testing}
 
 Daná kapitola se věnuje problematice automatizace testování projektu napsaného v architektuře mikroslužeb s dodaným uživatelským webovým rozhraním.
 V rámci testování budeme uvažovat pouze následující kategorie:
 
 \begin{dl}
+   \item[Statické testování kódu] – testování kvality kódu, nevyžaduje runtime. \TODO{citovat},
    \item[Jednotkové testování] – testování nejmenších částí implementace (funkce, třídy aj.),
    \item[Integrační testování] – testování integrací v rámci jedné \g{MS} i mezi \g{MS},
    \item[Funkční testování] – testování funkčnosti bez znalosti interní implementace~\cite{testtypes} dle testovacích scénářů,
-   \item[Testování výkonu] – testování systému v předem dané zátěži.
    \item[Testování spolehlivosti] – testování způsobu chování v případech přetížení/výpadku a schopnost se obnovit po výpadku~\cite{testtypes2}.
 \end{dl}
 
@@ -17,6 +16,6 @@ V případě neexistence možnosti vytvořit automatizaci nebo automacké spouš
 Akceptovaným bude rovněž dokumentace s
 
 
-Existují i další typy testů, jež se mohou automatizovat – testy bezpečnosti, kompatibility, přenositelnosti apod.
+Existují i další typy testů, jež se mohou automatizovat – testy výkonu, bezpečnosti, kompatibility, přenositelnosti apod.
 V dané práci se jimi zabývat nebude.
 

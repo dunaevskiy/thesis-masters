@@ -58,6 +58,7 @@ V případě například \g{REST} implementace bude provázanost větší kvůli
 Volba RabbitMq naopak může zajistit menší provázanost tím, že zpracování se bude řídit brokerem zpráv, avšak v případě nutné okamžité odpovědi může způsobovat komplikace.
 
 
+
 \subsection{Struktura komunikace}\label{subsec:msa-communication-structure}
 
 Pokud pomineme konkrétní způsob výměny informací mezi mikroslužbami a podíváme na se obecnou organizaci komunikace, tak existují dva základní způsoby – orchestrace a choreografie~\cite{choreovsorch}.
@@ -95,41 +96,54 @@ Samozřejmě může docházet i k prolínání takových řešení – napříkl
 
 V průběhu života systému a dodávaných řešení s \g{MSA} je pravděpodobné, že vlivem měnících se podmínek bude docházet i ke změnám potřeb poskytovaných rozhraní.
 Takové modifikace mohou vést k nekonzistenci a narušení systému jako celku.
-Tuto situaci je možné kontrolovat a řešit s pomocí sémantického verzování v různých variantách.
+Tuto situaci je možné kontrolovat a řešit s pomocí verzování v různých variantách~\cite{msversions}.
 
 
-\subsection{Verzování v \g{URI}}\label{subsec:msa-dependencies-uri}
 
-Zápis verze v \g{URI} může vypadat následovně:
+\subsection{Sémantické verzování v URI}\label{subsec:msa-dependencies-uri}
+
+V tomto případě na základě konceptu sémantického značení se verzuje celý zdroj dat (\g{URI})~\cite{msversions} jako \h{major.minor.patch}~\cite{semver}.
+Zápis v může vypadat následovně:
 
 \h{schema://domain/name-service/v1.0.0/entity}
 
-Výhody:
-\begin{ul}
-   \item Je možné udržovat víc aktivních \g{API} verzí v rámci jedné \g{MS}.
-   \item
-\end{ul}
+Výhodou takového způsobu je možnost udržovat víc aktivních \g{API} verzí v rámci jedné \g{MS} v případě nekompatibility napojených systémů.
+To má dopad na kliestkou stranu, jež má v tomto případě plnou kontrolu nad tím, jaké rozhraní používa, a v systému pravděpodobně nehrozí náhlá chyba po aktualizaci serveru.
 
-Nevýhody:
-\begin{ul}
-   \item V případě pevné vazby na verzi pro klientskou aplikaci může být nákladné sledovat aktualizace \h{minor} nebo \h{patch} verzí.
-   Toto může být řešeno redukcí pouze na \h{major} verze (\h{.../v1/...}).
-\end{ul}
+Přináší to však i řadu nevýhod.
+Provolávání \g{API} klientskou aplikací je vázano na \g{URI}, tudíž veškeré změny bude třeba zpracovat i v klientské aplikaci, což nemusí být vždy vhodné.
+Řešením by mohla být redukce zápisu verze a ignorování \h{patch}, případně i \h{minor} složek, pak menší opravy nebudou vyžadovat opravu klienta.
+V případě udržování víc verzí jednoho rozhraní mohou vznikat zbytečné komplikace s udržováním kódu.
+
 
 
 \subsection{Verzování v hlavičkách \g{HTTP}}\label{subsec:msa-dependencies-headers}
 
+Velice obdobný způsob, jako je verzování v \g{URI}, přináší verzování v \g{HTTP} hlavičnách.
+Hlavním přínosem je neměnný \g{URI} pro provolávání ze strany klienta~\cite{msversions}.
+Tudíž nevyžaduje přísnou kontrolu verze provolávaného rozhraní, avšak poskytuje možnost zjištovat a případně i omezovat volání.
+Poskytovaná verze může být využívána například v logování.
 
 
-\subsection{Verzování \g{MSA}}\label{subsec:msa-dependencies-msa}
-Místo \g{API} je možné verzovat a hlídat samotné mikroslužby.
+
+\subsection{Sémantické verzování \g{MS}}\label{subsec:msa-dependencies-msa}
+Místo jednotlivých částí \g{API} je možné verzovat a hlídat samotné mikroslužby.
 Výrazně se tím zkomplikuje možnost udržování několika poskytovaných rozhraní, protože každá verze bude vyžadovat vlastní adresu v rámci systému.
-Na druhou stranu je možné u každé sluby definovat seznam závislostí, který by se poskytoval v rámci obecného dotazu ohledně stavu služby.
+Na druhou stranu je možné u každé služby definovat seznam závislostí, který by se poskytoval v rámci obecného dotazu ohledně stavu služby.
 V případě existence konceptu registrace mikroslužby v systému by bylo možné tyto požadavky na závislosti kontrolovat a včas upozorňovat na nevhodnout sestavu mikroslužeb (viz obrázek~\ref{fig:version-reg}).
-
 
 \begin{figure}[htbp]
    \centering
    \includegraphics[max width=\textwidth]{assets/draft-version-reg}
    \caption{Registrace \g{MS} a kontrola závislostí}\label{fig:version-reg}
 \end{figure}
+
+
+
+\subsection{Kalendářní verzování \g{MS}}\label{subsec:msa-dependencies-calendar}
+
+Velice podobné sémantickému verzování zdrojů, neexituje přesně definovaný formát, ale může se to vyplatit u pravidelně vydávaných aplikací (například na týdenní bázi).
+Využívá značky s uváděním roku, měsíce, dne a případně i času sestavení.
+V takových případech je vidět zaostávání nasazování služeb (napíklad kvůli chybám ve funkcionalitě) a je možné na to patřičně reagovat.~\cite{msversions}
+
+\newpage

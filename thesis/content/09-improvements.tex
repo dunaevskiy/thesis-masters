@@ -1,0 +1,89 @@
+\chapter{Rozvoj systému}\label{ch:improvements}
+
+\chaptersummary{
+   \begin{ul}
+      \item seznam bodů nutných pro dokončení \g{IS},
+      \item seznam možných zdokonalení aktuální implementace.
+   \end{ul}
+}
+
+Implementace daného \g{IS} v rámci této práce byla soustředěna kolem návrhu základních principů fungování architektury mikroslužeb a uplatnění zdokonaleného principu tvorby rozdělenéhé klientské aplikace.
+Vzhledem k obrovskému rozsahu práce a nepředpokládané časové náročnosti vývoje v architektuře mikroslužeb, mnohé funkcionality, jež většinou představují monotónní implementaci \g{REST} rozhraní se zápisem do databáze dle určitých podmínek, nebyly realizováy.
+Vše potřebné pro jejich vývoj však již bylo začleněno.
+
+Tato kapitola definuje v sobě zbývající části systému, jenž mají být dodány vzhledem k původní analýze, a poskytuje seznam vylepšení aktuálního řešení.
+K některým bodům je dodáno, jakým způsobem může být dané vylepšení realizováno.
+
+\newpage
+
+
+
+\section{Nedokončená funkcionalita}\label{sec:unimplemented}
+
+\begin{dl}
+   \item[Dořešení systému práv a zobrazování dat] – na základě specifikace v systému uživatelské role a nastavení projektu mají mít vliv na poskytované možnosti a dodávaná data.
+   Rozdělení na role a možnost kontroly rolí byla realizována, avšak pouze na vyšší úrovni (volání rozhraní, zobrzování, nebo skrytí projektu).
+   Je nutné dodělat detailní kontrolu dat, které jsou poskytovány uživatelům na základě rolí, a vytvořit výjimku pro administrátory.
+   \item[Uživatelsky vhodné zobrazování chyb] – v rámci serverové části bylo vytvořeno relativně přehledné kaskádování chyb s propagací zpráv s přesně daným rozhraním, zdaleka ne všechny jsou však zpracovávány klientským rozhraním do uživatelsky příjemné podoby.
+   \item[Doplnění vhodných uživatelských upozornění] – funkcionalita pro oznamování důležitých událostí je plně funkční, je nutné přidat tvorbu takových zpráv ve všech potřebných funkcích.
+   \item[Podpora jazykových verzí] – knihovna Next.js interně podporuje překlad rozhraní, nebylo však vůbec realizováno.
+   Předpokládaný způsob integrace může být s využitím knihovny React-Intl.
+\end{dl}
+
+A další požadavky, označované od začátku jako rozvojové (viz kapitola \nameref{ch:spec}):
+
+
+\begin{dl}
+   \item[Další možnosti vyhledávání projektů] – zadávání a vyhledávání projektů na základě unikátních značek (tagů).
+   \item[Iterace a úkoly] – dělení projektů na iterace a úkoly, jež by se daly plnit tvorbou obsahových částí projektu.
+   \item[Snímky iterací] – odevzdávání stavu obsahu projektu, vzhledem k implementované funkcionalitě může být implementováno jako značka v gitu.
+   Tzn.
+   odevzdávat se bude historický bod projektu bez kopírování stavu projektu, jak to bylo realizováno v bakalářské práci.
+   \item[Hodnocení iterací] – ohodnocení odevzdaného snímku a tudíž i iterace osobou, jenž je označována jako autorita v rámci \g{IS}.
+   \item[Editace týmu] – editace projektových týmů ověřenými uživateli bez souhlasu uživatelů, včetně pozvánek apod.
+\end{dl}
+
+
+\newpage
+
+
+
+\section{Možné zdokonalení systému}\label{sec:improvements}
+
+
+\begin{dl}
+   \item[Zlepšení logovacího systému] – aktuální řešení logování předpokládá v sobě záznam tvořený datumem, původem (název mikroslužby) a zprávou, která se předává přes brokera do NoSQL databáze.
+   Poskytuje to možnost filtrování výsledků a vyhledávání, nemusí to být však odolné vůči výpadkům brokera zpráv.
+   Potenciálně lepším řešením by mohlo být zavedení klasických, textových logů, které by mohly sloužit jako odlaďovací nástroj v případě zkoumání mikroslužby bez prostředí.
+   Zároveň je možné slepšit strukturu samotného logu.
+   \item[Aktivní monitoring fungování služeb] – v klientské aplikaci aktuálně existuje stránka v administrátorském panelu, která \h{pull} způsobem zjištuje aktuální stav mikroslužeb.
+   Tato funkcionalita by se mohla vyčlenit do samostatně fungujícího sledování s upozorněním, například přes e-mail, že část systému měla výpadek.
+   Případně prozkoumat a využít již existující řešení.
+   \item[Monitoring a vyvažování zátěže] – se sledováním stavu mikroslužeb je rovněž spojeno sledování vytíženosti služeb a brkeru jako takového.
+   Dle zběžného průkumu vyplynulo, že by se dala používat kombinace \h{Prometheus} pro sledování a \h{Grafana} pro vizualizaci, nicméně vyžadovalo by to komplexnější integraci.
+   \item[Kontrola kompatibility mikroslužeb] – jednotlivé mikroslužby mohou být aktuálně verzovány dle jejich rozhraní.
+   Není však dořešena vzájemná kompatibilita na základě závislostí.
+   Potenciálním řešením by mohla být definice závislostí v rámci sémantického verzování a kontrola kompatibility v monitorovací mikroslužbě.
+   \item[Zabránění volání interních přístupových bodů ze vně] – Gateway v současné době poskytuje ven všechna \g{REST} rozhraní (externí i interní) s tím, že interní kvůli provolání vyžadují speciální autorizační hlavičku s klíčem.
+   V ideálním případě by se však interní rozhraní nemělo vůbec vystavovat.
+   Řešením by mohla být explicitní filtrace požadavků na straně \h{nginx} nebo oddělení interního rozhraní s pomocí \g{URI} a překonfigurování všech mikroslužeb na nový typ zdroje dat.
+   \item[Zakládání admin účtu] – administrátorský účet je nyní součástí základní sady dat pro databázi.
+   Může se nahradit samostatnou, jernorázovou počáteční registrací administrátorského účtu před prvním startem \g{IS}.
+   \item[Nahrávání souborů] – v rámci tvorby obsahu může vzniknout potřeba nahrávat soubory, může to být řešeno s pomocí interpretátoru obsahu.
+   \item[Zdokonalení testování] – aktuální testování počítá s otestováním samostatných funkcí s pomocí jednotkových testů a celistvost fungování serverové části s pomocí integračních.
+   V případě dokončení uživatelského rozhraní by mohlo vzniknout testování na základě simulace uživatelské činnosti a další testování, například zátěže, bezpečnosti apod.
+   \item[Zdokonalení vývoje interpretů obsahu] – interprety pro obsahy nyní jsou tvořeny zčásti manuální činností, která může být zautomatizována.
+   Vývoj interpretů by následně mohl probíhat jako vývoj běžné React apliakce, kde by během sestanovávní programu redukoval obsah na nezbytené minimum.
+   \item[Rozšíření konceptu mikroslužeb u klienta] – stejně, jako jsou realizovány interprety obsahu, by mohl fungovat zbytek klientské aplikace.
+   Zde je však otázka, zda by se to v případě relativně malého projektu vyplatilo.
+   \item[Paralelní úpravy obsahu] – úpravy stejné části obsahu jsou nyní zabezpečeny s pomocí kontroly \h{hash} klíče původního obsahu.
+   Mohlo by být vhodné realizovat paralelní úpravu 1 části více uživateli.
+   \item[Separace kaskádových stylů a obsahu] – v současné implementaci kvůli vlastnostem \g{CSS} není dokonale řešeno ovlivňování jednotlivých částí obsahu existujícími globálními styly.
+   Měl by se ideálně definovat jednotný styl pro základní prvky (též nazývaný \enquote{style-guide}), který by ovlivňoval i obsahy, ale zbytek by mohl být napsaný s pomocí technologie \g{CSS} modulů.
+   Tím by se vyřešily potenciální konflikty mezi \g{CSS} pravidly.
+   \item[UX/UI] – rozhraní může být přizpůsobeno mobilnímu rozhraní a vizuálně odladěno.
+\end{dl}
+
+Obecně se dá říct (z osobních zkušeností vzhledem k předchozí implementaci \g{IS}), že architektura mikroslužeb má řadově víc možností, kde se dá zdokonalit, v porovnání s monolitickou architekturou.
+Taková volnost v řešení různých aspektů na jednu stranu přináší větší intuitivní chápání, na druhou zbytečně komplikuje vývoj a nevhodně oddaluje dosažení samotného cíle alespon v první, konzistentní podobě.
+Práce s plnohodnotným dokončením tohoto \g{IS} se pro jednoho člověka může protáhnout na nevhodně dlouhou dobu.

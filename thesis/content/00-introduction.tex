@@ -1,33 +1,37 @@
+% FINAL, CHECKED
+
 Architektura aplikací tvoří nedílnou součást každého vývoje.
 Její náročnost je variabilní v závislosti na typu, složitosti, frekventovanosti použití a dalších parametrech aplikace.
 Zpravidla čím menší nároky se na výsledek kladou, tím je navrhovaná architektura primitivnější, aby se ušetřilo na nákladech během vývoje a provozu aplikace.
-Komplexnější požadavky však potřebují pro svůj plynulý provoz zajistit stabilní prostředí, které se definuje například stabilitou aplikace, způsobem opravy neočekávaných chyb, rychlosti odezvy apod.
-Všechny tyto aspekty je mnohdy složité řešit najednou a přiřozeně se rozdělují na menší atomické celky, jež by se daly spravovat samostatně.
+Komplexnější požadavky však potřebují pro svůj provoz zajistit stabilní prostředí, které se definuje například stabilitou aplikace, způsobem opravy neočekávaných chyb, rychlosti odezvy apod.
+Všechny tyto aspekty je mnohdy složité řešit najednou a přirozeně se rozdělují na menší atomické celky, jež by se daly spravovat samostatně.
 
-Koncept mikroservis\footnote{Též známý pod názvem mikroslužba} vznikl přibližně před 10 až 15 lety.
+Koncept mikroslužeb vznikl přibližně před 10 až 15 lety.
 Explicitně, jako pojem, byl zmíněn až v roce 2011 v rámci popisu stylu architektury, se kterou se tehdy experimentovalo~\cite{msabegin}.
-Prudký růst zájmu o \gls{MSA} a mikroservisy celkově (dle statistických údajů Google Trends) byl zaznamenán v listopadu 2014 a začátku roku 2017.
+Prudký růst zájmu o \g{MSA} a mikroslužby celkově (dle statistických údajů Google Trends) byl zaznamenán v listopadu 2014 a začátku roku 2017.
 V průběhu roku 2019 dosahoval největší popularity dle relativních počtů vyhledávání~\cite{googletrendsmsa}.
-Aktuálně \gls{MSA} zůstává velice frekventovaným trendem~\cite{googletrendsmsa}, z tohoto důvodu lze danou architekturu předpokládat za stále využívanou nebo alespon jevící zájem u určitého množství lidí.
+Aktuálně \g{MSA} zůstává velice frekventovaným trendem~\cite{googletrendsmsa}, z tohoto důvodu lze danou architekturu předpokládat za stále využívanou nebo alespoň jevící zájem u určitého množství lidí.
 
 Jelikož daný koncept je poměrné mladý, tak je málo pravděpodobné, že byl plně prozkoumán.
 Představuje potenciální oblast pro experimentování a zdokonalování, modifikaci a odvozování jiných, nezávislých vývojových praktik.
-Průzkum takových skutečností se nejlépe ověřuje v praxi, v daném případě budou vhodé středně velké aplikace s teoreticky neomezenou možností rozvoje.
-Jako příklad takové struktury může být \gls{IS} pro správu projektů v akademických institucích.
+Průzkum takových skutečností se nejlépe ověřuje v praxi, v daném případě budou vhodné středně velké aplikace s teoreticky neomezenou možností rozvoje.
+Jako příklad takové struktury může být \g{IS} pro správu projektů v akademických institucích.
 
 \clearpage
 
 
 
 \section{Cíl práce}\label{sec:cil-prace}
-Cílem této diplomové práce je primárně průzkum \gls{MSA} se subjektivní úvahou o různých přístupech, technikách a myšlenkách týkajících se daného tématu.
-Nabyté znalosti se uplatní v praxi ve formě \gls{IS} pro správu projektů, který byl navržen a implementován jako prototyp monolitické architektury v bakalářské práci \uv{Informační systém pro správu studijních projektů}~\cite{bachelorthesis}.
-I když tento systém bude brán jako stěžejní pro uplatnění znalostí o architektuře a bude uskutečněn přechod z monolitické architektury na architekturu mikroservis, tak za cíl není kladeno tento projekt výrazně zlepšit z uživatelského hlediska nebo uvést do provozu v době dokončení diplomové práce.
-Veškerá analýza a specifikace uvedená v bakalářské práci~\cite{bachelorthesis}\TODO{kapitola} je z větší části považována za dostatečnou a splňující základní požadavky.
-Některé aspekty však budou explicitně zaktualizovány a popsány v kapitolách \hyperref[ch:analysis]{Analýza předchozí práce} a \hyperref[ch:specification]{Specifikace}, protože mohou způsobovat nevhodný dopad -- bezpečnost, nevyhovující funkcionalita apod.
-Vzhledem k potenciálně nekonečnému procesu rozvoje systému nebudou dodány různorodé interpretátory pro generování obsahu~\cite{bachelorthesis}\TODO{kapitola}, nýbrž pouze nejnutnější pro předvedení funkcionality.
+Cílem této diplomové práce je primárně průzkum \g{MSA} se subjektivní úvahou o různých přístupech, technikách a myšlenkách týkajících se daného tématu.
+Samostatné části budou věnovány zpracováním databázových transakcí u serverové části a mikroslužbám straně klienta.
 
-Konečným výstupem bude především popis subjektivně prozkoumané oblasti \gls{MSA} s případnými dodatečnými materiály, zrefaktorovaná a finalizovaná verze \gls{IS}, jež je převedena z monolitické architektury na architekturu mikroservis, a dodané příručky uživatele a vývojáře.
+Nabyté znalosti se uplatní v praxi ve formě \g{IS} pro správu projektů, který byl navržen a implementován jako prototyp monolitické architektury v bakalářské práci \uv{Informační systém pro správu studijních projektů}~\cite{bachelorthesis}.
+I když tento systém bude brán jako stěžejní pro uplatnění znalostí o architektuře a bude uskutečněn přechod z monolitické architektury na architekturu mikroslužeb, tak za cíl není kladeno tento projekt výrazně zlepšit z uživatelského hlediska nebo uvést do provozu v době dokončení diplomové práce.
+Postupovat se bude inkrementálně – nejdřív se implementuje nejdůležitější, nezbytná osnova a zbylá funkcionalita bude dokončena dle časových možností, případně uvedena v seznamu pro další rozvoj.
+
+Větší část analýzy a specifikace uvedené v bakalářské práci~\cite{bachelorthesis} bude převzata, některé aspekty však budou explicitně zaktualizovány a popsány v kapitolách \hyperref[ch:analysis]{Analýza předchozí práce} a \hyperref[ch:specification]{Specifikace}, protože mohou způsobovat nevhodný dopad – bezpečnost, nevyhovující funkcionalita apod.
+
+Konečným výstupem bude především popis subjektivně prozkoumané oblasti \g{MSA} sloužící jako rychlý přehled architektury mikroslužeb s případnými dodatečnými materiály, zrefaktorovaná verze \g{IS}, jež je převedena z monolitické architektury na architekturu mikroslužeb, a dodané příručky uživatele a vývojáře.
 V rámci implementace bude zdokonaleno testování a nasazování výsledné služby.
 
 
@@ -37,21 +41,25 @@ V rámci implementace bude zdokonaleno testování a nasazování výsledné slu
 
 \section{Struktura}\label{sec:struktura}
 
-\textbf{Kapitola 1} se věnuje stručné analýze výsledků předchozí práce, definuje silné a slabé stránky a navrhuje body pro zlepšení.
+\textbf{Kapitola 1} se věnuje stručné analýze výsledků předchozí práce, definuje silné a slabé stránky a navrhuje body pro zlepšení, zejména pro \g{MSA}.
 
-\textbf{Kapitola 2} specifikuje požadavky nového projektu s návazností na analýzu předchozího projektu.
+\textbf{Kapitola 2} se zabývá obecným zkoumáním problematiky \g{MSA} a typickými situacemi, které se potenciálně mohou řešit během implementace systému s využitím \g{MSA}\\na~straně serveru i klienta.
 
-\textbf{Kapitola 3} se zabývá \gls{MSA}.
+\textbf{Kapitola 3} rozebírá integraci mikroslužeb s datovými úložišti a problematiku transakčního zpracování v případě oddělených úložišť.
 
-\textbf{Kapitola 4} obsahuje analýzu a implementaci serverové části aplikace.
+\textbf{Kapitola 4} specifikuje požadavky nového projektu s návazností na analýzu předchozího projektu a souladu se zadáním diplomové práce.
 
-\textbf{Kapitola 5} obsahuje analýzu a implementaci klientské části aplikace.
+\textbf{Kapitola 5} obsahuje analýzu a implementaci serverové části \g{IS} v \g{MSA} s uplatněním informací popsaných v kapitolách analýzy \g{MSA}.
 
-\textbf{Kapitola 6} se věnuje zlepšení testování obou částí \gls{IS}.
+\textbf{Kapitola 6} obdobně, jako v případě předchozí kapitoly, obsahuje analýzu a implementaci klientské části aplikace.
 
-\textbf{Kapitola 7} se zabývá nasazováním \gls{IS}.
+\textbf{Kapitola 7} se věnuje zlepšení testování obou částí \g{IS}.
+Na základě analýzy \g{MSA} jsou vybrány nástroje pro testování a je popsaná samotná realizace.
 
-Na závěr je zhodnocen výsledek a dosažení předem stanovených cílů a splnění zadání diplomové práce.
+\textbf{Kapitola 8} se zabývá kontejnerizací a nasazováním \g{IS}.
 
-V přílohách a na přiloženém médiu jsou uvedeny zdrojové kódy obou částí \gls{IS}, dokumentace pro vývojáře i pro uživatelé a jiné dodatečné materiály.
+\textbf{Kapitola 9} je věnována nedostatkům aktuálního řešení a potenciálnímu budoucímu rozvoji.
 
+Na závěr je zhodnocen výsledek a dosažení předem stanovených cílů a splnění zadání diplomové práce.
+
+V přílohách a na přiloženém médiu jsou uvedeny zdrojové kódy všech částí \g{IS}, dokumentace pro vývojáře i pro uživatelé a jiné dodatečné materiály.

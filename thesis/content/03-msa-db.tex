@@ -1,0 +1,42 @@
+\chapter{Správa dat v architektuře mikroslužeb}\label{ch:msa-data}
+
+\chaptersummary{
+   \begin{ul}
+      \item způsoby integrace datových zdrojů do \g{MSA},
+      \item tranzakční zpracování a agregace dat ve složitějších, neizolovaných strukturách,
+      \item ...
+   \end{ul}
+}
+
+V \g{MSA}...
+
+
+\section{Databáze jako zdroj dat}\label{sec:msa-db-as-data-source}
+
+Jako perzistentní úložiště pro \g{MSA} může sloužit databáze.
+Pro návrh struktury ukládání dat se mohou používat dva návrhové vozry:
+\begin{dl}
+   \item [Databáze pro každou službu] – každý deklarovaná mikroslužba používá vlastní databázi (nebo schéma), do které má výhradní přistup.
+   \item [Sdílená databáze] – běžná jednoduchá strktura, kde každá mikroslužba může měnit veškerá data.
+\end{dl}
+
+Takové přístupy se liší ve způsobu ukládání a přístupu k datům.
+
+
+
+
+\section{Komplikace a řešení sdílené databáze}\label{sec:msa-db-issues}
+
+Speciální oblast tvoří operace prováděné nad databází bez sdíleného přístupu pro mikroslužby.
+Kromě logické separace datových zdrojů může docházet i k fyzickému rozdělení dat.
+U databází na principu \g{ACID} může při některých pořadavcích docházet k porušení izolace a je třeba zajistit konzistenci.
+Zároveň není možné pouze databázovými prostředky provádět agregaci dat mezi mikroslužbami.
+\TODO{Popis}
+
+\subsection{Agregace}\label{subsec:msa-db-aggregate}
+% Jako jeden z možných pořadavků v rámci \g{MSA} je agregace mezi schématy, což v rámci oddělených služeb znamená netriviální úkol.
+% Agregaci v tomto případě nemůžeme nechávat na databázi, protože může být fyzicky oddělena.
+
+\subsection{Integritní omezení}\label{subsec:msa-db-integrity}
+\subsection{Tranzakční zpracování - Saga}\label{subsec:msa-db-transaction}
+Sagy, neboli příběhy, zajištují tranzakční zpracování napříč databázemi.

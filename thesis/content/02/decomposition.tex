@@ -1,0 +1,70 @@
+\section{Dekompozice na \g{MSA}}\label{sec:msa-decomposition}
+
+Projekt, u něhož bylo rozhodnuto o \g{MSA}, vyžaduje, jako jeden z kroků před implementací, dekompozici zadání na oblasti, dle kterých budou následně vytvářeny jednotlivé služby.
+Stejně jako v případě myšlenky modelování světa, účastníky procesů budou subjekty a jejich rozhraní pro komunikaci, které v případě projektu lze vyčíst specifikace.
+
+Jinými slovy definování konkrétní architektury projektu se dá provádět postupně ve 3 fázích~\cite{msachris} \TODO{OR74} (vizualizace na obrázku~\ref{fig:msa-decomposition-flow}):
+
+
+\begin{ol}
+   \item Definování operací zpracovávaných serverem – na základě specifikace projektu, ve které jsou popsány požadavky očekávané od serverové části aplikace, formulujeme do konkrétních volání – získat, vytvořit, aktualizovat data.
+   \item Definování možných služeb – pro dekompozici na konkrétní služby existují dva základní přístupy – rozdělení dle subdomén a prozdělení dle obchodních potřeb~\cite{msachris}, oba přístupy budou stručně popsány v dalších podkapitolách.
+   Oba přístupy vychází z navrhnutých volání a přiřazuje je jednotlivým službám.
+   \item Definování propojení požadavků se službami a komunikace služeb mezi sebou – prohlubuje definovanou komunikaci mezi službami a vytváří konkrétní interní a externí spoje.
+\end{ol}
+
+
+\begin{figure}[htbp]
+   \centering
+   \includegraphics[max width=\textwidth]{assets/draft-decomposition-flow}
+   \caption{Tři kroky návrhu \g{MSA}}\label{fig:msa-decomposition-flow}
+\end{figure}
+
+
+V rámci rozdělování operací do konkrétních služeb (stejně jako návrh služeb) mohou pomoci i návrhové vzory týkající se vývoje samotného, jako jsou například:
+
+
+\begin{dl}
+   \item[Princip jedné odpovědnosti] – každá třída musí mít právě jeden důvod, proč se měnit~\cite{srp}.
+   V kontextu mikroslužeb se to rovněž vztahuje i na službu samotnou – musí se zabývat pouze jednou subdoménou řešeného problému.
+   \item[Vysoká soudržnost] – služba obashuje vše potřebné pro řešení oblasti, za níž je odpovědná~\cite{lchc}.
+   \item[Nízká provázanost] – služba může získávat informace z ostatních zdrojů, ale snížená provázanost ulehčuje vývoj~\cite{lchc}.
+\end{dl}
+
+
+Vzhledem k širokému rozsahu dostupných modifikací \g{MSA} je sem možné začlenit mnohem větší spektrum pravidel a doporučení, vždy záleží na aspektech konkrétního zadání.
+Některé z nich budou popsány v následujících kapitolách a mohou mít vliv na rozhodnutí spojená s dekompozicí vytvářené funkcionality.
+
+
+
+\subsection{Dekompozice dle obchodních potřeb}\label{subsec:msa-decomposition-business}
+Dekompozice oblastí dle obchodních potřeb je jednou ze dvou základních možností, jak dokompozici provádět~\cite{msachris}.
+Soutředí se na vazbě s architekturou společnosti, neboli něčem, co firmě přináší užitečnou hodnotu~\cite{decompbusiness}.
+Uvažujme případ, že o vytvoření \g{MSA} požádala firma, která zpracovává různé druhý objednávek - oblečení, potraviny, sportovní nářadí a spravuje interní pracovníky – stálé zaměstnance a příležitostnou výpomoc.
+Z takové struktury by mohlo vzniknout 5 služeb, které by spravovaly:
+
+
+\begin{ul}
+   \item objednávky oblečení,
+   \item objednávky potravin,
+   \item objednávky sportovního nářadí,
+   \item správu zaměstnanců,
+   \item správu výpomoci.
+\end{ul}
+
+
+
+\subsection{Dekompozice dle subdomén}\label{subsec:msa-decomposition-domain}
+Dekompozice z hlediska subdomény, která představuje druhý způsob rozdělení, na rozdíl od obchodních požadavků nevnímá architekturu společnosti jako zásadní, i když je nutná, a upřednostňuje logické rozdělování~\cite{decompsubdomain}.
+V případě stejného příkladu firmy by dekompozice dle subdomén mohla vypadat následovně:
+
+
+\begin{ul}
+   \item objednávky,
+   \item správa pracovníků.
+\end{ul}
+
+
+Takové služby už by nebyly specializované na konkrétním užití a tudíž by mohly být větší nároky na jejich schopnost se přizpůsobovat potřebám \g{IS}.
+
+Typ dekompozice nelze přesně stanovit, je třeba se dívat na všechny potřebné aspekty zkoumané domény a přizpůsobovat dané metody konkrétním situacím~\cite{msachris}.

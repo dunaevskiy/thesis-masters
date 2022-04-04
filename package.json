@@ -3,7 +3,14 @@
   "version": "1.0.0",
   "license": "UNLICENSED",
   "scripts": {
-    "b": "./build.sh",
-    "postinstall": "yarn b"
+    "b": "./_build.sh",
+    "w": "yarn watch",
+    "ws": "yarn watch-simple",
+    "postinstall": "yarn b",
+    "watch": "nodemon -e tex --watch thesis/content --exec ./_watch.sh",
+    "watch-simple": "nodemon -e tex --watch thesis/content --exec ./_watch-simple.sh"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }

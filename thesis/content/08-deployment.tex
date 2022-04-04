@@ -1,0 +1,75 @@
+\chapter{Kontejnerizace a nasazení}\label{ch:deployment}
+
+\chaptersummary{
+   \begin{ul}
+      \item klíčové aspekty kontejnerizace \g{IS},
+      \item možné zjednodušení nasazení instance s využitím \h{docker-compose}.
+   \end{ul}
+}
+
+Vzhledem ke komplexnější struktuře aplikace, je vhodné použít kontejnerizaci jednotlivých mikroslužeb a s tím vyřešit i část problémů týkajících se architektury.
+Pro kontejnizaci je na základě osobních zkušeností zvolen nástroj Docker, přinese několik výhod:
+
+\begin{dl}
+   \item[Čisté prostředí] – samostatné, nezávislé prostředí pro sestavování a spouštění služeb \g{IS}.
+   Procesy nebudou vázány na (nejspíš) modifikované prostředí vývojáře.
+   \item[Adresaci v samostatné síti] – v Docker existuje funcionalita pro nastavení síťového prostředí, která dovoluje jednotlivým Docker kontejnerůn vytvářet neveřejné síťové spojení, vytvářet vlastní aliasy a vystavovat pouze nutné porty~\cite{dockernetwork}.
+   \item[Integrace s Kubernetes] – Docker je kompatibilní s Kubernetes a v případě nutnosti nastavení vyvažování zátěže, případně pokročilejších možností nasazování, by neměl vzniknout problém s integrací~\cite{dockerkubernetes}.
+\end{dl}
+
+
+\newpage
+
+
+
+\section{Kontejnerizace}\label{sec:contenerization}
+
+Kontejnerizace je, jak již bylo zmíněno v analýze \g{MSA}, jistý způsob virtualizace.
+V případě technologie Docker se jedná o sestavení obrazu s aplikací (v případě daného \g{IS} jde o jednotlivé mikroslužby a klientskou aplikaci) s následnou tvorbou kontejnerů, neboli instancí obrazů.
+
+V rámci kontejnerizace implementovaných částí kontejnery lze rozdělit na tři základní typy:
+
+\begin{dl}
+   \item[Mikroslužby bez databázových migrací] – příkladem je authorizační mikroslužba, od startu aplikace se vyžaduje pouze sestavení produkčního balíčku a nastartování webového serveru.
+   \item[Mikroslužby s databázovými migracemi] – jedná se například o uživatelskou nebo projektovou mikroslužbu, kdy před každým naběhnutím serveru je třeba kontrolovat seznam migrací dodávaných s kontejnerem.
+   \item[Klientská služba] – obal pro Next.js aplikaci.
+\end{dl}
+
+První dva typy využívají podobnou strukturu \h{Dockerfile} souboru, který slouží pro tvorbu obrazu.
+Sestavování je rozděleno na dvě fáze - přípava a sestavení produkční aplikace, pro který se využívá první prostředí, a kopírování sestavených zdrojů z první fáze do nohého prostředí a nastavení počátečních příkazů pro spuštění.
+Rozdíl těchto typů je tvořen pouze rozšířením o kontrolu a provedení chybějích migrací před každým spuštěním kontejneru, cimž je zajištěno, že nenastane situace, kdy by \h{Node.js} apliakce produkovala výjimky spojené s nekompatibilitou \g{ORM} schémat a připojené databáze.
+
+Klientská apliakce takové fázování nutně nepotřebuje a vystačí si s jednodušší konfigurací.
+Samozřejmě, taková nastavení sestavení obrazů mohou být i dále zdokonalována z bezpečnostních a výkonnostních hledisek, pro běžné užití by však měly být dostatečně robustní.
+
+
+
+\newpage
+
+\section{Nasazení}\label{sec:deployment}
+I když jsou všechny mikroslužby a klientská čast aplikace plně kontejnerizovány, tak nasadit celý systém alespoň na lokální stroj je poněkud nákladné, protože kromě přístupových údajů bude nutné manuálně konfigurovat směrování aplikací dle \g{IP} adres, aby fungovaly potřebné komunikační kanály.
+
+Aktuálně tato konfigurace je uvedena v \h{.env} souborech všech služeb a vyžaduje opakované sestavování každé z nich.
+Pro ukázkové účely však tato rutina může být zjednodušena pomocí \h{docker-compose}.
+V souboru \h{docker-compose.prod.yml}, jenž je určen pro plynulejší nasazení celého systému, je řešeno:
+
+\begin{ul}
+   \item automatické sestavování všech kontejnerů při startu – není třeba zvlášt vytvářet Docker obrazy,
+   \item vytvoření interních sítí pro komunikaci (zvlášt serverové mikroslužby a zvlášt klientské apliakce) – v rámci sítě jesou jednotlivých služnám přiřazeny aliasy, tudíž \h{.env} souborech lze standardizovat přístupové adresy,
+   \item zabezpěčení přístupu k databázím z vnějších zdrojů – interní systémy jsou vystaveny pouze přes omezené cesty komunikace (v tomto případě pouze jednotný serverový port Gateway služby a klientská aplikace),
+\end{ul}
+
+Nedokonale je rovněž řešena posloupnost naběhnutí služeb.
+Dle povahy systému je nutné načtení nejdřív databází, následně mikroslužeb a v poslední řadě Gateway služby.
+Výchozí Docker nástroj \h{depends\_on}, jenž čeká na nastartování služby, nevystačí vzhledem k pomalejšímu startu samotných systémů v rámci kontejeru.
+Jedná se o známý problém a v oficiální dokumentace je rovněž uváděn způsob řešení s pomocí závislostí knihven třetích stran~\cite{dockerorder}.
+Taková implementace je ponechána pro další rozvoj, protože její existence není nutná.
+Manuální řízení naběhnutí služeb je popsáno v rámci dokumentace na přiloženém médiu.
+
+Ačkoliv tento problém s načítání existuje a vyžaduje manuální zásah, tak veškerý cyklus nasazení je zjednodušen na 3 kroky:
+
+\begin{ul}
+   \item spuštění skriptu pro tvorbu produkčních \h{.env} souborů,
+   \item manuální doplnění přístupových a bezpečnostních údajů (Github token, klíče apod.),
+   \item spuštění \h{docker-compose} příkazu.
+\end{ul}

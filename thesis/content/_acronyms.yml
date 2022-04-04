@@ -1,4 +1,7 @@
 MSA: microservices architecture
+MA: monolithic architecture
+SOA: service oriented architecture
+SA: serverless architecture
 MS: microservice
 IS: informační systém
 SSR: server side rendering
@@ -10,3 +13,26 @@ API: application programming interface
 GUI: graphical user interface
 ČVUT: České vysoké učení technické
 FIT: Fakulta informačních technologií
+FaaS: function as a service
+ESB: enterprise service bus
+UAT: user acceptance testing
+CSS: cascading style sheet
+AJAX: asynchronous javascript and xml
+JSON: javascript object notation
+XML: extended markup language
+HTML: hypertext markup language
+REST: representational state transfer
+ID: identity
+DOM: document object model
+JS: JavaScript
+ACID: atomicity, consistency, isolation, durability
+IDE: integrated development environment
+SQL: structured query language
+URI: uniform resource identifier
+HTTP: hypertext transfer protocol
+RPC: remote procedure call
+IoT: internet of things
+IP: internet protocol
+ORM: object relational mapping
+IIFE: immediately invoked function expression
+ES6: ECMAScript 6

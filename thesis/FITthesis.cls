@@ -132,6 +132,7 @@
                                               #1
    \end{otherlanguage}}{#1}}
    \@abstractcsdefinedtrue
+
 }
 
 \newif\if@abstractendefined
@@ -430,6 +431,7 @@
    \fi
 
    \vfil
+   \pagebreak
 
    \if@abstractendefined
    \chapterstyletitle{Abstract}\theabstracten

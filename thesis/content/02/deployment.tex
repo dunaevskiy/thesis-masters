@@ -1,9 +1,45 @@
 \section{Nasazování}\label{sec:msa-deployment}
 
+Nasazení mikroslužeb je jedna ze závěrečných fází vývoje systému, pokrývá široké spektrum možností – rozmístění produkčních balíčků na samostatných fyzických serverech, cloud-řešení, v klasterech, s vyvažováním zátěže, replikací apod.
+Daná podkapitola se bude věnovat pouze společným rysům – přípravě pro všechny typy nasazení – a kontejnerizací, jenž je vyžadována zadáním diplomové práce.
 
 
 \subsection{Správa zdrojového kódu}\label{subsec:msa-deployment-code}
-- Udržování zdrojových souborů jako monorepo / multirepo.
+
+Služba, případně mikroslužba, z hlediska chování byla v této práci definována jako samostatný, atomicky fungující celek.
+Toto se týká i existence spuštěné instance – musí být schopna existovat samostatně (alespoň z hlediska propojení s ostatními službami).
+Taková vlastnost má důležitý dopad na potřebné horizontální škálování a rozložení zátěže v nejvyužívanějších částech systému~\cite{monomulti}.
+
+I přes takové předpoklady samotnou správu zdrojového kódu je možné uspořádat jak do jednoho (monorepozitář) tak i více repozitářů (za předpokladu, že se využívá \g{VCS}).
+Oba přístupy mají své výhody a nevýhody.
+
+
+\begin{dl}
+   \item[Monorepozitář] – existence jednoho repozitáře, kde jednotlivé služby jsou umístěny do vlastních složek.
+
+   Výhody
+   \begin{ul}
+      \item
+   \end{ul}
+
+   Nevýhody
+   \begin{ul}
+      \item
+   \end{ul}
+
+   \item[Více repozitářů] – každá služba má vlastní repozitář, který je naprosto soběstačný.
+
+   Výhody
+   \begin{ul}
+      \item
+   \end{ul}
+
+   Nevýhody
+   \begin{ul}
+      \item
+   \end{ul}
+\end{dl}
+
 
 
 

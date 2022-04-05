@@ -1,21 +1,20 @@
 \section{Testování a automatizace}\label{sec:testing}
 
-Daná kapitola se věnuje problematice automatizace testování projektu napsaného v architektuře mikroslužeb s dodaným uživatelským webovým rozhraním.
-V rámci testování budeme uvažovat pouze následující kategorie:
+Problematika testování architektury mikroslužeb se v základu ničím neliší od testování jiných typů aplikací – existují určité typy, které je nutné vhodně aplikovat na poskytnuté zdroje.
+Některé typy testů mohou plně podléhat automatizaci, něco bude vyžadovat dodání doplňujících materiálů a něco je lepší testovat manuálně kvůli lepším výsledkům testů.
+V rámci testování \g{MSA} můžeme brát jako základ například následující kategorie:
 
 \begin{dl}
-   \item[Statické testování kódu] – testování kvality kódu, nevyžaduje runtime. \TODO{citovat},
-   \item[Jednotkové testování] – testování nejmenších částí implementace (funkce, třídy aj.),
-   \item[Integrační testování] – testování integrací v rámci jedné \g{MS} i mezi \g{MS},
-   \item[Funkční testování] – testování funkčnosti bez znalosti interní implementace~\cite{testtypes} dle testovacích scénářů,
+   \item[Statické testování kódu] – nevyžaduje běh aplikace, jde například o testování kvality kódu, stylizace apod.~\cite{statictest}.
+   V Node.js se o tuto část může starat \h{eslint} (pravidla psaní kódu) a \h{prettier} (formátování).
+   \item[Jednotkové testování] – testování nejmenších částí implementace (funkce, třídy aj.)~\cite{unitinttest}.
+   \item[Integrační testování] – testování integrací v systému~\cite{unitinttest}.
+   Vrámci mikroslužeb můžeme testovat integraci jak mezi nejmenšími jednotkami, tak i brát celou \g{MS} a testovat její integraci se zbytkem aplikace.
+   \item[Funkční testování] – testování funkčnosti bez znalosti interní implementace~\cite{testtypes}, například dle testovacích scénářů.
+   Zde se může jednat třeba o otestování jednotlivých rozhraní v rámci spuštěné aplikace, nebo navazující sekvenci takových volání.
    \item[Testování spolehlivosti] – testování způsobu chování v případech přetížení/výpadku a schopnost se obnovit po výpadku~\cite{testtypes2}.
+   \item[Testování zátěže] – testování výkonu aplikace s pomocí simulace aktivity v systému~\cite{loadtest}.
 \end{dl}
 
+Existují i další typy testů, jež se mohou provádět nad \g{MSA}, vždy je nutné volit to, co je pro vyvíjený systém potřebné.
 V ideálním případě je snaha mít každý automatizovaný typ testování automaticky spouštěný ve správnou chvíli během vývojového cyklu a nasazení sytému.
-V případě neexistence možnosti vytvořit automatizaci nebo automacké spouštění, bude potřebný typ testování
-Akceptovaným bude rovněž dokumentace s
-
-
-Existují i další typy testů, jež se mohou automatizovat – testy výkonu, bezpečnosti, kompatibility, přenositelnosti apod.
-V dané práci se jimi zabývat nebude.
-

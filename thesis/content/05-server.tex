@@ -112,7 +112,15 @@ Nevýhodou však je, že se tato šablona musí manuálně udržovat a jakoukoli
 
 \section{Správa dat a databáze}\label{sec:server-db}
 
-\TODO{Popis rozdeleni dle DB}
+Informační systém využívá pro uchovávání persistentních dat využívá dvou typů databází – \g{SQL} a NoSQL\@.
+MongoDB, jakožto zástupce NoSQL databáze, byla zvolena pro uchovávání logů, jenž mají datovou složku, která vystupuje jako dynamická část dokumentu.
+Vzhledem k pravděpodobnému budoucímu vyhledávání, případně indexaci části těchto dat, dané řešení je považováno za přiměřeně dobré.
+Pro ukládání struktně strukturovaných dat, byla zvolena PostgreSQL databáze s uplatněným vzorem využití jedné databáze (schématu) pro každou mikroslužbu zvlášt.
+Tuto volbu nejvíc ovlivnila potřeba tvorby další mikroslužby s migracemi, pokud by se použila jedna sdílená databáze.
+Jak se zjistilo později, tak i největší problém takto rozdělených datových zdrojů – konzistence při transakčním zpracování – mohl být díky vhodné zvolené struktuře dat eliminován.
+
+V důsledku takto zvoleného uspořádání každá mikroslužba se samostatně stará o data a strukturu vlastní části – v produkčním nasazení před spuštěním webového serveru kontroluje a případě aplikuje chybějící migrace, aniž by ovlivnila zbytek systému.
+Jakéloiv přistupování k datům je rovněž komunikováno pouze přes mikroslužbu, ke které data patří.
 
 
 

@@ -10,7 +10,7 @@ Služba, případně mikroslužba, z hlediska chování byla v této práci defi
 Toto se týká i existence spuštěné instance – musí být schopna existovat samostatně (alespoň z hlediska propojení s ostatními službami).
 Taková vlastnost má důležitý dopad na potřebné horizontální škálování a rozložení zátěže v nejvyužívanějších částech systému~\cite{monomulti}.
 
-I přes takové předpoklady samotnou správu zdrojového kódu je možné uspořádat jak do jednoho (monorepozitář) tak i více repozitářů (za předpokladu, že se využívá \g{VCS}).
+I přes takové předpoklady samotnou správu zdrojového kódu je možné uspořádat jak do jednoho (monorepozitář) tak i více repozitářů (za předpokladu, že se využívá \g{VCS} git).
 Oba přístupy mají své výhody a nevýhody.
 
 
@@ -19,32 +19,64 @@ Oba přístupy mají své výhody a nevýhody.
 
    Výhody
    \begin{ul}
-      \item
+      \item Celý produkt je uchováván na jednom místě - pro tým to může znamenat lepší podmínky pro testování a vývoj, jelikož mají dostupné všechny vyvíjené častí všemi týmy~\cite{monomulti}.
+      \item V případě refaktorování nebo testování systému je možné vše provádět na jednom místě~\cite{monomulti}.
+      \item Vývojové prostředí je možné nastavit tak, že všechny služby budou sdílet stejnou konfiguraci (kontrola kvality kódu, formátování a další)~\cite{monomulti}.
    \end{ul}
 
    Nevýhody
    \begin{ul}
-      \item
+      \item Obrovské množeství služeb v jednom repozitáři může znepřehlednit vývoj – git historie se týká nejen jednoho produktu, ale všech – tagy a větve budou sdílené pro všechny služby.
+      \item Existence možného zásahu do zdrojovýho kódu služeb vývojáři, jež pro to nemají formální oprávnění~\cite{monomulti}.
    \end{ul}
 
    \item[Více repozitářů] – každá služba má vlastní repozitář, který je naprosto soběstačný.
 
    Výhody
    \begin{ul}
-      \item
+      \item Přesné rozdělení vývojových částí a přístupů mezi jednotlivými vývojovými týmy~\cite{monomulti}.
+      \item Přehledná git historie pro každou službu včetně tagů.
+
    \end{ul}
 
    Nevýhody
    \begin{ul}
-      \item
+      \item Absence jednoduchého spuštění všech částí projektu~\cite{monomulti}.
+      \item V případě existence sdílených zdrojových kódů, je nutné tuto situaci řešit jinými způsoby, než extraci do sdíleného prostoru nadsložek.
    \end{ul}
 \end{dl}
 
+
+Ze subjektivní zkušenosti je do tohoto přehledu možné přidat ještě jeden způsob vedení projektu.
+Spočívá v kombinaci obou přístupů s využitím \h{git submodules}.
+V takovém případě struktura projektu je oraganizována následovně:
+
+\begin{ul}
+   \item Každá služba má svůj vlastní repozitář a jejich vývoj je nezávislý.
+   \item Existuje jeden repozitář, který importuje všechny služby jako git submoduly a přidává vhodnou konfiguraci vně submodulů (například \h{docker-compose}, testy apod.).
+\end{ul}
+
+Takový přístup přináší některé výhody monorepozitáře, ale přístup k jednotlivým službám je samostatný a může být omezován právy pro každý repozitář.
+Tzn.
+v případě snahy o jednotnou statickou analýzu kódu (či obdobné záležitosti) je možné přesunou konfigurace ze všech repozitářů mikroslužeb do společného repozitáře se submoduly a odkázat původní konfigurace a konfiguraci v nadsložce.
+Tímto zásahem se ale znemožní separátní vývoj a bude potřeba vždy stahovat hlavní repozitář a z toho submodul, nad kterým se má provádět vývoj.
 
 
 
 \subsection{Kontejnerizace}\label{subsec:msa-deployment-containerization}
 Kontejnerizace je jistý způsob virtualizace za použitím menšího množství systémových zdrojů, než u plnohodnotné virtualizace~\cite{kontejnerizace}.
+Základní myšlenka spočívá v přípavě soběstačného balíčku (obrazu) s programem, který by se dal spouštět jednoduchým vytvářením nové instance (kontejneru) v jakémkoliv prostředí, které poskytuje dostatečné základní rozhraní~\cite{dockercontainer}.
 
+V případě JavaScript aplikací založených na Node.js prostředí a využitím služby Docker se bude jednat o následující proces:
 
-At už se jedná o jakýkoliv způsob nasazování mikroservistní architektury, tak je důležité poskytovat i vhodně detailní dokumentaci, zejména diagramy komunikace závislostí mikroslužeb.
+\begin{dl}
+   \item [Stažení výchozího prostředí] – obraz prostředí, ze kterého bude mikroslužba vycházet, v tomto případě \h{node}.
+   \item [Přidání npm/yarn závislostí] – do obrazu jsou staženy všechny vnější závislosti.
+   \item [Přidání a sestavení samotného projektu] - do obrazu jsou přidány zdrojové soubory samotného programu a spuštěno sestavení.
+   \item [Otevření potřebných komunikačních kanálů] - mikroslužba komunikuje na vlastním, předem určeném portu.
+   Po vytvoření instance tento port musí být otevřen pro komunikaci s kontejnerem.
+   \item [Definování příkazu pro spuštění] – definice sekvence příkazů, které během vytvoření kontejneru připraví a spuští příkaz pro start webového serveru.
+\end{dl}
+
+Takto se musí připravit každá služba v rámci systému.
+Spuštění celého projektu následně může být řízeno \h{docker-compose}, který kromě potřebých mikroslužeb ještě poskytne databáze a další potřebné programy třetích strav.

@@ -92,6 +92,23 @@ Samozřejmě může docházet i k prolínání takových řešení – napříkl
 
 
 
+\subsection{API Gateway}\label{subsec:api-gateway}
+
+Na rozdíl od monolitické architektury, kde je veškeré rozhraní poskytováno v rámci jednoho portu, \g{MSA} vzhledem ke své struktuře vystavuje několik přístupových bodů (jeden port pro každou mikroslužbu).
+V takovém případě může vzniknout problém s konflikty – využití 1 portu několika službami, nebo nepohodlné volání rozhraní, kdy pro každou službu bude třeba doplňovat konkrétní port a celá aplikace již nebude působit jako celek.
+Další problém nastane v případě dynamické volby portů v rámci infrastruktury nebo potřebě dočasně znemožnit uživatelům volat určité části rozhraní~\cite{gateway}.
+
+Taková situace se může řešit s pomocí API Gateway vzoru~\cite{gateway}, viz obrázek~\nameref{fig:msa-gateway}, kdy se vytváří jistý typ proxy prvku, který vystupuje pod jednim portem a veškeré požadavky třídí a směruje na jednotlivé služby dle určitých příznaků.
+
+
+\begin{figure}[htbp]
+   \centering
+   \includegraphics[max width=\textwidth]{assets/gateway}
+   \caption{Architektura s API Gateway}\label{fig:msa-gateway}
+\end{figure}
+
+
+
 \section{Udržování závislostí}\label{sec:msa-dependencies}
 
 V průběhu života systému a dodávaných řešení s \g{MSA} je pravděpodobné, že vlivem měnících se podmínek bude docházet i ke změnám potřeb poskytovaných rozhraní.

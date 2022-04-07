@@ -37,3 +37,5 @@ ORM: object relational mapping
 IIFE: immediately invoked function expression
 ES6: ECMAScript 6
 TS: TypeScript
+CRUD: create, read, update, delete
+UUID: universally unique identifier

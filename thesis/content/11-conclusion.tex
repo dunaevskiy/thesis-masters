@@ -1,6 +1,27 @@
-Na základě získaných znalostí a zkušeností nelze říct, že nějaká z architektur je lepší, nebo horší, než ostatní.
-Každá má svůj účel a svoje potřeby, může být různě kongurována a upravována dle situací, ve kterých se nechází.
+Tato diplomová práce byla věnována analýze architektury mikrozlužeb a návrhu realizace přechodu existujícího prototypu informačního systému pro správu projektů z monolitické architektury na architekturu mikroslužeb.
+V souladu se zadáním bylo stanovenu několik cílů, z nichž všechny byly úspěšně dokončeny.
 
-\g{MSA} najde svoje uplatnění zejména v extrémě komplexních, nebo extrémě nerovnoměrně zatížených systémech.
-Uplatnění \g{MSA} v této práci pro implementaci informačního systému nebyla vhodná z hlediska rozsahu práce.
-Systém nebyl dostatečně komplexní a jeho vytížení nebylo předem známo.
+V rámci práce na základě existujících podkladů byla nejdřív provedena analýza poskytovaného systému.
+Výstupem této činnosti se stal seznam negativních a pozitivních skutečností, který spolu s aktualizovanou rešerší fakultních systémů se stal předlohou pro novou specifikaci projektu.
+Následně proběhla analýza architektury mikroslužeb, jenž byla vzhledem k obrovskému rozsahu a nejednoznačným přístupům zredukována na potřebné minimum pro vytvoření nového prototypu.
+Samostatná kapitola byla věnována využití databází a transakčnímu zpracování v případě oddělených částí relačních databází.
+
+S využitím všech získaných znalostí byl navržen a realizován přechod serverové a klientské části aplikace na architekturu mikroslužeb.
+Nejvíc přínosné nebo implementačně zajímavé aspekty byly popsány v rámci kapitol věnujících se vývoji aplikace.
+Serverová část byla rozdělena na mikroslužby s choreografií, propojena s Github, který nahradil dřívější MongoDB, a plně kontejnerizována s pomocí Docker.
+Kromě databází pro ukládání persistentních dat se začal využívat broker zpráv RabbitMQ\@.
+Klientská část byla rovněž kontejnerizována a začala pouzívat novou funkcionalitu pro vykreslování částí projektů s pomocí vnějších React komponent distibuovaných v podobě \g{ES6} modulů.
+
+Manuální testování bylo do určité míry nahrazeno automatizovaným.
+Statická analýza kódu a jednotkové testy se staly součástí životního cyklu vývoje aplikace a automaticky se spouštějí v potřebných chvílích.
+Funkčně-integrační testy je třeba pouštět manuálně, byly definovány v samostatném repozitáři a automaticky testují poskytované rozhraní z hlediska přístupových práv a typických testovacích scénářů.
+
+Pro výsledný stav informačního systému byl na konec definován možný budoucí rozvoj a sepsána vývojářská dokumentace.
+Celý výsledek byl porovnán s původním řešením – změna byla přínosná z hlediska architektury, přinesla však zvýšené náklady pro vývoj, což pro tak malý projekt nemusí být výhodné.
+
+Zdrojové kody všech částí \g{IS} byly zveřejněny na Github serveru.
+Spolu s dodatečnými materiály se rovněž nachází na přiloženém médiu.
+Projekt, jako celek, není v dokončené fázi a o rozvoji jeho současného stavu se bude uvažovat i bez akademických cílů.
+
+Architektura mikroslužeb má svůj účel a využití v rámci vývoje systémů, je intuitivnější, než některé jiné architektury, ale její realizace je komplikovanější, než se na první pohled zdá.
+Může najít svoje uplatnění v komplexních strukturách a systémech s potřebou parciálního škálování.

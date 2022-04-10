@@ -2,34 +2,41 @@
 
 \chaptersummary{
    \begin{ul}
-      \item zhodnocení výhody přechodu \g{MA} na \g{MSA},
-      \item seznam subjektivních tvrzení a rad o vývoji mikroslužeb.
+      \item zhodnocení výhody přechodu z \g{MA} na \g{MSA},
+      \item seznam zásadních změn ve srování se starou implementací \g{IS}.
    \end{ul}
 }
 
-Informační systém pro správu projektů byl úspěšně zmigrovaný na architekturu mikroslužeb.
+Informační systém pro správu projektů byl úspěšně převeden na architekturu mikroslužeb.
 Tento přechod jednoznačně přispěl k systematizaci celého systému a začal se vnímat jako mnohem uspořádanější, než v monolitické architektuře.
 Jsou vidět striktně vymezené hranice a chování, systém je mnohem ohebnější z hlediska implementace a rozvojových možností.
 Mikroslužby však výrazně snížily rychost vývoje a prodloužily fázi potřebné analýzy.
 Bylo nutné řešit víc problémů, se kterými se u monolitické architektury člověk nesetká – zejména infrastrukturní komunikaci a rozdělení \g{API} mezi různými službami.
-Nepomáhala tomu ani nepřesnost architektury jako takové.
-To vše mělo za následek zmenšení oblastni dodávané funkcionality, oproti původnímu, monolitickému řešení, i když času, věnovaného implementaci, bylo řádově víc.
+Nepomáhala tomu ani rozmanitost možností návrhu architektury jako takové.
+To vše mělo za následek zmenšení rozsahu dodávané funkcionality, oproti původnímu, monolitickému řešení, i když času, věnovaného implementaci, bylo řádově více.
 
 Realizace \g{IS} v architektuře mikroslužeb byla, dle subjektivního hlediska, obecně přínosná, avšak ne dokonalá.
-Je možné, že jiný typ dekompozice v tomto případě by mohl zredukovat potřebné prostředky pro realizaci a ušetřit čas.
+Je možné, že jiný typ dekompozice a volby komunikace v tomto případě by mohl zredukovat potřebné prostředky pro realizaci a ušetřit čas.
+Prozkoumat všechny kombinace v rámci této diplomové bohužel nebylo uskutečnitelné.
 
+\newpage
 
-V následujícím přehledu se uvádí seznam subjektivních tvrzení, na které se přišlo po prozkoumání \g{MSA} a dokončení migrace \g{IS}:
+V následujícím přehledu se uvádí seznam zásadních změn, které nastaly ve srovnání se starou implementací:
 
 \begin{ul}
-   \item Existuje intuitivní chápání návrhu \g{MSA}, ale ve srovnání s \g{MA} potřebuje více času a více prostředků.
-   \item \g{MSA} je vhodné pro mnohonásobně složitější systémy, kde by výhoda mohla být vidět v pozdějích vývojářských fázích.
-   \item \g{MSA} se nejspíš nehodí pro vývoj v menším vývojářském týmu.
-   \item Klietská realizace mikroslužeb je špatně dosažitelná a méně prozkoumaná.
-   \item Testování mikroslužeb v jednoduchých případech se ničím neliší od testování \g{MA}, avšak v těch komplexnějších vyžaduje další čas a prostředky.
-   \item Existující mikroslužby jsou pohodlně použitelné na více projektech, aniž by musely být pozměněny.
-   \item Je výhodné rozdělovat specifikaci dle mikroslužeb tak, aby se nemusely řešit transakce napříč systémy.
-   \item Mikroslužby budou mezi sebou sdílet společnou část impelmentace, je třeba rozumně vyřešit způsob tohoto sdílení před samotným vývojem.
+   \item Původní \g{MA} architektura potřebovala mnohem méně časů a prostředků pro vývoj.
+   To se nejspíš bude projevovat i v pozdějším rozvoji.
+   \item Vnímání fungování nové serverové architektury je víc intuitivní, než u předchozí.
+   Přispěla tomu zejména dekompozice.
+   \item Mikroslužby z tohoto systému lze ještě víc zobecnit a používat v jiných projektech.
+   V případě monolitu by taková možnost neexistovala.
+   \item Zhoršila se organizace vývoje pro menší počet vývojářů.
+   Správa několika mikroslužeb jednim člověkem je méně přehledná, než správa monolitu.
+   \item Kvůli zvolené struktuře začalo docházet ke kontrolované duplicitě kódu mezi repozitáři.
+   \item Nový způsob implementace interpretů obsahů v klientské části přinesl jednodušší vývoj a pohodlnější prostředí, i když zatím omezil technologii pouze na React.
+   \item Původní systém obsahoval víc funkcionality s menším důrazem na přehlednost architektury, novější prioritizuje architekturu a aktuálně zaostává ve funkcionalitě.
+   \item Testování v nové realizaci je automatizováno a vyžaduje méně manuálních zásahů.
+   \item Došlo k úplné kontejnerizaci systému.
 \end{ul}
 
 

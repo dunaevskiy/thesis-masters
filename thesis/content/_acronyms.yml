@@ -39,3 +39,4 @@ ES6: ECMAScript 6
 TS: TypeScript
 CRUD: create, read, update, delete
 UUID: universally unique identifier
+CQRS: command query responsibility segregation

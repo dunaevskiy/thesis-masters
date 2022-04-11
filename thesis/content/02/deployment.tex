@@ -17,14 +17,14 @@ Oba přístupy mají své výhody a nevýhody.
 \begin{dl}
    \item[Monorepozitář] – existence jednoho repozitáře, kde jednotlivé služby jsou umístěny do vlastních složek.
 
-   Výhody
+   \textbf{Výhody}
    \begin{ul}
       \item Celý produkt je uchováván na jednom místě - pro tým to může znamenat lepší podmínky pro testování a vývoj, jelikož mají dostupné všechny vyvíjené častí všemi týmy~\cite{monomulti}.
       \item V případě refaktorování nebo testování systému je možné vše provádět na jednom místě~\cite{monomulti}.
       \item Vývojové prostředí je možné nastavit tak, že všechny služby budou sdílet stejnou konfiguraci (kontrola kvality kódu, formátování a další)~\cite{monomulti}.
    \end{ul}
 
-   Nevýhody
+   \textbf{Nevýhody}
    \begin{ul}
       \item Obrovské množeství služeb v jednom repozitáři může znepřehlednit vývoj – git historie se týká nejen jednoho produktu, ale všech – tagy a větve budou sdílené pro všechny služby.
       \item Existence možného zásahu do zdrojovýho kódu služeb vývojáři, jež pro to nemají formální oprávnění~\cite{monomulti}.
@@ -32,14 +32,13 @@ Oba přístupy mají své výhody a nevýhody.
 
    \item[Více repozitářů] – každá služba má vlastní repozitář, který je naprosto soběstačný.
 
-   Výhody
+   \textbf{Výhody}
    \begin{ul}
       \item Přesné rozdělení vývojových částí a přístupů mezi jednotlivými vývojovými týmy~\cite{monomulti}.
       \item Přehledná git historie pro každou službu včetně tagů.
-
    \end{ul}
 
-   Nevýhody
+   \textbf{Nevýhody}
    \begin{ul}
       \item Absence jednoduchého spuštění všech částí projektu~\cite{monomulti}.
       \item V případě existence sdílených zdrojových kódů, je nutné tuto situaci řešit jinými způsoby, než extraci do sdíleného prostoru nadsložek.

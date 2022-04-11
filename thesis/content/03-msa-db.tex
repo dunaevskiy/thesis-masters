@@ -127,14 +127,29 @@ Samozřejmě je nutné zajistit eventuální konzistenci takové databáze, aby 
 
 
 \section{Transakční zpracování zápisů}\label{sec:msa-db-transaction}
-
-U databází na principu \g{ACID} může při některých požadavcích docházet k porušení izolace a je třeba manuálně kontrolovat taková data.
-Sagy, neboli příběhy, zajištují transakční zpracování napříč databázemi.
-
-
-
-\subsection{Koordinace ságy choreografie}\label{subsec:msa-db-transaction-coordinate-choreography}
+V relačních databázích jsou transakce chápány jako logické celky pro čtení nebo zápis informací, které dodržují \g{ACID} vlastnosti~\cite{dbtransactions}.
+Pokud existuje víc datových zdrojů a je třeba provést požadavek na zápis, jenž musí ovlivnit data v několika databázích, tak nastává problém neizolovanosti zápisu~\cite{msachris}.
+Během zpracování požadavku každá mikroslužba na základě komunikace dostane příkaz o zápisu a provede je v souladu s \g{ACID}, pokud však alespoň jedna z dílčích částí nebude úspěšná, tak \h{ROLLBACK} transakce bude uskutečněn pouze v chybné.
 
 
+Takové situace se mohou řešit například s pomocí ditribuovaných transakcí, nebo návrhového vzoru \h{sága}\footnote{Anglicky též \enquote{saga}}~\cite{msachris}.
 
-\subsection{Koordinace ságy orchestrace}\label{subsec:msa-db-transaction-coordinate-orchestration}
+Distribuované transakce (DT) jsou metodou, která propojuje víc datových zdrojů (v tomto případě databází), zpravidla stejného typu, a během zpracování transakce zajištuje \g{ACID} zápis napříč databázemi~\cite{distributedtransactions}.
+Dá se říct, že DT odstraňuje jedné transakci omezení z hlediska počtu databází prostřednicvím vhodné konfigurace~\cite{distributedtransactionsintegration}.
+
+Sága je realizována na straně serverové aplikace, jedná se o kontrolovanou sekvenci souštění lokálních transakcí.
+Každá dílčí transakce po svém provedení posílá zprávu nebo vyvolává událost, jež spouští další transakci dle určeného pořadí.
+Pokud jedna z lokálních transakcí skončí chybou, pak obdobným způsobem se spouští sekvence zpětných transakcí všech předchozích úprav~\cite{saga}.
+Tímto je docílena chybějící izolace napříč databázemi.
+Příklad takové struktury lze vidět na obrázku~\ref{fig:saga}.
+
+
+
+\begin{figure}[htbp]
+   \centering
+   \includegraphics[max width=\textwidth]{assets/saga}
+   \caption{Koncept transakčního zpracování v ságách}\label{fig:saga}
+\end{figure}
+
+%\subsection{Sága – choreografie}\label{subsec:msa-db-transaction-saga-choreography}
+%\subsection{Sága – orchestrace}\label{subsec:msa-db-transaction-saga-orchestration}

@@ -40,13 +40,13 @@ Sdílená databáze poskytuje všechna svoje úložiště všem mikroslužbám, 
    \caption{Architektura sdílené databáze}\label{fig:db-shared}
 \end{figure}
 
-Výhody
+\textbf{Výhody}
 \begin{ul}
    \item Typické použití \g{ACID} pro provádění transakcí~\cite{shareddb}.
    \item Správa jedné databáze je jednodušší~\cite{shareddb}.
 \end{ul}
 
-Nevýhody
+\textbf{Nevýhody}
 \begin{ul}
    \item Databázové migrace se netýkají pouze jedné mikroslužby, ale všech zároveň, musí se vyčlenit místo pro jejich uchovávání.
    \item V případě jakékoliv změny struktury databáze je třeba změnit a otestovat všechny mikroslužby~\cite{shareddb}.
@@ -67,13 +67,13 @@ V případě vyčlenění jednoho schématu, či celé databáze pro každou mik
 
 
 
-Výhody
+\textbf{Výhody}
 \begin{ul}
    \item Zmenšení provázanosti mikroslužeb a dat, jež jsou využívány – lepší správa migrací a jiných změn~\cite{dbperservice}.
    \item Lepší možnosti škálování a volby databáze – mikroslužbě je možné poskytnout takové prostředí, které bude nejvhodnější~\cite{dbperservice}.
 \end{ul}
 
-Nevýhody
+\textbf{Nevýhody}
 \begin{ul}
    \item Problém se spojováním dat z více úložiští – nelze například provádět \h{JOIN}, párovat dle cizího klíče s kontrolou integritního omezení~\cite{dbperservice}.
    \item Problém s transakčním zpracováním – transakční operace nad několika databázemi nelze jednoduše provádět a je lepší se jim úplně vyhýbat~\cite{dbperservice}.
@@ -93,10 +93,36 @@ Spojení v tomto případě nemůžeme nechávat na databázi, situace se může
 
 \subsection{API kompozice}\label{subsec:msa-db-aggregate-api}
 
-Nejjednodušší řešení spojení dat – zpracování v paměti na straně aplikace.
+API kompozice je řešení bez využití dodatečných systémů.
+Spočívá v logickém rozdělení původního dotazu na parciální dle jednotlivých mikroslužeb a následným provedení například simulace \h{JOIN} operace v aplikaci (v paměti)~\cite{apicomposition}.
+Schématicky je tato operace znázorněna na obrázku~\ref{fig:api-composition}.
+Samozřejmě takové řešení může přinést větší nároky na paměť v případě pracování obrovských datových celků.
+
+
+\begin{figure}[htbp]
+   \centering
+   \includegraphics[max width=\textwidth]{assets/api-composition}
+   \caption{Schéma vzoru API kompozice}\label{fig:api-composition}
+\end{figure}
+
 
 
 \subsection{CQRS}\label{subsec:msa-db-aggregate-cqrs}
+
+\g{CQRS} vzor může soužit jako řešení s nedostatkem pamětí, případně výkonu, které vzniká operováním s daty v aplikaci.
+Absence možnosti spojení je tu řešena dodatečnou, eventuálně konzistentní databází~\cite{msachris}, viz obrázek~\ref{fig:cqrs}.
+Slouží jako zdroj dat pro čtení, který obsahuje kopie databázový pohled na strukturu dat potřebou pro provední klientského dotazu.
+Existující relační databáze fungují jako persistentní úložiště pro zápis, uchovávají si informace a posílají potřebnou kopii dat do databáze pro čtení~\cite{cqrs}.
+Takovým způsobem se vytváří databáze, která obsahuje minimální potřebné množeství informací například pro operaci \h{JOIN} bez nutnosti přístupu s databázím mikroslužeb.
+Samozřejmě je nutné zajistit eventuální konzistenci takové databáze, aby nedocházelo ke ztrátě dat~\cite{cqrs}.
+
+
+
+\begin{figure}[htbp]
+   \centering
+   \includegraphics[max width=\textwidth]{assets/cqrs}
+   \caption{Zjednodušený model CQRS vzoru}\label{fig:cqrs}
+\end{figure}
 
 
 

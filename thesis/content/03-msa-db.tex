@@ -93,6 +93,7 @@ Spojení v tomto případě nemůžeme nechávat na databázi, situace se může
 
 \subsection{API kompozice}\label{subsec:msa-db-aggregate-api}
 
+Nejjednodušší řešení spojení dat – zpracování v paměti na straně aplikace.
 
 
 \subsection{CQRS}\label{subsec:msa-db-aggregate-cqrs}
@@ -101,8 +102,7 @@ Spojení v tomto případě nemůžeme nechávat na databázi, situace se může
 
 \section{Transakční zpracování zápisů}\label{sec:msa-db-transaction}
 
-U databází na principu \g{ACID} může při některých pořadavcích docházet k porušení izolace a je třeba zajistit konzistenci.
-Informace o ságách a využití.
+U databází na principu \g{ACID} může při některých požadavcích docházet k porušení izolace a je třeba manuálně kontrolovat taková data.
 Sagy, neboli příběhy, zajištují transakční zpracování napříč databázemi.
 
 

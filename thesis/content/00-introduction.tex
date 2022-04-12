@@ -23,13 +23,13 @@ Jako příklad takové struktury může být \g{IS} pro správu projektů v akad
 
 \section{Cíl práce}\label{sec:cil-prace}
 Cílem této diplomové práce je primárně průzkum \g{MSA} se subjektivní úvahou o různých přístupech, technikách a myšlenkách týkajících se daného tématu.
-Samostatné části budou věnovány zpracováním databázových transakcí u serverové části a mikroslužbám straně klienta.
+Samostatné části budou věnovány zpracováním databázových transakcí u serverové části a rozdělení klientské webové aplikace na menší, samostatné celky.
 
 Nabyté znalosti se uplatní v praxi ve formě \g{IS} pro správu projektů, který byl navržen a implementován jako prototyp monolitické architektury v bakalářské práci \uv{Informační systém pro správu studijních projektů}~\cite{bachelorthesis}.
-I když tento systém bude brán jako stěžejní pro uplatnění znalostí o architektuře a bude uskutečněn přechod z monolitické architektury na architekturu mikroslužeb, tak za cíl není kladeno tento projekt výrazně zlepšit z uživatelského hlediska nebo uvést do provozu v době dokončení diplomové práce.
+I když tento systém bude brán jako stěžejní pro uplatnění znalostí o architektuře a bude uskutečněn přechod z monolitické architektury na architekturu mikroslužeb, tak za cíl není kladeno projekt výrazně zlepšit z uživatelského hlediska nebo uvést do provozu v době dokončení diplomové práce.
 Postupovat se bude inkrementálně – nejdřív se implementuje nejdůležitější, nezbytná osnova a zbylá funkcionalita bude dokončena dle časových možností, případně uvedena v seznamu pro další rozvoj.
 
-Větší část analýzy a specifikace uvedené v bakalářské práci~\cite{bachelorthesis} bude převzata, některé aspekty však budou explicitně zaktualizovány a popsány v kapitolách \hyperref[ch:analysis]{Analýza předchozí práce} a \hyperref[ch:specification]{Specifikace}, protože mohou způsobovat nevhodný dopad – bezpečnost, nevyhovující funkcionalita apod.
+Větší část analýzy a specifikace uvedené v bakalářské práci~\cite{bachelorthesis} bude převzata, některé aspekty však budou explicitně zaktualizovány a popsány v kapitolách \enquote{\nameref{ch:analysis}} a \enquote{\nameref{ch:spec}}, protože mohou způsobovat nevhodný dopad – bezpečnost, nevyhovující funkcionalita apod.
 
 Konečným výstupem bude především popis subjektivně prozkoumané oblasti \g{MSA} sloužící jako rychlý přehled architektury mikroslužeb s případnými dodatečnými materiály, zrefaktorovaná verze \g{IS}, jež je převedena z monolitické architektury na architekturu mikroslužeb, a dodaná příručka vývojáře.
 V rámci implementace bude zdokonaleno testování a nasazování výsledné služby.
@@ -53,7 +53,7 @@ V rámci implementace bude zdokonaleno testování a nasazování výsledné slu
 
 \textbf{Kapitola 6} obdobně, jako v případě předchozí kapitoly, obsahuje analýzu a implementaci klientské části aplikace.
 
-\textbf{Kapitola 7} se věnuje popisu zlepšeného testování obou částí \g{IS}.
+\textbf{Kapitola 7} se věnuje popisu zvloleného testování obou částí \g{IS} a popisu automatizace.
 
 \textbf{Kapitola 8} se zabývá kontejnerizací a nasazováním \g{IS}.
 
@@ -61,6 +61,6 @@ V rámci implementace bude zdokonaleno testování a nasazování výsledné slu
 
 \textbf{Kapitola 10} porovnává původní monolitický prototyp s novou realizací systému a uvádí přínosy a nevýhody přechodu.
 
-V závěrečné kapitole je zhodnocen výsledek a dosažení předem stanovených cílů a splnění zadání diplomové práce.
+V závěrečné kapitole je zhodnocen výsledek, dosažení předem stanovených cílů a splnění zadání diplomové práce.
 
 V přílohách a na přiloženém médiu jsou uvedeny zdrojové kódy všech částí \g{IS}, dokumentace pro vývojáře a jiné dodatečné materiály.

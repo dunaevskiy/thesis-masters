@@ -1,4 +1,4 @@
-\section{Komunikace \g{MS}}\label{sec:msa-communication}
+\section{Komunikace MS}\label{sec:msa-communication}
 
 Mikroslužby jsou definované jako vždy oddělené z hlediska procesů a pro komunikaci s jinými službami nebo externími systémy musí udržovat kompatibilní \g{API} vůči jejich rozhraní a prostředí.
 U takové komunikace můžeme zkoumat typ, technologii a hierarchii/strukturu, jež se řídí požadavkami na systém.
@@ -87,7 +87,7 @@ Samozřejmě může docházet i k prolínání takových řešení – napříkl
 \begin{figure}[htbp]
    \centering
    \includegraphics[max width=\textwidth]{assets/draft-msa-communication}
-   \caption{Orchestrace a choreografie \g{MS}}\label{fig:msa-structure-communication}
+   \caption{Orchestrace a choreografie MS}\label{fig:msa-structure-communication}
 \end{figure}
 
 
@@ -134,7 +134,7 @@ V případě udržování víc verzí jednoho rozhraní mohou vznikat zbytečné
 
 
 
-\subsection{Verzování v hlavičkách \g{HTTP}}\label{subsec:msa-dependencies-headers}
+\subsection{Verzování v hlavičkách HTTP}\label{subsec:msa-dependencies-headers}
 
 Velice obdobný způsob, jako je verzování v \g{URI}, přináší verzování v \g{HTTP} hlavičnách.
 Hlavním přínosem je neměnný \g{URI} pro provolávání ze strany klienta~\cite{msversions}.
@@ -143,7 +143,7 @@ Poskytovaná verze může být využívána například v logování.
 
 
 
-\subsection{Sémantické verzování \g{MS}}\label{subsec:msa-dependencies-msa}
+\subsection{Sémantické verzování MS}\label{subsec:msa-dependencies-msa}
 Místo jednotlivých částí \g{API} je možné verzovat a hlídat samotné mikroslužby.
 Výrazně se tím zkomplikuje možnost udržování několika poskytovaných rozhraní, protože každá verze bude vyžadovat vlastní adresu v rámci systému.
 Na druhou stranu je možné u každé služby definovat seznam závislostí, který by se poskytoval v rámci obecného dotazu ohledně stavu služby.
@@ -157,10 +157,10 @@ V případě existence konceptu registrace mikroslužby v systému by bylo možn
 
 
 
-\subsection{Kalendářní verzování \g{MS}}\label{subsec:msa-dependencies-calendar}
+\subsection{Kalendářní verzování MS}\label{subsec:msa-dependencies-calendar}
 
 Velice podobné sémantickému verzování zdrojů, neexituje přesně definovaný formát, ale může se to vyplatit u pravidelně vydávaných aplikací (například na týdenní bázi).
 Využívá značky s uváděním roku, měsíce, dne a případně i času sestavení.
-V takových případech je vidět zaostávání nasazování služeb (napíklad kvůli chybám ve funkcionalitě) a je možné na to patřičně reagovat.~\cite{msversions}
+V takových případech je vidět zaostávání nasazování služeb (napíklad kvůli chybám ve funkcionalitě) a je možné na to patřičně reagovat~\cite{msversions}.
 
 \newpage

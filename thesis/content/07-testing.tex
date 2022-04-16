@@ -41,5 +41,12 @@ Na základě vybraných testů mohly být plně zautomatizovány pouze statická
 Kontrola kvality je integrována s pomocí \h{git hooks} a spouští se během každé tvorby \h{commit} prvku.
 Jednotkové testy jsou řešeny obdobně, ale spouštění je prováděno až při každé \h{git push} akci na server.
 
-Funkční testování je v dáno v podobě samostného repozitáře a vzhledem k vazbě na celý systém a potřebě fungování všech částí, je lepší to z automatizace vynechat.
+Funkční testování je v dáno v podobě samostného repozitáře a vzhledem k vazbě na celý systém a potřebě fungování všech částí, je lepší to z úplné automatizace vynechat.
+Implementované testy pokryvaji dokončenou funkcionalitu systému, část výsledku automatizového testování je vidět na obrázku~\ref{fig:int-test}.
 
+
+\begin{figure}[htbp]
+   \centering
+   \includegraphics[max width=\textwidth]{assets/testing}
+   \caption{Výsledek funkčních testů API}\label{fig:int-test}
+\end{figure}

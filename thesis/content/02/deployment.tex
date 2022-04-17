@@ -1,7 +1,7 @@
 \section{Nasazování}\label{sec:msa-deployment}
 
 Nasazení mikroslužeb je jedna ze závěrečných fází vývoje systému, pokrývá široké spektrum možností – rozmístění produkčních balíčků na samostatných fyzických serverech, cloud-řešení, v klasterech, s vyvažováním zátěže, replikací apod.
-Daná podkapitola se bude věnovat pouze společným rysům – přípravě pro všechny typy nasazení – a kontejnerizací, jenž je vyžadována zadáním diplomové práce.
+Daná podkapitola se bude věnovat pouze společným rysům – přípravě pro všechny typy nasazení – a kontejnerizací, jež je vyžadována zadáním diplomové práce.
 
 
 \subsection{Správa zdrojového kódu}\label{subsec:msa-deployment-code}
@@ -20,14 +20,14 @@ Oba přístupy mají své výhody a nevýhody.
    \textbf{Výhody}
    \begin{ul}
       \item Celý produkt je uchováván na jednom místě - pro tým to může znamenat lepší podmínky pro testování a vývoj, jelikož mají dostupné všechny vyvíjené častí všemi týmy~\cite{monomulti}.
-      \item V případě refaktorování nebo testování systému je možné vše provádět na jednom místě~\cite{monomulti}.
+      \item V případě refaktorování nebo testování systému je možné vše provádět na~jednom místě~\cite{monomulti}.
       \item Vývojové prostředí je možné nastavit tak, že všechny služby budou sdílet stejnou konfiguraci (kontrola kvality kódu, formátování a další)~\cite{monomulti}.
    \end{ul}
 
    \textbf{Nevýhody}
    \begin{ul}
-      \item Obrovské množeství služeb v jednom repozitáři může znepřehlednit vývoj – git historie se týká nejen jednoho produktu, ale všech – tagy a větve budou sdílené pro všechny služby.
-      \item Existence možného zásahu do zdrojovýho kódu služeb vývojáři, jež pro to nemají formální oprávnění~\cite{monomulti}.
+      \item Obrovské množství služeb v jednom repozitáři může znepřehlednit vývoj – git historie se týká nejen jednoho produktu, ale všech – značky a větve budou sdílené pro všechny služby.
+      \item Existence možného zásahu do zdrojového kódu služeb vývojáři, jež pro to nemají formální oprávnění~\cite{monomulti}.
    \end{ul}
 
    \item[Více repozitářů] – každá služba má vlastní repozitář, který je naprosto soběstačný.
@@ -35,7 +35,7 @@ Oba přístupy mají své výhody a nevýhody.
    \textbf{Výhody}
    \begin{ul}
       \item Přesné rozdělení vývojových částí a přístupů mezi jednotlivými vývojovými týmy~\cite{monomulti}.
-      \item Přehledná git historie pro každou službu včetně tagů.
+      \item Přehledná git historie pro každou službu včetně značek.
    \end{ul}
 
    \textbf{Nevýhody}
@@ -48,7 +48,7 @@ Oba přístupy mají své výhody a nevýhody.
 
 Ze subjektivní zkušenosti je do tohoto přehledu možné přidat ještě jeden způsob vedení projektu.
 Spočívá v kombinaci obou přístupů s využitím \h{git submodules}.
-V takovém případě struktura projektu je oraganizována následovně:
+V~takovém případě struktura projektu je organizována následovně:
 
 \begin{ul}
    \item Každá služba má svůj vlastní repozitář a jejich vývoj je nezávislý.
@@ -57,25 +57,25 @@ V takovém případě struktura projektu je oraganizována následovně:
 
 Takový přístup přináší některé výhody monorepozitáře, ale přístup k jednotlivým službám je samostatný a může být omezován právy pro každý repozitář.
 Tzn.
-v případě snahy o jednotnou statickou analýzu kódu (či obdobné záležitosti) je možné přesunou konfigurace ze všech repozitářů mikroslužeb do společného repozitáře se submoduly a odkázat původní konfigurace a konfiguraci v nadsložce.
+v případě snahy o jednotnou statickou analýzu kódu (či obdobné záležitosti) je možné přesunou konfigurace ze všech repozitářů mikroslužeb do společného repozitáře se submoduly a odkázat původní konfigurace na konfiguraci v nadsložce.
 Tímto zásahem se ale znemožní separátní vývoj a bude potřeba vždy stahovat hlavní repozitář a z toho submodul, nad kterým se má provádět vývoj.
 
 
 
 \subsection{Kontejnerizace}\label{subsec:msa-deployment-containerization}
 Kontejnerizace je jistý způsob virtualizace za použitím menšího množství systémových zdrojů, než u plnohodnotné virtualizace~\cite{kontejnerizace}.
-Základní myšlenka spočívá v přípavě soběstačného balíčku (obrazu) s programem, který by se dal spouštět jednoduchým vytvářením nové instance (kontejneru) v jakémkoliv prostředí, které poskytuje dostatečné základní rozhraní~\cite{dockercontainer}.
+Základní myšlenka spočívá v přípravě soběstačného balíčku (obrazu) s programem, který by se dal spouštět jednoduchým vytvářením nové instance (kontejneru) v jakémkoliv prostředí, které poskytuje dostatečné základní rozhraní~\cite{dockercontainer}.
 
 V případě JavaScript aplikací založených na Node.js prostředí a využitím služby Docker se bude jednat o následující proces:
 
 \begin{dl}
    \item [Stažení výchozího prostředí] – obraz prostředí, ze kterého bude mikroslužba vycházet, v tomto případě \h{node}.
    \item [Přidání npm/yarn závislostí] – do obrazu jsou staženy všechny vnější závislosti.
-   \item [Přidání a sestavení samotného projektu] - do obrazu jsou přidány zdrojové soubory samotného programu a spuštěno sestavení.
-   \item [Otevření potřebných komunikačních kanálů] - mikroslužba komunikuje na vlastním, předem určeném portu.
-   Po vytvoření instance tento port musí být otevřen pro komunikaci s kontejnerem.
-   \item [Definování příkazu pro spuštění] – definice sekvence příkazů, které během vytvoření kontejneru připraví a spuští příkaz pro start webového serveru.
+   \item [Přidání a sestavení samotného projektu] – do obrazu jsou přidány zdrojové soubory samotného programu a spuštěno sestavení.
+   \item [Otevření potřebných komunikačních kanálů] – mikroslužba komunikuje na vlastním, předem určeném portu.
+   Po vytvoření instance tento port musí být otevřen pro~komunikaci s kontejnerem.
+   \item [Definování příkazu pro spuštění] – definice sekvence příkazů, které během vytvoření kontejneru připraví a spouští příkaz pro start webového serveru.
 \end{dl}
 
 Takto se musí připravit každá služba v rámci systému.
-Spuštění celého projektu následně může být řízeno \h{docker-compose}, který kromě potřebých mikroslužeb ještě poskytne databáze a další potřebné programy třetích strav.
+Spuštění celého projektu následně může být řízeno \h{docker-compose}, který kromě definovaných mikroslužeb ještě poskytne databáze a další potřebné programy třetích stran.

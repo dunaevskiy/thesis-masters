@@ -3,21 +3,21 @@
 \chaptersummary{
    \begin{ul}
       \item zhodnocení výhody přechodu z \g{MA} na \g{MSA},
-      \item seznam zásadních změn ve srování se starou implementací \g{IS}.
+      \item seznam zásadních změn ve srovnání se starou implementací \g{IS}.
    \end{ul}
 }
 
 Informační systém pro správu projektů byl úspěšně převeden na architekturu mikroslužeb.
 Tento přechod jednoznačně přispěl k systematizaci celého systému a začal se vnímat jako mnohem uspořádanější, než v monolitické architektuře.
 Jsou vidět striktně vymezené hranice a chování, systém je mnohem ohebnější z hlediska implementace a rozvojových možností.
-Mikroslužby však výrazně snížily rychost vývoje a prodloužily fázi potřebné analýzy.
-Bylo nutné řešit víc problémů, se kterými se u monolitické architektury člověk nesetká – zejména infrastrukturní komunikaci a rozdělení \g{API} mezi různými službami.
+Mikroslužby však výrazně snížily rychlost vývoje a~prodloužily fázi potřebné analýzy.
+Bylo nutné řešit víc problémů, se kterými se u~monolitické architektury člověk nesetká – zejména infrastrukturní komunikaci a rozdělení \g{API} mezi různými službami.
 Nepomáhala tomu ani rozmanitost možností návrhu architektury jako takové.
 To vše mělo za následek zmenšení rozsahu dodávané funkcionality, oproti původnímu, monolitickému řešení, i když času, věnovaného implementaci, bylo řádově více.
 
 Realizace \g{IS} v architektuře mikroslužeb byla, dle subjektivního hlediska, obecně přínosná, avšak ne dokonalá.
-Je možné, že jiný typ dekompozice a volby komunikace v tomto případě by mohl zredukovat potřebné prostředky pro realizaci a ušetřit čas.
-Prozkoumat všechny kombinace v rámci této diplomové bohužel nebylo uskutečnitelné.
+Je možné, že jiný typ dekompozice a volby komunikace v~tomto případě by mohl zredukovat potřebné prostředky pro realizaci a ušetřit čas.
+Prozkoumat všechny kombinace v rámci této diplomové práce bohužel nebylo uskutečnitelné.
 
 \newpage
 
@@ -31,10 +31,10 @@ V následujícím přehledu se uvádí seznam zásadních změn, které nastaly 
    \item Mikroslužby z tohoto systému lze ještě víc zobecnit a používat v jiných projektech.
    V případě monolitu by taková možnost neexistovala.
    \item Zhoršila se organizace vývoje pro menší počet vývojářů.
-   Správa několika mikroslužeb jednim člověkem je méně přehledná, než správa monolitu.
+   Správa několika mikroslužeb jedním člověkem je méně přehledná, než správa monolitu.
    \item Kvůli zvolené struktuře začalo docházet ke kontrolované duplicitě kódu mezi repozitáři.
-   \item Nový způsob implementace interpretů obsahů v klientské části přinesl jednodušší vývoj a pohodlnější prostředí, i když zatím omezil technologii pouze na React.
-   \item Původní systém obsahoval víc funkcionality s menším důrazem na přehlednost architektury, novější prioritizuje architekturu a aktuálně zaostává ve funkcionalitě.
+   \item Nový způsob implementace interpretů obsahů v klientské části přinesl jednodušší vývoj a pohodlnější prostředí, i když omezil technologii pouze na React.
+   \item Původní systém obsahoval víc funkcionality s menším důrazem na přehlednost architektury, novější dává větší prioritu architektuře, ale aktuálně zaostává ve~funkcionalitě.
    \item Testování v nové realizaci je automatizováno a vyžaduje méně manuálních zásahů.
    \item Došlo k úplné kontejnerizaci systému.
 \end{ul}

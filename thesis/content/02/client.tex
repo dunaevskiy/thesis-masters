@@ -3,8 +3,8 @@
 \section{Mikroslužby webové aplikace}\label{sec:msa-client}
 
 Posledním tématem věnovaným obecné analýze \g{MS} je otázka mikroslužeb klientských webových aplikací.
-Ve webovém prostředí se většinou jedná o běžnou \h{client-server} komunikaci – existuje zdrojový server a koncový klient, který zobrazuje a zpracovává stahovaná data.
-Omezíme se na skupinu nejtypičějších souborů – \h{.html} \h{.css} \h{.js} a binární data (obrázky, písmo, zvuk, videa).
+Ve webovém prostředí se většinou jedná o \h{client-server} komunikaci – existuje zdrojový server a koncový klient, který zobrazuje a zpracovává stahovaná data.
+Omezíme se na skupinu nejtypičtějších souborů – \h{.html} \h{.css} \h{.js} a binární data (obrázky, písmo, zvuk, videa).
 Obsah pro uživatele v takovém případě může být dělen následovně:
 
 \begin{dl}
@@ -14,20 +14,20 @@ Obsah pro uživatele v takovém případě může být dělen následovně:
 \end{dl}
 
 V prvních dvou případech dělení na dříve definované služby (atomický celek s komunikací pouze přes strikně definované rozhraní, jenž může být vyvíjen nezávisle na ostatních částech aplikace) není úplně vhodné – všechno je ve výsledku opět řízeno serverem (logika sestavování šablon).
-V posledním případě však můžeme vytvořit celky, jež mohou vykazovat samostatné, izolované chování, a jejich životní cyklus by byl plně řízen klientem.
+V posledním případě však můžeme vytvořit celky, jež mohou vykazovat samostatné, pseudo-izolované chování, a jejich životní cyklus by byl plně řízen klientem.
 
-Bohužel na rozdíl od serverových aplikací, kde pro každou část je dostupný vlastní proces, na klienstké straně existuje pouze jeden (pokud budeme brát v úvahu nejrozšiřenější prohlížeč Chrome~\cite{browserstats}), který zpracovává všechny požadavky~\cite{chromiumprocesses}.
+Bohužel na rozdíl od serverových aplikací, kde pro každou část je dostupný vlastní proces, na klienstké straně existuje pouze jeden (pokud budeme brát v úvahu nejrozšiřenější prohlížeč Chrome~\cite{browserstats}) pro každou stránku, který zpracovává všechny požadavky~\cite{chromiumprocesses}.
 Separovat takové části úplně nelze - musíme počítat se společným prostorem pro vykonávání JavaScript souborů a společné \g{CSS} styly.
 
-V rámci klientské aplikaci proto musíme předefinovat službu jako samostatný celek, komunikující pouze přes přesně dané rozhraní, vlastnící vlastní část datového úložiště, ale sdílící společné prostředky.
+V rámci klientské aplikaci proto musíme předefinovat službu jako samostatný celek, komunikující pouze přes přesně dané rozhraní, vlastnící separovanou část datového úložiště, ale sdílící společné prostředky.
 
-Pokud pomineme existenci \h{<iframe>} tagu v HTML, který do jisté míry vyhovuje, ale přináší i jistá omezení~\cite{iframes}, tak se nabízí možnost definovat menší logické balíčky, stahované přes \g{AJAX} dle vyžádání po načtení stránky.
+Pokud pomineme existenci \h{<iframe>} tagu v HTML, který do jisté míry vyhovuje, ale přináší i jistá omezení~\cite{iframes}, tak se nabízí možnost definovat menší logické balíčky, stahované například přes \g{AJAX} dle vyžádání po načtení stránky.
 Vývoj daných balíčků by byl řízen určitými pravidly, při dodržení kterých by mohly být opakovaně používány na stránce nebo dokonce ve více aplikacích.
 
 I když existence takových celků je možná, tak stále chybí jejich inicializace na stránce.
 Z tohoto důvodu se nelze vyhnout implementaci obecného monolitu, jenž by se načítal jako inicializátor obsahu.
 Hlavním úkolem by pro něj bylo řízení načítání a interpretace balíčků dle určitých příznaků (například URL adresa, nebo vlastní směrovací systém).
-V případě potřeby, by měl vytvářet a poskytovat komunikační kanály mezi samostatnými celky.
+V~případě potřeby, by měl vytvářet a poskytovat komunikační kanály mezi samostatnými celky.
 
 Ve výsledku se balíčky velice podobají chováním všemožných pluginů, jen se striktním omezením z hlediska integrace s prostředím.
 

@@ -1,22 +1,22 @@
 \section{Dekompozice na MSA}\label{sec:msa-decomposition}
 
 Projekt, u něhož bylo rozhodnuto o \g{MSA}, vyžaduje, jako jeden z kroků před implementací, dekompozici zadání na oblasti, dle kterých budou následně vytvářeny jednotlivé služby.
-Stejně jako v případě myšlenky modelování světa, účastníky procesů budou subjekty a jejich rozhraní pro komunikaci, které v případě projektu lze vyčíst specifikace.
+Stejně jako v případě myšlenky modelování světa, účastníky procesů budou subjekty s vlastním rozhraním pro komunikaci, které v případě projektu lze vyčíst ze specifikace.
 
-Jinými slovy definování konkrétní architektury projektu se dá provádět postupně ve 3 fázích~\cite{msachris} (vizualizace na obrázku~\ref{fig:msa-decomposition-flow}):
+Definování konkrétní architektury projektu se dá provádět postupně ve 3 fázích~\cite{msachris} (vizualizace na obrázku~\ref{fig:msa-decomposition-flow}):
 
 
 \begin{ol}
-   \item Definování operací zpracovávaných serverem – na základě specifikace projektu, ve které jsou popsány požadavky očekávané od serverové části aplikace, formulujeme do konkrétních volání – získat, vytvořit, aktualizovat data.
-   \item Definování možných služeb – pro dekompozici na konkrétní služby existují dva základní přístupy – rozdělení dle subdomén a prozdělení dle obchodních potřeb~\cite{msachris}, oba přístupy budou stručně popsány v dalších podkapitolách.
-   Oba přístupy vychází z navrhnutých volání a přiřazuje je jednotlivým službám.
+   \item Definování operací zpracovávaných serverem – na základě specifikace projektu, ve které jsou popsány případy užití očekávané od serverové části aplikace, formulujeme do konkrétních volání – získat, vytvořit, aktualizovat data apod.
+   \item Definování možných služeb – pro dekompozici na konkrétní služby existují dva základní přístupy – rozdělení dle subdomén a rozdělení dle obchodních potřeb~\cite{msachris}, oba přístupy budou stručně popsány v dalších podkapitolách.
+   Rozdělování vychází z navržených volání a přiřazuje je jednotlivým službám.
    \item Definování propojení požadavků se službami a komunikace služeb mezi sebou – prohlubuje definovanou komunikaci mezi službami a vytváří konkrétní interní a externí spoje.
 \end{ol}
 
 
 \begin{figure}[htbp]
    \centering
-   \includegraphics[max width=\textwidth]{assets/draft-decomposition-flow}
+   \includegraphics[max width=\textwidth]{assets/decomposition-flow}
    \caption{Tři kroky návrhu MSA}\label{fig:msa-decomposition-flow}
 \end{figure}
 
@@ -27,7 +27,7 @@ V rámci rozdělování operací do konkrétních služeb (stejně jako návrh s
 \begin{dl}
    \item[Princip jedné odpovědnosti] – každá třída musí mít právě jeden důvod, proč se měnit~\cite{srp}.
    V kontextu mikroslužeb se to rovněž vztahuje i na službu samotnou – musí se zabývat pouze jednou subdoménou řešeného problému.
-   \item[Vysoká soudržnost] – služba obashuje vše potřebné pro řešení oblasti, za níž je odpovědná~\cite{lchc}.
+   \item[Vysoká soudržnost] – služba obsahuje vše potřebné pro řešení oblasti, za níž je odpovědná~\cite{lchc}.
    \item[Nízká provázanost] – služba může získávat informace z ostatních zdrojů, ale snížená provázanost ulehčuje vývoj~\cite{lchc}.
 \end{dl}
 
@@ -38,8 +38,8 @@ Některé z nich budou popsány v následujících kapitolách a mohou mít vliv
 
 
 \subsection{Dekompozice dle obchodních potřeb}\label{subsec:msa-decomposition-business}
-Dekompozice oblastí dle obchodních potřeb je jednou ze dvou základních možností, jak dokompozici provádět~\cite{msachris}.
-Soutředí se na vazbě s architekturou společnosti, neboli něčem, co firmě přináší užitečnou hodnotu~\cite{decompbusiness}.
+Dekompozice oblastí dle obchodních potřeb je jednou ze dvou základních možností, jak dekompozici provádět~\cite{msachris}.
+Soustředí se na vazbě s architekturou společnosti, neboli něčem, co firmě přináší užitečnou hodnotu~\cite{decompbusiness}.
 Uvažujme případ, že o vytvoření \g{MSA} požádala firma, která zpracovává různé druhý objednávek - oblečení, potraviny, sportovní nářadí a spravuje interní pracovníky – stálé zaměstnance a příležitostnou výpomoc.
 Z takové struktury by mohlo vzniknout 5 služeb, které by spravovaly:
 
@@ -55,7 +55,7 @@ Z takové struktury by mohlo vzniknout 5 služeb, které by spravovaly:
 
 
 \subsection{Dekompozice dle subdomén}\label{subsec:msa-decomposition-domain}
-Dekompozice z hlediska subdomény, která představuje druhý způsob rozdělení, na rozdíl od obchodních požadavků nevnímá architekturu společnosti jako zásadní, i když je nutná, a upřednostňuje logické rozdělování~\cite{decompsubdomain}.
+Dekompozice z hlediska subdomény, která představuje druhý způsob rozdělení, na~rozdíl od obchodních požadavků nevnímá architekturu společnosti jako zásadní, i když je nutná, a upřednostňuje logické rozdělování~\cite{decompsubdomain}.
 V případě stejného příkladu firmy by dekompozice dle subdomén mohla vypadat následovně:
 
 

@@ -6,7 +6,7 @@
    \begin{ul}
       \item analýza posudků vedoucího a oponenta předchozí práce,
       \item analýza popsaných možností rozvoje systému,
-      \item zkoumání silných a slabých stránek implementovaného systému,
+      \item zkoumání silných a slabých stránek předchozí implementace,
       \item revize změn na fakultě z hlediska správy projektů.
    \end{ul}
 }
@@ -26,7 +26,8 @@ Ze závěrečných posudků vedoucího a oponenta bakalářské práce je nutno 
 \begin{ul}
    \item
    \textbf{Neúplná či nedostatečně propracovaná dokumentace~\cite{bachelorthesisreportsupervisor}} – je třeba přepracovat poskytnuté dokumentace a doplnit relevantními informacemi – přidat informace o architektuře, způsobu fungování, zřetelnější práci s databází a použité technologie.
-   \clearpage
+
+   \newpage
 
    \item
    \textbf{Velice stručně popsané testování~\cite{bachelorthesisreportreviewer}} – v poskytnutém systému je velice málo automatizovaných testů a probíhalo zejména manuální testování~\cite{bachelorthesis} – některé části se dají dobře začlenit do vývojového cyklu s automatickým spouštěním.
@@ -44,7 +45,7 @@ To by mohlo zredukovat množství potřebného kódu a snížilo spotřebu fyzic
 
 Bakalářská práce navrhuje rozvoj 2 hlavními směry - obecné univerzální zdokonalování a rozvoj se zaměřením na \g{FIT} \g{ČVUT}~\cite{bachelorthesis}.
 Jelikož daná práce se soustředí především na \g{MSA}, tak rozvoj se zaměřením na fakultu bude považován za sekundární.
-V předchozí práci bylo nabídnuto několik bodů pro rozvoj~\cite{bachelorthesis}.
+V předchozí práci bylo nabídnuto několik bodů pro rozvoj~\cite{bachelorthesis}:
 
 
 \begin{ul}
@@ -86,14 +87,14 @@ V předchozí práci bylo nabídnuto několik bodů pro rozvoj~\cite{bachelorthe
    \textbf{Monolitická struktura aplikace} – jakákoliv úprava vyžaduje editaci celého systému, není možné pohodlně měnit jednotlivé části aplikace.
 
    \item
-   \textbf{Staré a vyřazené z provozu knihovny} – v klientské React aplikaci se nachází starší knihovny, jež musí být aktualizovány (bezpečnost, nová funkcionalita, \dots).
+   \textbf{Staré a vyřazené z provozu knihovny} – v klientské React aplikaci se nachází starší knihovny, jež musí být aktualizovány (bezpečnost, funkcionalita apod.).
    Rovněž je možné uplatnit nový způsob psaní React aplikací – s React Hooks.
 
    \item
    \textbf{Konfigurace a zbytečné oddělování prostředí} – bude potřeba zvážit konfiguraci přes \texttt{.env} soubory a odstranit rozdělení způsobů startu aplikace dle prostředí.
 
    \item
-   \textbf{Struktura projektu, architektura} – některé prvky, struktura složek a návrh architektury se zdají být v mnoha případech zbytečné a přispívají nečitelnosti.
+   \textbf{Struktura projektu, architektura} – struktura složek a části architektury se zdají být v mnoha aspektech zbytečné a přispívají k horší čitelnosti.
 \end{ul}
 
 

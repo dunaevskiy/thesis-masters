@@ -1,7 +1,7 @@
 \section{Monitorování}\label{sec:msa-monitoring}
 
 Monitorování je důležitou součástí vývoje a přizpůsobování mikroslužeb a aplikací obecně.
-Dává přehled o stavu sytému a může napomáhat predikovat například budoucí zátěž na základě předchozích dat.
+Dává přehled o stavu sytému a může napomáhat predikci například budoucí zátěže na základě historických dat.
 Sledované hodnoty můžeme rozdělit na tři hlavní skupiny~\cite{msactions}:
 
 \begin{dl}
@@ -12,16 +12,16 @@ Sledované hodnoty můžeme rozdělit na tři hlavní skupiny~\cite{msactions}:
    \item [Stopy] – detailní záznamy o chybách a jejich původu.
 \end{dl}
 
-Na takovém rozdělení se zakládá například i populární~\cite{grafanapop} platforma Grafana~\cite{grafana}.
+Na takovém rozdělení se zakládá například i populární~\cite{grafanapop} platforma pro vizualizaci metrik Grafana~\cite{grafana}.
 
-Monitorování v architektuře mikroslužeb je samostatná oblast s mnoha způsoby realizace, anazýzy a zpracování.
+Monitorování v architektuře mikroslužeb je samostatná oblast s mnoha způsoby realizace, analýzy a zpracování.
 Vzhledem k širokému rozsahu nebude blíže zkoumána, až na návrhový vzor \h{Health Check}.
 
 
 \subsection{Health check}\label{subsec:msa-monitoring-healthcheck}
 
-Vzor \h{Health Check} je jednoduchým nástrojem pro monitorování stavu mikroslužby~\cite{healthcheck}.
-Jedná se o speciální \g{API} GET rozhraní, které poskytuje základní informace o stavu mikroslužby.
+Vzor \h{Health Check} je jednoduchým nástrojem pro monitorování aktuálního stavu mikroslužby~\cite{healthcheck}.
+Jedná se o speciální \g{API} \h{GET} rozhraní, které poskytuje základní informace o stavu mikroslužby.
 Může se jednat například o název, verzi, stavu komunikce, stavu fyzického zařízení a další informace~\cite{healthcheck}.
 
-Takové rozhraní, i když poskytuje jednoduchou kotrolu, tak nese i nevýhodu v podobě nedostupnosti, pokud celá mikroslužba nefunguje.
+Takové rozhraní, i když poskytuje jednoduchou kontrolu, tak nese i nevýhodu v podobě nedostupnosti, pokud celá mikroslužba nefunguje.

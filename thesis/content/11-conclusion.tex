@@ -1,4 +1,4 @@
-Tato diplomová práce byla věnována analýze architektury mikrozlužeb a návrhu realizace přechodu existujícího prototypu informačního systému pro správu projektů z monolitické architektury na architekturu mikroslužeb.
+Tato diplomová práce byla věnována analýze architektury mikroslužeb a návrhu realizace přechodu existujícího prototypu informačního systému pro správu projektů z monolitické architektury na architekturu mikroslužeb.
 V souladu se zadáním bylo stanovenu několik cílů, z nichž všechny byly úspěšně dokončeny.
 
 V rámci práce na základě existujících podkladů byla nejdřív provedena analýza poskytovaného systému.
@@ -6,11 +6,11 @@ Výstupem této činnosti se stal seznam negativních a pozitivních skutečnost
 Následně proběhla analýza architektury mikroslužeb, jež byla vzhledem k obrovskému rozsahu a nejednoznačným přístupům zredukována na potřebné minimum pro vytvoření nového prototypu.
 Samostatná kapitola byla věnována využití databází a transakčnímu zpracování v případě oddělených částí relačních databází.
 
-S využitím všech získaných znalostí byl navržen a realizován přechod serverové a klientské části aplikace na architekturu mikroslužeb.
+S využitím všech získaných znalostí byl navržen a realizován přechod serverové a~klientské části aplikace na architekturu mikroslužeb.
 Nejvíc přínosné nebo implementačně zajímavé aspekty byly popsány v rámci kapitol věnujících se vývoji aplikace.
 Serverová část byla rozdělena na mikroslužby s choreografií, propojena s Github, který nahradil dřívější MongoDB, a plně kontejnerizována s pomocí Docker.
-Kromě databází pro ukládání persistentních dat se začal využívat broker zpráv RabbitMQ\@.
-Klientská část byla rovněž kontejnerizována a začala pouzívat novou funkcionalitu pro vykreslování částí projektů s pomocí vnějších React komponent distibuovaných v podobě \g{ES6} modulů.
+Pro práci s daty se kromě databází začal využívat broker zpráv RabbitMQ\@.
+Klientská část byla rovněž kontejnerizována a začala používat novou funkcionalitu pro vykreslování částí projektů s pomocí vnějších React komponent distribuovaných v podobě \g{ES6} modulů.
 
 Manuální testování bylo do určité míry nahrazeno automatizovaným.
 Statická analýza kódu a jednotkové testy se staly součástí životního cyklu vývoje aplikace a automaticky se spouštějí v potřebných chvílích.
@@ -19,7 +19,7 @@ Funkčně-integrační testy je třeba pouštět manuálně, byly definovány v 
 Pro výsledný stav informačního systému byl definován možný budoucí rozvoj a sepsána vývojářská dokumentace.
 Celý výsledek byl porovnán s původním řešením – změna byla přínosná z hlediska architektury, přinesla však zvýšené náklady pro vývoj, což pro tak malý projekt nemusí být výhodné.
 
-Zdrojové kody všech částí \g{IS} byly zveřejněny na Github serveru.
+Zdrojové kódy všech částí \g{IS} byly zveřejněny na Github serveru.
 Spolu s dodatečnými materiály se rovněž nachází na přiloženém médiu.
 Projekt, jako celek, není v dokončené fázi a o rozvoji jeho současného stavu se bude uvažovat i bez akademických cílů.
 

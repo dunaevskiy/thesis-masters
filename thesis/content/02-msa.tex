@@ -3,44 +3,43 @@
 \chaptersummary{
    \begin{ul}
       \item obecné informace o architektuře a proč je důležitá,
-      \item porovnání vybraných architektur – \g{MSA}, \g{MS} a \g{SOA},
+      \item porovnání vybraných architektur – \g{MSA}, \g{MA} a \g{SOA},
       \item typy dekompozice specifikace na \g{MSA} architekturu,
       \item komunikace mezi mikroslužbami a řešení závislostí,
       \item testování a validace mikroslužeb,
       \item nasazení mikroslužeb na server a základní monitorování,
-      \item krátký úvod do \g{MSA} na straně webového klienta.
+      \item krátký úvod do služeb na straně webového klienta.
    \end{ul}
 }
 
 
 Softwarovou architekturu jako pojem je těžké exaktně definovat, každý vývojář k ní může přistupovat a vnímat jinak.
-Obecně může být popsána jako jistý řád a pravidla, vzniklá následekem mnoha rozhodnutí v průběhu analýzy a vývoje produktu.
-Veškerý následující rozvoj by se měl striktně řídit těmito pravidly, aby umožnil dlouhodobě udržovatelný výsledek.
-~\cite{softarch}
+Obecně může být popsána jako jistý řád a pravidla, vzniklá následkem mnoha rozhodnutí v průběhu analýzy a vývoje produktu.
+Veškerý následující rozvoj by se měl striktně řídit těmito pravidly, aby umožnil vznik dlouhodobě udržovatelného výsledku~\cite{softarch}.
 
 Vývoj softwaru bez architektury nebo s nepřesně definovanou osnovou může být přínosný v krátkodobé perspektivě nebo z hlediska šetření počátečních nákladů na čas a finanční složky~\cite{softarch}.
-V případě dlouhodobého projektu to všas může znamenat hromadění technického dluhu ~\cite{archoworthit}.
-Dle článku~\cite{archoworthit} přínos architektury lze vizuálně znázornit grafem~\ref{fig:architecture-line}, kde je uvedena komulativní funkcionalita v závislosti čase spotřebovaným projektem.
+V případě dlouhodobého projektu to však může znamenat hromadění technického dluhu~\cite{archoworthit}.
+Dle článku~\cite{archoworthit} přínos architektury lze vizuálně znázornit grafem~\ref{fig:architecture-line}, kde je uvedena kumulativní funkcionalita v závislosti čase spotřebovaným projektem.
 Používání architektury ze začátku způsobuje zpomalení vývoje, ale od jisté hranice výhody se stává přínosnou a urychluje rozvoj.
-Tento předpoklad však funguje pouze v případě, že se jedná o dobře zvolenou a popsanou architekturu (v textové nebo digramové podobě), která má pozitivní vliv a je dostatečně ohebná~\cite{archoworthit}.
+Tento předpoklad však funguje pouze v případě, že se jedná o dobře zvolenou a popsanou architekturu (v textové nebo diagramové podobě), která má pozitivní vliv a je dostatečně ohebná~\cite{archoworthit}.
 
 
 \begin{figure}[htbp]
    \centering
-   \includegraphics[max width=\textwidth]{assets/draft-architecture-line}
+   \includegraphics[max width=\textwidth]{assets/architecture-line}
    \caption[Bod přínosu dodržování architektury]{Bod přínosu dodržování architektury~\cite{archoworthit}}\label{fig:architecture-line}
 \end{figure}
 
 
-Ačkoli neexistuje přesná definice architektury, existují nějaké šablony architektury, které jsou vhodné pro vývoj aplikací.
+Ačkoliv neexistuje přesná definice architektury obecně, existují detailněji popsané typy architektur, které jsou vhodné pro vývoj aplikací.
 Jejich volba a případná adaptace vyžaduje pochopení konečného cíle požadovaného výsledku~\cite{softarch}.
-V návaznosti na zadání diplomové práce v dané kapitole bude popisována především \g{MSA} a bude porovnávana s jinými architekturami, které by ji potenciálně mohly nahradit.
+V návaznosti na zadání diplomové práce v dané kapitole bude popisována především \g{MSA} a bude porovnávána s jinými architekturami, které by ji potenciálně mohly nahradit.
 Tyto vybrané architektury – \g{MA}, \g{SOA}\footnote{též architektura orientovaná na služby}, \g{SA} – budou zkoumány vzhledem k přístupu k určitým aspektům, poskytovaným možnostem a výhodám a nevýhodám vůči \g{MSA}.
-Vzhledem k dříve použitému jazyku TypeScript/JavaScript budou i mikroslužby zkoumány se zaměřením na tento jazyk, případně Node.js prostředí.
+Vzhledem k dříve použitému jazyku TypeScript/JavaScript budou i srovnání zaměřeno na tento jazyk, případně Node.js prostředí.
 
 
 Než se začne s konkrétním porovnáním, je třeba definovat jeden společný pojem všech 3 architektur – službu.
-Služba v této práci je chápána jako atomicky fungující celek, z větší části nezávislý na ostatních – soustředí se na konkrtétní funkcionalitě (nebo skupině funkcionalit), má přístup k databázovému úložišti a veškerá komunikace probíhá přes striktně definované rozhraní (vizualizaci takové služby je možné vidět na obrázku~\ref{fig:service-abstract}).
+Služba v této práci je chápána jako atomicky fungující celek, z větší části nezávislý na ostatních – soustředí se na konkrétní funkcionalitě (nebo skupině funkcionalit), má přístup k databázovému úložišti a veškerá komunikace probíhá přes striktně definované rozhraní (vizualizaci takové služby je možné vidět na obrázku~\ref{fig:service-abstract}).
 Může fungovat jako celek poskytující, přijímající a zpracovávající nebo předávající datové zprávy.
 Jakýkoliv jiný vliv, než přes dohodnuté rozhraní, je ignorován a musí být ideálně eliminován.
 Rozhraní takové služby může být popsáno s pomocí samostatné dokumentace nebo dokumentovaného kódu.
@@ -48,18 +47,18 @@ Rozhraní takové služby může být popsáno s pomocí samostatné dokumentace
 
 \begin{figure}[htbp]
    \centering
-   \includegraphics[max width=\textwidth]{assets/draft-service}
+   \includegraphics[max width=\textwidth]{assets/service}
    \caption{Abstraktní znázornění služby}\label{fig:service-abstract}
 \end{figure}
 
 
-Kvůli nejednoznačnosti pojmu \h{architektura} nejspíš existuje nespočetné množství modifikací a adaptací výše uvedených architektur (\g{MA}, \g{SOA}, \g{MSA}, \g{SA}), proto se bude předpokládat, že se jedná o takto definované instance:
+Kvůli nejednoznačnosti pojmu \enquote{architektura} nejspíš existuje nespočetné množství modifikací a adaptací výše uvedených architektur (\g{MA}, \g{SOA}, \g{MSA}, \g{SA}), proto se bude předpokládat, že se jedná o takto definované instance:
 
 \begin{dl}
    \item[\g{MA}] – jednoprocesový program atomické povahy – nelze z něho jednoduše vyčlenit funkční celky, které by se daly beze změn využívat v jiných programech.
    Obsahuje globální jednorázové připojení k datovému zdroji, které se provádí během startu.
    Takový program je sám o sobě službou.
-   \item[\g{SOA}] – jednoprocesový program s interním rozdělením na služby, které mezi sebou komunikují s pomocí zpráv přímo s využitím vyčleněného rozhraní nebo přes \g{ESB} – sběrnicí určenou pro centralizaci komunikace mezi službami \TODO{cite}.
+   \item[\g{SOA}] – jednoprocesový program s interním rozdělením na služby, které mezi sebou komunikují s pomocí zpráv přímo s využitím vyčleněného rozhraní nebo přes \g{ESB} – sběrnicí určenou pro centralizaci komunikace mezi službami.
    Vazba na datový zdroje může, ale nemusí být jedna (každá služba může mít samostatné připojení).
    \item[\g{MSA}] – několikaprocesový systém služeb (každá služba má právě jeden proces) organizovaný do větší interně kompatibilní struktury.
    \item[\g{SA}] – architektura aplikace, která postrádá kontinuálně běžící serverový proces a je pouze rozmístěna na \g{FaaS} řešení.

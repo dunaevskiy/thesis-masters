@@ -1,15 +1,16 @@
 \section{Komunikace MS}\label{sec:msa-communication}
 
 Mikroslužby jsou definované jako vždy oddělené z hlediska procesů a pro komunikaci s jinými službami nebo externími systémy musí udržovat kompatibilní \g{API} vůči jejich rozhraní a prostředí.
-U takové komunikace můžeme zkoumat typ, technologii a hierarchii/strukturu, jež se řídí požadavkami na systém.
+U takové komunikace můžeme zkoumat typ, technologii a hierarchii/strukturu, jež se řídí požadavky na systém.
 
 
 
 \subsection{Typ komunikace}\label{subsec:msa-communication-type}
 Typ komunikace se abstrahuje od konkrétních řešení a zkoumá pouze konceptuální potřeby komunikace systému.
-Obecně se uvádí dělení na dvě podskupiny – dle počtu cílových služeb a dle synchronity komunikace, které se dají různě kombinovat, přícemž každá kombinace může mít víc podtypů~\cite{msachris}.
+Obecně se uvádí dělení na dvě podskupiny – dle počtu cílových služeb a dle synchronity komunikace, které se dají různě kombinovat, přičemž každá kombinace může mít víc podtypů~\cite{msachris}.
 Celý přehled je uveden v následujícím seznamu:
 
+\newpage
 
 \begin{dl}
    \item [Synchronní 1:1] – synchronní komunikace dvou subjektů.
@@ -24,7 +25,7 @@ Celý přehled je uveden v následujícím seznamu:
    \item [Asynchronní 1:1] – asynchronní komunikace dvou subjektů.
 
    \begin{ul}
-      \item \textbf{Asynchronní dotaz/odpověď} – producent vytváří jeden dotaz a nečeká na okamžitou odpověď.
+      \item \textbf{Asynchronní dotaz/odpověď} – producent vytváří jeden dotaz a nečeká na~okamžitou odpověď.
       Odpověď se může poskytnout kdykoliv (nebo vůbec) – chování nesmí být blokujícího typu.
       \item \textbf{Oznámení} – producent vytváří jeden dotaz (oznámení), zpětná komunikace se neočekává a neexistuje.
    \end{ul}
@@ -33,7 +34,7 @@ Celý přehled je uveden v následujícím seznamu:
 
    \begin{ul}
       \item \textbf{Producent/konzument} – producent vytváří jeden dotaz a předává všem konzumentům.
-      \item \textbf{Producent / asynchronní odpovědi} – producent vytváří jeden dotaz a poředává všem konzumentům.
+      \item \textbf{Producent / asynchronní odpovědi} – producent vytváří jeden dotaz a předává všem konzumentům.
       Následně čeká předem danou dobu na potenciální asynchronní odpovědi od konzumentů.
    \end{ul}
 \end{dl}
@@ -41,20 +42,20 @@ Celý přehled je uveden v následujícím seznamu:
 
 
 \subsection{Technologie komunikace}\label{subsec:msa-communication-technology}
-Technologií může být myšlen protokol nebo systém doporučení, která mohou být uplatněna v konkrétním programovacím jazyce.
+Technologií může být myšlen protokol nebo systém doporučení, který může být realizován v konkrétním programovacím jazyce.
 Vzhledem k Node.js se může jednat například o následující způsoby:
 
-\begin{dl}
-   \item [REST] – běžné GET/POST/\ldots dotazy přes \g{HTTP}.
-   \item [GraphQL] – dotazovací jazyk nad strukturovanými daty~\cite{graphql}.
-   \item [gRPC] – framework založený na \g{RPC} protokolu~\cite{grpc}.
-   \item [RabbitMq] – broker zpráv~\cite{rabbitmq}.
-   \item [Kafka] – platforma pro distribuované streamování událostí~\cite{kafka}.
-   \item [MQTT] – standard pro \g{IoT} komunikace~\cite{mqtt}.
-\end{dl}
+\begin{ul}
+   \item \textbf{REST} – běžné GET/POST/\ldots dotazy přes \g{HTTP}.
+   \item \textbf{GraphQL} – dotazovací jazyk nad strukturovanými daty~\cite{graphql}.
+   \item \textbf{gRPC} – framework založený na \g{RPC} protokolu~\cite{grpc}.
+   \item \textbf{RabbitMq} – broker zpráv~\cite{rabbitmq}.
+   \item \textbf{Kafka} – platforma pro distribuované streamování událostí~\cite{kafka}.
+   \item \textbf{MQTT} – standard pro \g{IoT} komunikace~\cite{mqtt}.
+\end{ul}
 
 Výběr technologie má dopad na provázanost služeb v systému.
-V případě například \g{REST} implementace bude provázanost větší kvůli požadovné odpovědi v relativně krátké době.
+V případě například \g{REST} implementace bude provázanost větší kvůli požadované odpovědi v relativně krátké době.
 Volba RabbitMq naopak může zajistit menší provázanost tím, že zpracování se bude řídit brokerem zpráv, avšak v případě nutné okamžité odpovědi může způsobovat komplikace.
 
 
@@ -68,37 +69,38 @@ Pokud pomineme konkrétní způsob výměny informací mezi mikroslužbami a pod
    \item [Orchestrace] – předpokládá analogii s hudebním orchestrem, kdy každý člen systému zná vlastní roli, ale stejně musí být řízen dirigentem.
    V tomto případě dirigent je zastoupen orchestrační mikroslužbou, která vystupuje jako prvek, jenž zprostředkovává veškerou komunikaci.
    Tento koncept je úzce spjat s RESTful \g{API} a může v případě obrovského počtu \g{MS} způsobovat komplikace, protože orchestrační prvek bude muset zvládat stovky až tisíce mikroslužeb a ve výsledku dopadne jako těžce spravovatelná monolitická část~\cite{choreovsorch}.
-   Z implementačního pohledu však může být o něco jednodušší, protože jakákoliv propagace chyb, sběr dat a další požadavky mohou být přímočářejší a soustředěny na jednom místě.
+   Z implementačního pohledu však může být o něco jednodušší, protože jakákoliv propagace chyb, sběr dat a další požadavky mohou být přímočařejší a soustředěny na jednom místě.
 
    \item [Choreografie] – analogicky představuje taneční skupinu, kde neexistuje řídící prvek, ale každý člen reaguje na podnět (hudbu, jiné členy) a provádí potřebné kroky.
-   Implementacně musí existovat komunikace řízená událostmi, kdy jedna služba vysílá zprávu do brokera a o zbytek se nemusí starat, vše je řízeno asynchronně.
-   Zárověň každá služba odposlouchává pouze zprávy, na které má reágovat.
+   Implementačně musí existovat komunikace řízená událostmi, kdy jedna služba vysílá zprávu do brokera a o zbytek se nemusí starat, vše je řízeno asynchronně.
+   Zároveň každá služba odposlouchává pouze zprávy, na které má reagovat.
    Tento koncept zajišťuje mnohem větší ohebnost a menší provázanost služeb~\cite{choreovsorch}.
    Přináší však potřebu lépe zpracovávat chyby kvůli asynchronním akcím, které nemusí nikdy doběhnout.
-   Zejména se to projevuje u původně sycnhronních požadavků, například ze strany prohlížeče, kdy se musí čekat na odpověd.
+   Zejména se to projevuje u původně synchronních požadavků, například ze strany prohlížeče, kdy se musí čekat na odpověď.
    Aby nenastalo potenciálně nekonečné očekávání dokončení požadavku na server, tak se může zvolit přiměřeně dlouhá časová doba, kdy na straně serveru se vykonávání požadavku začne brát jako nezdařilé.
-   V tomto případě se vrací chybná odpověd a je potřeba zrušit všechny změny, které byly provedené dosud a které se mohou provést po dokončení pomalu zpracovaného požadavku.
+   V tomto případě se vrací chybná odpověď a je potřeba zrušit všechny změny, které byly provedené dosud a které se mohou provést po dokončení pomalu zpracovaného požadavku.
 \end{dl}
 
 Možná vizualizace obou struktur je znázorněna na obrázku~\ref{fig:msa-structure-communication}.
-Samozřejmě může docházet i k prolínání takových řešení – například choreografie se sychnronní komunikací.
-
-
-\begin{figure}[htbp]
-   \centering
-   \includegraphics[max width=\textwidth]{assets/draft-msa-communication}
-   \caption{Orchestrace a choreografie MS}\label{fig:msa-structure-communication}
-\end{figure}
+Samozřejmě může docházet i k prolínání takových řešení – například choreografie se synchronní komunikací.
 
 
 
 \subsection{API Gateway}\label{subsec:api-gateway}
 
-Na rozdíl od monolitické architektury, kde je veškeré rozhraní poskytováno v rámci jednoho portu, \g{MSA} vzhledem ke své struktuře vystavuje několik přístupových bodů (jeden port pro každou mikroslužbu).
-V takovém případě může vzniknout problém s konflikty – využití 1 portu několika službami, nebo nepohodlné volání rozhraní, kdy pro každou službu bude třeba doplňovat konkrétní port a celá aplikace již nebude působit jako celek.
-Další problém nastane v případě dynamické volby portů v rámci infrastruktury nebo potřebě dočasně znemožnit uživatelům volat určité části rozhraní~\cite{gateway}.
+Na rozdíl od monolitické architektury, kde je veškeré rozhraní poskytováno v rámci jednoho portu, \g{MSA}, vzhledem ke své struktuře, vystavuje několik přístupových bodů (jeden port pro každou mikroslužbu).
+V takovém případě může vzniknout problém s~konflikty – využití jednoho portu několika službami, nebo nepohodlné volání rozhraní, kdy pro každou službu bude třeba doplňovat konkrétní port a celá aplikace již nebude působit jako celek.
+Další problém nastane v případě dynamické volby portů v~rámci infrastruktury nebo potřebě dočasně znemožnit uživatelům volat určité části rozhraní~\cite{gateway}.
 
-Taková situace se může řešit s pomocí API Gateway vzoru~\cite{gateway}, viz obrázek~\nameref{fig:msa-gateway}, kdy se vytváří jistý typ proxy prvku, který vystupuje pod jednim portem a veškeré požadavky třídí a směruje na jednotlivé služby dle určitých příznaků.
+
+\begin{figure}[htbp]
+   \centering
+   \includegraphics[max width=\textwidth]{assets/msa-communication}
+   \caption{Orchestrace a choreografie MS}\label{fig:msa-structure-communication}
+\end{figure}
+
+
+Taková situace se může řešit s pomocí API Gateway vzoru~\cite{gateway}, viz obrázek~\ref{fig:msa-gateway}, kdy se vytváří jistý typ proxy prvku, který vystupuje pod jedním portem a veškeré požadavky třídí a směruje na jednotlivé služby dle unikátních příznaků.
 
 
 \begin{figure}[htbp]
@@ -119,16 +121,16 @@ Tuto situaci je možné kontrolovat a řešit s pomocí verzování v různých 
 
 \subsection{Sémantické verzování v URI}\label{subsec:msa-dependencies-uri}
 
-V tomto případě na základě konceptu sémantického značení se verzuje celý zdroj dat (\g{URI})~\cite{msversions} jako \h{major.minor.patch}~\cite{semver}.
-Zápis v může vypadat následovně:
+V tomto případě na základě konceptu sémantického značení se verzuje celý zdroj dat~\cite{msversions} – \g{URI} – jako \h{major.minor.patch}~\cite{semver}.
+Zápis může vypadat následovně:
 
 \h{schema://domain/name-service/v1.0.0/entity}
 
 Výhodou takového způsobu je možnost udržovat víc aktivních \g{API} verzí v rámci jedné \g{MS} v případě nekompatibility napojených systémů.
-To má dopad na kliestkou stranu, jež má v tomto případě plnou kontrolu nad tím, jaké rozhraní používa, a v systému pravděpodobně nehrozí náhlá chyba po aktualizaci serveru.
+To má dopad na klientskou stranu, jež má v tomto případě plnou kontrolu nad tím, jaké rozhraní používá, a v systému pravděpodobně nehrozí náhlá chyba po aktualizaci serveru.
 
 Přináší to však i řadu nevýhod.
-Provolávání \g{API} klientskou aplikací je vázano na \g{URI}, tudíž veškeré změny bude třeba zpracovat i v klientské aplikaci, což nemusí být vždy vhodné.
+Provolávání \g{API} klientskou aplikací je vázáno na \g{URI}, tudíž veškeré změny bude třeba zpracovat i v klientské aplikaci, což nemusí být vždy vhodné.
 Řešením by mohla být redukce zápisu verze a ignorování \h{patch}, případně i \h{minor} složek, pak menší opravy nebudou vyžadovat opravu klienta.
 V případě udržování víc verzí jednoho rozhraní mohou vznikat zbytečné komplikace s udržováním kódu.
 
@@ -138,7 +140,7 @@ V případě udržování víc verzí jednoho rozhraní mohou vznikat zbytečné
 
 Velice obdobný způsob, jako je verzování v \g{URI}, přináší verzování v \g{HTTP} hlavičnách.
 Hlavním přínosem je neměnný \g{URI} pro provolávání ze strany klienta~\cite{msversions}.
-Tudíž nevyžaduje přísnou kontrolu verze provolávaného rozhraní, avšak poskytuje možnost zjištovat a případně i omezovat volání.
+Tudíž nevyžaduje přísnou kontrolu verze provolávaného rozhraní, avšak poskytuje možnost zjišťovat a případně i omezovat volání na základě hlavičky.
 Poskytovaná verze může být využívána například v logování.
 
 
@@ -147,20 +149,18 @@ Poskytovaná verze může být využívána například v logování.
 Místo jednotlivých částí \g{API} je možné verzovat a hlídat samotné mikroslužby.
 Výrazně se tím zkomplikuje možnost udržování několika poskytovaných rozhraní, protože každá verze bude vyžadovat vlastní adresu v rámci systému.
 Na druhou stranu je možné u každé služby definovat seznam závislostí, který by se poskytoval v rámci obecného dotazu ohledně stavu služby.
-V případě existence konceptu registrace mikroslužby v systému by bylo možné tyto požadavky na závislosti kontrolovat a včas upozorňovat na nevhodnout sestavu mikroslužeb (viz obrázek~\ref{fig:version-reg}).
-
-\begin{figure}[htbp]
-   \centering
-   \includegraphics[max width=\textwidth]{assets/draft-version-reg}
-   \caption{Registrace \g{MS} a kontrola závislostí}\label{fig:version-reg}
-\end{figure}
-
+V případě existence konceptu registrace mikroslužby v systému by bylo možné tyto požadavky na závislosti kontrolovat a včas upozorňovat na nevhodnou sestavu mikroslužeb (viz obrázek~\ref{fig:version-reg}).
 
 
 \subsection{Kalendářní verzování MS}\label{subsec:msa-dependencies-calendar}
 
-Velice podobné sémantickému verzování zdrojů, neexituje přesně definovaný formát, ale může se to vyplatit u pravidelně vydávaných aplikací (například na týdenní bázi).
+Velice podobné sémantickému verzování zdrojů, neexistuje přesně definovaný formát, ale může se to vyplatit u pravidelně vydávaných aplikací (například na týdenní bázi).
 Využívá značky s uváděním roku, měsíce, dne a případně i času sestavení.
-V takových případech je vidět zaostávání nasazování služeb (napíklad kvůli chybám ve funkcionalitě) a je možné na to patřičně reagovat~\cite{msversions}.
+V takových případech je vidět zaostávání nasazování služeb (například kvůli chybám ve~funkcionalitě) a je možné na to patřičně reagovat~\cite{msversions}.
 
-\newpage
+\begin{figure}[htbp]
+   \centering
+   \includegraphics[max width=\textwidth]{assets/version-reg}
+   \caption{Registrace \g{MS} a kontrola závislostí}\label{fig:version-reg}
+\end{figure}
+
